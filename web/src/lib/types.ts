@@ -72,6 +72,7 @@ export interface Institution {
   oneLiner: string;
   type: string;
   priority: number;
+  category?: string;
   whyFirst: string;
   asOfDate: string;
   status: "full" | "canvas";

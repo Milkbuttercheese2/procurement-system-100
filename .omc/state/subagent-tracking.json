@@ -35,10 +35,64 @@
       "status": "completed",
       "completed_at": "2026-07-09T10:39:31.002Z",
       "duration_ms": 460046
+    },
+    {
+      "agent_id": "ac32a77bbb94ba469",
+      "agent_type": "general-purpose",
+      "started_at": "2026-07-09T10:51:42.877Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-07-09T11:00:47.430Z",
+      "duration_ms": 544553
+    },
+    {
+      "agent_id": "acf0b7a7547f68198",
+      "agent_type": "general-purpose",
+      "started_at": "2026-07-09T10:51:49.158Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-07-09T10:59:18.593Z",
+      "duration_ms": 449435
+    },
+    {
+      "agent_id": "a5554de90a6a26141",
+      "agent_type": "general-purpose",
+      "started_at": "2026-07-09T10:51:56.242Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-07-09T11:00:51.620Z",
+      "duration_ms": 535378
+    },
+    {
+      "agent_id": "a45004bcd185b1850",
+      "agent_type": "general-purpose",
+      "started_at": "2026-07-09T10:52:00.228Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-07-09T11:00:48.386Z",
+      "duration_ms": 528158
+    },
+    {
+      "agent_id": "a54d03bce90c478f6",
+      "agent_type": "general-purpose",
+      "started_at": "2026-07-09T10:52:04.975Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-07-09T11:03:50.031Z",
+      "duration_ms": 705056
+    },
+    {
+      "agent_id": "a98f065fac081a11f",
+      "agent_type": "oh-my-claudecode:designer",
+      "started_at": "2026-07-09T10:52:57.116Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-07-09T10:57:10.018Z",
+      "duration_ms": 252902
     }
   ],
-  "total_spawned": 4,
-  "total_completed": 36,
+  "total_spawned": 10,
+  "total_completed": 89,
   "total_failed": 0,
-  "last_updated": "2026-07-09T10:40:01.713Z"
+  "last_updated": "2026-07-09T11:03:50.134Z"
 }

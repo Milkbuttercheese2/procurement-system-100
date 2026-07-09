@@ -69,6 +69,7 @@ function InstitutionHeader({ institution }: { institution: Institution }) {
             display: "flex",
             alignItems: "center",
             gap: 6,
+            flexWrap: "wrap",
           }}
         >
           <a
@@ -80,8 +81,22 @@ function InstitutionHeader({ institution }: { institution: Institution }) {
           >
             제도 100
           </a>
+          {institution.category && (
+            <>
+              <span>›</span>
+              <a
+                href="/#institutions"
+                style={{
+                  color: "var(--color-faint)",
+                  textDecoration: "none",
+                }}
+              >
+                {institution.category}
+              </a>
+            </>
+          )}
           <span>›</span>
-          <span>{institution.name}</span>
+          <span style={{ color: "var(--color-muted)" }}>{institution.name}</span>
         </div>
 
         {/* Badges row */}

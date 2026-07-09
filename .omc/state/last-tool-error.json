@@ -1,7 +1,7 @@
 {
   "tool_name": "Bash",
-  "tool_input_preview": "{\"command\":\"cd ~/.openclaw/workspace/korea-institution-100 && grep -rn \\\"key\\\\s*=\\\\|KEY\\\\s*=\\\\|api_key\\\" sources/law-to-process-mvp-2026-07-09/law_to_process_mvp/*.py 2>/dev/null | grep -iv \\\"def \\\\|#...",
-  "error": "Exit code 1\nsources/law-to-process-mvp-2026-07-09/law_to_process_mvp/extractor.py:222:            key = (lane, stage, name)\nsources/law-to-process-mvp-2026-07-09/law_to_process_mvp/extractor.py:257:    nodes.sort(key=lambda n: (stage_index.get(n.stage, 999), lane_index.get(n.lane, 999), n.id))",
-  "timestamp": "2026-07-09T08:09:29.307Z",
+  "tool_input_preview": "{\"command\":\"ls /Users/seohoseong/korea100/web/src/app/model/[slug]/\",\"description\":\"List model slug directory\"}",
+  "error": "Exit code 1\n(eval):1: no matches found: /Users/seohoseong/korea100/web/src/app/model/[slug]/",
+  "timestamp": "2026-07-09T10:53:23.222Z",
   "retry_count": 1
 }
