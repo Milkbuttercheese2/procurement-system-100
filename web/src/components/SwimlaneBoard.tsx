@@ -12,7 +12,7 @@ import type { ProcessModel, ProcessNode, ProcessEdge } from "@/lib/types";
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 const LANE_W = 88;
-const STAGE_W = 160; // 작은 카드(132px) + 넉넉한 칸 여백의 균형
+const STAGE_W = 176; // 작은 카드(132px) + 넓은 칸 여백
 
 // 카드용 법조항 축약: 첫 근거의 첫 조문만, 괄호 설명 제거. "환경영향평가법 제24조 외 2"
 function compactLegal(
@@ -907,16 +907,16 @@ export default function SwimlaneBoard({ process }: { process: ProcessModel }) {
                       <g>
                         <rect
                           x={labelX - labelW / 2} y={labelY - 8}
-                          width={labelW} height={16}
+                          width={labelW} height={18}
                           rx={3}
                           fill="white"
                           stroke={color}
                           strokeWidth={0.5}
                         />
                         <text
-                          x={labelX} y={labelY + 4.5}
+                          x={labelX} y={labelY + 5}
                           textAnchor="middle"
-                          fontSize={9}
+                          fontSize={10}
                           fill={color}
                           fontWeight={600}
                           fontFamily="var(--font-sans)"
@@ -1022,6 +1022,8 @@ export default function SwimlaneBoard({ process }: { process: ProcessModel }) {
                 );
                 const cellKey = `c-${lane}-${stage}`;
                 const isEmpty = cellNodes.length === 0;
+                // current 게이트 컬럼 전체를 옅은 accent로 — "지금 어디인가" 시선 유도
+                const isCurrentStageCol = stageStatus(stage, nodes) === "current";
 
                 return (
                   <div
@@ -1030,16 +1032,17 @@ export default function SwimlaneBoard({ process }: { process: ProcessModel }) {
                       gridColumn: si + 2, gridRow: rowIdx,
                       borderRight: "1px solid #e8ece9",
                       borderBottom: "1px solid #e8ece9",
-                      background: isEmpty
-                        ? isEven ? "#fafbfa" : "#f7f9f8"
-                        : "transparent",
-                      // 카드는 작게, 칸 사이 여백은 넉넉하게 — 밀도와 호흡의 균형
-                      padding: isEmpty ? 0 : "14px 12px",
+                      // 레인 밴딩은 노드 있는 셀에도 유지, current 게이트 컬럼은 옅은 accent
+                      background: isCurrentStageCol
+                        ? "#eef8f3"
+                        : isEven ? "#fafbfa" : "#f6f8f7",
+                      // 카드는 작게, 칸 사이 여백은 넉넉하게
+                      padding: isEmpty ? 0 : "18px 14px",
                       display: "flex",
                       flexDirection: "column",
-                      gap: 12,
+                      gap: 18,
                       alignItems: "flex-start",
-                      minHeight: 72,
+                      minHeight: 84,
                       position: "relative",
                     }}
                   >
