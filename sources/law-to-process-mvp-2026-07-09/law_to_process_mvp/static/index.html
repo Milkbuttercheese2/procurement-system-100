@@ -1,0 +1,1025 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Law-to-Process MVP · 법령 기반 업무프로세스 생성기</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23172033'/%3E%3Cpath d='M14 18h36v8H24v7h22v8H24v7h27v8H14z' fill='%23fff'/%3E%3Cpath d='M48 12h5v40h-5z' fill='%2313a884'/%3E%3C/svg%3E" />
+<style>
+:root{
+  --bg:#f6f8fb;
+  --surface:#ffffff;
+  --ink:#172033;
+  --muted:#657186;
+  --line:#d9e1ec;
+  --soft:#eef3f9;
+  --primary:#3157d5;
+  --primary2:#5b7cfa;
+  --cyan:#0096b7;
+  --green:#13a884;
+  --amber:#f1a208;
+  --red:#e34b4b;
+  --violet:#7a4bd7;
+  --slate:#42526e;
+  --shadow: 0 14px 40px rgba(19, 35, 68, .10);
+  --radius:18px;
+  --stage-w:270px;
+  --lane-w:210px;
+  --row-h:196px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#f9fbff 0,#f3f6fb 60%,#eef3fa 100%);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR","Apple SD Gothic Neo",Arial,sans-serif;color:var(--ink)}
+button,input,textarea,select{font:inherit}
+.app{min-height:100vh;display:flex;flex-direction:column}
+.header{padding:24px 30px 16px;background:radial-gradient(circle at 14% -10%,#dce7ff 0,transparent 32%),linear-gradient(135deg,#0f2147 0,#182f67 54%,#0b6378 100%);color:white;position:relative;overflow:hidden}
+.header:after{content:"";position:absolute;right:-80px;top:-120px;width:360px;height:360px;border:50px solid rgba(255,255,255,.08);border-radius:50%}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;position:relative;z-index:1}.eyebrow{letter-spacing:.08em;font-size:12px;color:#bfd2ff;font-weight:800;text-transform:uppercase}.title{font-size:30px;font-weight:900;line-height:1.15;margin:8px 0}.subtitle{max-width:920px;color:#d9e7ff;line-height:1.65;font-size:15px}.header-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}.btn{border:1px solid transparent;border-radius:12px;padding:10px 14px;background:#fff;color:#1c2b44;font-weight:800;cursor:pointer;box-shadow:0 8px 18px rgba(0,0,0,.10);transition:.15s}.btn:hover{transform:translateY(-1px);box-shadow:0 12px 24px rgba(0,0,0,.14)}.btn.secondary{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2);color:#fff;backdrop-filter:blur(8px)}.btn.ghost{background:#f7f9fc;color:#30405c;border-color:#e4eaf2;box-shadow:none}.btn.danger{background:#fff1f1;color:#b42323;border-color:#ffd6d6;box-shadow:none}.pill{display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:7px 10px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.2);font-size:12px;font-weight:800;color:#eaf1ff}.main{padding:18px 24px 28px;display:grid;grid-template-columns:360px minmax(680px,1fr) 330px;gap:16px;align-items:start;overflow-x:hidden}.center,.panel{min-width:0}.panel{background:rgba(255,255,255,.84);border:1px solid rgba(215,225,239,.85);border-radius:var(--radius);box-shadow:var(--shadow);backdrop-filter:blur(12px)}.left,.right{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto}.panel-head{padding:18px 18px 12px;border-bottom:1px solid #e7edf5}.panel-title{font-weight:900;font-size:16px;display:flex;align-items:center;gap:8px}.panel-body{padding:16px 18px}.field{display:flex;flex-direction:column;gap:7px;margin-bottom:14px}.label{font-size:12px;font-weight:900;color:#45536c}.input,.textarea,.select{width:100%;border:1px solid #dce5f0;background:#fbfdff;border-radius:12px;padding:11px 12px;color:#172033;outline:none}.input:focus,.textarea:focus,.select:focus{border-color:#7794ff;box-shadow:0 0 0 4px rgba(49,87,213,.12)}.textarea{min-height:165px;resize:vertical;line-height:1.6;font-size:13px}.hint{font-size:12px;color:#77849a;line-height:1.5}.seg{display:flex;background:#eef3fa;border:1px solid #dde7f3;padding:4px;border-radius:14px;margin-bottom:14px}.seg button{flex:1;border:0;background:transparent;padding:9px 8px;border-radius:10px;color:#536278;font-weight:900;cursor:pointer}.seg button.active{background:#fff;color:#16306d;box-shadow:0 3px 10px rgba(31,54,92,.12)}.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.metric-wrap{display:grid;grid-template-columns:repeat(4,minmax(120px,1fr));gap:10px;margin-bottom:14px}.metric{background:#fff;border:1px solid #e2e9f3;border-radius:16px;padding:13px 14px;box-shadow:0 5px 18px rgba(32,45,69,.06)}.metric .k{font-size:11px;color:#7a879a;font-weight:900}.metric .v{font-size:22px;font-weight:950;margin-top:5px}.metric.current .v{color:var(--primary)}.metric.risk .v{color:var(--amber)}.metric.block .v{color:var(--red)}.metric.next .v{font-size:15px;color:#233653}.gatebar{display:flex;gap:8px;overflow:auto;padding:2px 0 14px}.gate{min-width:148px;background:#fff;border:1px solid #e1e8f2;border-radius:999px;padding:9px 10px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:900;color:#4a5970;white-space:nowrap}.dot{width:10px;height:10px;border-radius:50%;background:#cbd5e1;box-shadow:0 0 0 4px rgba(203,213,225,.25)}.gate.done .dot{background:var(--green)}.gate.current .dot{background:var(--primary)}.gate.risk .dot{background:var(--amber)}.gate.waiting .dot{background:#b9c4d1}.toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;border-bottom:1px solid #e6edf6;background:rgba(255,255,255,.72);border-radius:var(--radius) var(--radius) 0 0}.toolbar-left,.toolbar-right{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.check{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #e0e8f2;border-radius:999px;padding:8px 10px;font-size:12px;font-weight:800;color:#40506a;cursor:pointer}.check input{accent-color:var(--primary)}.board-shell{overflow:auto;border-radius:0 0 var(--radius) var(--radius);background:linear-gradient(180deg,#ffffff,#f8fbff);position:relative;max-width:100%;max-height:calc(100vh - 280px)}.board-canvas{position:relative;min-height:800px;min-width:calc(var(--lane-w) + var(--stage-w) * 8);padding-bottom:28px}.board-grid{display:grid;grid-template-columns:var(--lane-w) repeat(8,var(--stage-w));grid-template-rows:58px repeat(9,var(--row-h));position:relative;z-index:2}.corner{position:sticky;left:0;top:0;background:#f7fafd;border-right:1px solid #dfe7f1;border-bottom:1px solid #dfe7f1;z-index:8;display:flex;align-items:center;padding:0 16px;font-size:12px;font-weight:950;color:#44506a}.stage-head{position:sticky;top:0;background:linear-gradient(180deg,#f9fbff,#f2f6fb);border-bottom:1px solid #dfe7f1;border-right:1px solid #e8eef6;z-index:7;display:flex;align-items:center;justify-content:center;text-align:center;font-size:12px;font-weight:950;color:#1f3150;letter-spacing:-.01em}.lane-head{position:sticky;left:0;background:linear-gradient(90deg,#fbfdff,#f3f7fd);border-right:1px solid #dfe7f1;border-bottom:1px solid #e8eef6;z-index:6;padding:14px 12px;display:flex;align-items:flex-start;gap:10px}.lane-icon{width:30px;height:30px;border-radius:12px;background:#e8effb;color:#3157d5;display:grid;place-items:center;font-weight:950;flex:0 0 auto}.lane-name{font-weight:950;font-size:13px;line-height:1.35}.lane-note{font-size:11px;color:#7a879a;margin-top:6px;line-height:1.35}.cell{border-right:1px solid #edf2f8;border-bottom:1px solid #edf2f8;padding:16px 16px 16px 18px;position:relative;background:rgba(255,255,255,.52)}.cell:nth-child(odd){background:rgba(248,251,255,.65)}.cell.drop-target:after{content:"";position:absolute;inset:8px;border:2px dashed #a9bafa;border-radius:16px;pointer-events:none}.node{position:relative;z-index:4;background:#fff;border:1px solid #dfe8f3;border-radius:16px;padding:12px 12px 11px;box-shadow:0 7px 20px rgba(20,35,64,.08);min-height:124px;cursor:pointer;transition:.15s;margin-bottom:10px;overflow:hidden}.node:before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:#cbd5e1}.node:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(20,35,64,.14);border-color:#c9d7ea}.node.selected{outline:3px solid rgba(49,87,213,.18);border-color:#6d88f3}.node.done:before{background:var(--green)}.node.current:before{background:var(--primary)}.node.risk:before{background:var(--amber)}.node.delayed:before{background:var(--red)}.node.waiting:before{background:#b9c4d1}.node.gateway:before{background:var(--violet)}.node.loop:before{background:#d35f91}.node.system:before{background:#0d95a4}.node-top{display:flex;align-items:flex-start;justify-content:space-between;gap:7px;margin-bottom:7px}.node-name{font-size:13px;font-weight:950;line-height:1.35;letter-spacing:-.02em}.badge{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:4px 7px;font-size:10px;font-weight:950;white-space:nowrap}.badge.done{background:#e7f8f2;color:#0f7d63}.badge.current{background:#edf2ff;color:#294dd1}.badge.risk{background:#fff6dc;color:#956100}.badge.delayed{background:#fff0f0;color:#bb2e2e}.badge.waiting{background:#eef2f7;color:#66748a}.badge.gateway{background:#f0eafd;color:#6c3ac0}.badge.loop{background:#ffedf5;color:#b43768}.badge.system{background:#e8f9fb;color:#087586}.node-meta{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0}.tag{font-size:10px;border:1px solid #e3eaf4;background:#f8fbff;border-radius:999px;padding:4px 6px;color:#526078;font-weight:800}.progress{height:6px;background:#edf2f7;border-radius:999px;overflow:hidden;margin:7px 0 9px}.progress span{display:block;height:100%;border-radius:999px;background:#9aa8ba}.node.current .progress span{background:linear-gradient(90deg,var(--primary),var(--primary2))}.node.risk .progress span{background:linear-gradient(90deg,#f2aa26,#ffcf60)}.node.done .progress span{background:var(--green)}.node-text{font-size:11px;color:#657186;line-height:1.45}.node-blocker{font-size:11px;line-height:1.45;font-weight:850;color:#9a5a00;background:#fff8e7;border:1px solid #ffe2a3;border-radius:10px;padding:6px 7px;margin-top:7px}.node.loop .node-blocker{color:#9a2458;background:#fff2f8;border-color:#ffd2e6}.flows{position:absolute;left:0;top:0;z-index:3;pointer-events:none;overflow:visible}.flows path{fill:none;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 1px 0 rgba(255,255,255,.7))}.flows .sequence{stroke:#3f62d9}.flows .message{stroke:#0d9db1;stroke-dasharray:7 6}.flows .loop{stroke:#d64f86;stroke-dasharray:4 5;stroke-width:2.5}.flows .condition{stroke:#7c55d9;stroke-dasharray:8 5}.flow-label{font-size:10px;font-weight:900;fill:#4b5b73;paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round}.legend{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}.legend-item{font-size:11px;color:#56657b;display:flex;align-items:center;gap:5px}.legend-line{width:28px;height:0;border-top:3px solid #3f62d9}.legend-line.message{border-top-color:#0d9db1;border-top-style:dashed}.legend-line.loop{border-top-color:#d64f86;border-top-style:dashed}.inspector-empty{color:#758399;font-size:13px;line-height:1.65;background:#f7faff;border:1px dashed #d3deeb;border-radius:14px;padding:14px}.detail-title{font-size:19px;font-weight:950;line-height:1.3;margin-bottom:8px}.detail-status{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}.kv{display:grid;grid-template-columns:84px 1fr;gap:8px;padding:9px 0;border-bottom:1px solid #edf2f7;font-size:13px}.kv b{font-size:12px;color:#526078}.quote{border-left:4px solid #3157d5;background:#f5f8ff;border-radius:0 12px 12px 0;padding:11px 12px;color:#35445e;font-size:12px;line-height:1.65}.warn{border:1px solid #ffd7a6;background:#fff8eb;border-radius:14px;padding:11px 12px;color:#805100;font-size:12px;line-height:1.55;margin-top:12px}.footer-note{font-size:11px;color:#8090a5;line-height:1.55;margin-top:14px}.api-result{max-height:180px;overflow:auto;background:#f9fbff;border:1px solid #e3eaf4;border-radius:12px;padding:9px;font-size:12px;line-height:1.5}.api-item{padding:8px;border-radius:10px;border:1px solid #e3eaf4;background:#fff;margin-bottom:7px}.api-item b{display:block;margin-bottom:3px}.kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;background:#edf2f7;border:1px solid #dce5f0;border-radius:6px;padding:2px 5px;color:#45536c}.toast{position:fixed;right:24px;bottom:24px;background:#111827;color:#fff;border-radius:14px;padding:13px 15px;box-shadow:0 14px 40px rgba(0,0,0,.22);z-index:99;font-size:13px;opacity:0;transform:translateY(12px);transition:.2s}.toast.show{opacity:1;transform:translateY(0)}
+@media (max-width:1200px){.main{grid-template-columns:1fr}.left,.right{position:relative;top:auto;max-height:none}.metric-wrap{grid-template-columns:repeat(2,1fr)}.board-shell{max-height:70vh}}
+@media (max-width:720px){.header{padding:20px}.title{font-size:24px}.metric-wrap{grid-template-columns:1fr}.main{padding:12px}.toolbar{align-items:flex-start;flex-direction:column}.header-top{flex-direction:column}.header-actions{justify-content:flex-start}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="header">
+    <div class="header-top">
+      <div>
+        <div class="eyebrow">Law-to-Process Generator MVP</div>
+        <h1 class="title">법령을 읽어 상태 인식형 Swimlane 체계도 생성</h1>
+        <div class="subtitle">법령 조문에서 주체·행위·문서·기한·조건을 추출해 BPMN 스타일 업무프로세스 초안을 만들고, 현재 진행상황과 병목을 카드 위에 바로 얹는 프로토타입입니다.</div>
+        <div class="legend">
+          <span class="legend-item"><span class="legend-line"></span>주 프로세스</span>
+          <span class="legend-item"><span class="legend-line message"></span>문서·공문 흐름</span>
+          <span class="legend-item"><span class="legend-line loop"></span>보완·회귀</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <span class="pill">● 완료 / ◐ 진행 / ▲ 위험 / ◆ 판단 / ↺ 회귀</span>
+        <button class="btn secondary" id="loadSampleTop">환경영향평가 샘플</button>
+        <button class="btn" id="exportJsonTop">JSON 내보내기</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <aside class="panel left">
+      <div class="panel-head"><div class="panel-title">① 입력·생성</div></div>
+      <div class="panel-body">
+        <div class="seg" role="tablist">
+          <button class="active" data-tab="sample">샘플</button>
+          <button data-tab="paste">조문 붙여넣기</button>
+          <button data-tab="api">법령 API</button>
+        </div>
+
+        <section class="tab" id="tab-sample">
+          <div class="field">
+            <div class="label">샘플 제도</div>
+            <div class="hint">환경영향평가 제도의 법정 절차를 상태관제형 Swimlane으로 구성한 예시입니다.</div>
+          </div>
+          <button class="btn" id="loadSample">샘플 다시 불러오기</button>
+          <button class="btn ghost" id="markScenario" style="margin-left:6px">보완 발생 시나리오</button>
+          <div class="warn">현재 샘플은 실제 프로젝트 진행자료가 아니라, 법령 기반 절차 템플릿에 임의 상태값을 얹은 관제 예시입니다.</div>
+        </section>
+
+        <section class="tab" id="tab-paste" hidden>
+          <div class="field">
+            <label class="label" for="lawName">법령명</label>
+            <input class="input" id="lawName" value="환경영향평가법" />
+          </div>
+          <div class="field">
+            <label class="label" for="institutionName">제도명</label>
+            <input class="input" id="institutionName" value="환경영향평가 제도" />
+          </div>
+          <div class="field">
+            <label class="label" for="lawText">조문 텍스트</label>
+            <textarea class="textarea" id="lawText">제24조(평가 항목ㆍ범위 등의 결정) 사업자는 환경영향평가를 실시하기 전에 평가준비서를 작성하여 승인기관의 장에게 제출하여야 한다. 승인기관의 장은 환경영향평가협의회의 심의를 거쳐 평가항목ㆍ범위ㆍ방법 등을 결정하여 사업자에게 통보하여야 한다.
+제25조(주민 등의 의견 수렴) 사업자는 환경영향평가서 초안을 작성하여 주민 등의 의견을 수렴하여야 한다. 시장ㆍ군수ㆍ구청장은 초안을 공고하고 주민 등이 공람할 수 있게 하여야 한다.
+제27조(협의 요청) 승인기관의 장은 사업계획을 승인하기 전에 협의기관의 장에게 협의를 요청하여야 한다.
+제28조(평가서의 검토 등) 협의기관의 장은 평가서를 검토하고 필요한 경우 보완을 요청할 수 있다.
+제29조(협의내용의 통보) 협의기관의 장은 협의내용을 승인기관의 장에게 통보하여야 한다.</textarea>
+          </div>
+          <button class="btn" id="extractBtn">조문 분석 → 체계도 생성</button>
+          <div class="footer-note">브라우저 내부의 규칙 기반 파서로 동작합니다. FastAPI 서버로 실행하면 동일 요청을 <span class="kbd">/api/process/extract</span>에서도 처리할 수 있습니다.</div>
+        </section>
+
+        <section class="tab" id="tab-api" hidden>
+          <div class="field">
+            <label class="label">법령 검색어</label>
+            <input class="input" id="apiQuery" value="환경영향평가법" />
+          </div>
+          <div class="field">
+            <label class="label">OC 인증키</label>
+            <input class="input" id="apiOc" type="password" placeholder="브라우저에 저장하지 않음 · 서버 환경변수 권장" />
+            <div class="hint">서버 실행 시 <span class="kbd">LAW_OPEN_API_OC</span> 환경변수를 쓰는 편이 안전합니다.</div>
+          </div>
+          <div class="mini-grid">
+            <button class="btn" id="apiSearchBtn">법령 검색</button>
+            <button class="btn ghost" id="apiExtractBtn">상세→분석</button>
+          </div>
+          <div class="field" style="margin-top:12px">
+            <div class="label">검색 결과</div>
+            <div class="api-result" id="apiResult">FastAPI 서버로 실행하면 검색 결과가 여기에 표시됩니다.</div>
+          </div>
+        </section>
+      </div>
+    </aside>
+
+    <section class="center">
+      <div class="metric-wrap" id="metrics"></div>
+      <div class="gatebar" id="gatebar"></div>
+      <div class="panel">
+        <div class="toolbar">
+          <div class="toolbar-left">
+            <strong id="boardTitle">환경영향평가 제도 · Swimlane 체계도</strong>
+            <span class="badge current" id="currentOwnerBadge">현재 공: 사업자/평가대행자</span>
+          </div>
+          <div class="toolbar-right">
+            <label class="check"><input type="checkbox" data-edge="sequence" checked>주 흐름</label>
+            <label class="check"><input type="checkbox" data-edge="message" checked>문서 흐름</label>
+            <label class="check"><input type="checkbox" data-edge="loop" checked>회귀</label>
+            <select class="select" id="statusFilter" style="width:140px;padding:8px 10px">
+              <option value="all">전체 상태</option>
+              <option value="current,risk">현재·위험</option>
+              <option value="waiting">예정/대기</option>
+              <option value="done">완료</option>
+              <option value="gateway,loop">판단/회귀</option>
+            </select>
+          </div>
+        </div>
+        <div class="board-shell" id="boardShell">
+          <div class="board-canvas" id="boardCanvas">
+            <svg class="flows" id="flows"></svg>
+            <div class="board-grid" id="boardGrid"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="panel right">
+      <div class="panel-head"><div class="panel-title">② 선택 업무 상세</div></div>
+      <div class="panel-body" id="inspector">
+        <div class="inspector-empty">체계도에서 업무카드를 클릭하면 담당주체, 산출문서, 법정기한, 병목, 근거 조문이 표시됩니다.</div>
+      </div>
+    </aside>
+  </main>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const SAMPLE_MODEL = {
+  "institution_name": "환경영향평가 제도",
+  "law_name": "환경영향평가법",
+  "lanes": [
+    "사업자/시행자",
+    "평가대행자",
+    "승인기관",
+    "관할 지자체",
+    "협의기관",
+    "위원회/협의회",
+    "전문검토기관/관계기관",
+    "주민/이해관계자",
+    "정보시스템"
+  ],
+  "stages": [
+    "G0 대상판정",
+    "G1 착수·스코핑",
+    "G2 조사·초안",
+    "G3 공고·공람",
+    "G4 의견수렴·본안",
+    "G5 협의검토·보완",
+    "G6 협의통보·승인",
+    "G7 이행·사후관리"
+  ],
+  "nodes": [
+    {
+      "id": "P01",
+      "name": "대상사업 여부 검토",
+      "lane": "사업자/시행자",
+      "stage": "G0 대상판정",
+      "type": "gateway",
+      "status": "done",
+      "progress": 100,
+      "actor": "사업자",
+      "action": "대상판정",
+      "output_documents": [
+        "대상판정표",
+        "인허가 매트릭스"
+      ],
+      "deadline": "내부 목표 7일",
+      "blocker": null,
+      "confidence": 0.92,
+      "legal_basis": [
+        {
+          "law": "환경영향평가법 및 하위법령",
+          "article": "대상사업 관련 조문·시행령 별표",
+          "text": "사업유형과 규모가 환경영향평가 대상인지 검토한다."
+        }
+      ]
+    },
+    {
+      "id": "P02",
+      "name": "평가준비서 작성·제출",
+      "lane": "사업자/시행자",
+      "stage": "G1 착수·스코핑",
+      "type": "task",
+      "status": "done",
+      "progress": 100,
+      "actor": "사업자",
+      "receiver": "승인기관",
+      "action": "작성·제출",
+      "output_documents": [
+        "평가준비서"
+      ],
+      "deadline": "내부 목표 30일",
+      "confidence": 0.9,
+      "legal_basis": [
+        {
+          "law": "환경영향평가법 및 하위법령",
+          "article": "평가항목 결정 관련 조문",
+          "text": "환경영향평가 실시 전 평가준비서를 작성한다."
+        }
+      ]
+    },
+    {
+      "id": "P03",
+      "name": "평가항목·범위·방법 심의",
+      "lane": "위원회/협의회",
+      "stage": "G1 착수·스코핑",
+      "type": "gateway",
+      "status": "done",
+      "progress": 100,
+      "actor": "환경영향평가협의회",
+      "action": "심의",
+      "output_documents": [
+        "평가항목 결정내용",
+        "심의결과"
+      ],
+      "deadline": "목표 30일",
+      "confidence": 0.88,
+      "legal_basis": [
+        {
+          "law": "환경영향평가법 및 하위법령",
+          "article": "평가항목 결정 관련 조문",
+          "text": "대상지역, 대안, 평가 항목·범위·방법을 심의한다."
+        }
+      ]
+    },
+    {
+      "id": "P04",
+      "name": "현황조사·영향예측",
+      "lane": "평가대행자",
+      "stage": "G2 조사·초안",
+      "type": "task",
+      "status": "risk",
+      "progress": 72,
+      "actor": "평가대행자",
+      "action": "조사·예측",
+      "output_documents": [
+        "현황조사 결과",
+        "영향예측표"
+      ],
+      "deadline": "목표 60일",
+      "blocker": "계절조사 1회 미완료",
+      "confidence": 0.82,
+      "legal_basis": [
+        {
+          "law": "환경영향평가법 및 하위법령",
+          "article": "평가서 작성 기준",
+          "text": "대기·수질·생태·소음 등 환경현황을 조사하고 영향을 예측한다."
+        }
+      ]
+    },
+    {
+      "id": "P05",
+      "name": "평가서 초안 확정 총괄",
+      "lane": "사업자/시행자",
+      "stage": "G2 조사·초안",
+      "type": "task",
+      "status": "current",
+      "progress": 62,
+      "actor": "사업자",
+      "action": "초안 확정",
+      "input_documents": [
+        "현황조사 결과",
+        "평가항목 결정내용"
+      ],
+      "output_documents": [
+        "평가서 초안",
+        "요약문",
+        "도면"
+      ],
+      "deadline": "목표 45일",
+      "blocker": "수질·소음 저감방안 미확정",
+      "confidence": 0.86,
+      "legal_basis": [
+        {
+          "law": "환경영향평가법 및 하위법령",
+          "article": "초안 작성 및 의견수렴 관련 조문",
+          "text": "평가항목 결정내용에 따라 평가서 초안을 작성한다."
+        }
+      ]
+    },
+    {
+      "id": "P06",
+      "name": "초안 공고·공람",
+      "lane": "관할 지자체",
+      "stage": "G3 공고·공람",
+      "type": "notice",
+      "status": "waiting",
+      "progress": 0,
+      "actor": "시장·군수·구청장",
+      "action": "공고·공람",
+      "input_documents": [
+        "평가서 초안",
+        "요약문"
+      ],
+      "output_documents": [
+        "공고문",
+        "공람대장"
+      ],
+      "deadline": "초안 접수 후 10일 내 공고 / 20~60일 공람",
+      "blocker": "초안 미접수",
+      "confidence": 0.9,
+      "legal_basis": [
+        {
+          "law": "환경영향평가법 및 하위법령",
+          "article": "공고·공람 관련 시행령 조문",
+          "text": "초안 접수일부터 10일 이내 공고하고 주민 등이 20일 이상 60일 이내 공람할 수 있게 한다."
+        }
+      ]
+    },
+    {
+      "id": "P07",
+      "name": "주민의견 제출·공청회 요구",
+      "lane": "주민/이해관계자",
+      "stage": "G4 의견수렴·본안",
+      "type": "task",
+      "status": "waiting",
+      "progress": 0,
+      "actor": "주민",
+      "action": "의견 제출",
+      "input_documents": [
+        "평가서 초안",
+        "공고문"
+      ],
+      "output_documents": [
+        "주민의견서",
+        "공청회 요구"
+      ],
+      "deadline": "공람기간 및 의견제출기간",
+      "confidence": 0.84,
+      "legal_basis": [
+        {
+          "law": "환경영향평가법 및 하위법령",
+          "article": "주민의견 수렴 관련 조문",
+          "text": "주민은 초안을 열람하고 의견을 제출할 수 있다."
+        }
+      ]
+    },
+    {
+      "id": "P08",
+      "name": "의견반영·본안 작성",
+      "lane": "사업자/시행자",
+      "stage": "G4 의견수렴·본안",
+      "type": "task",
+      "status": "waiting",
+      "progress": 0,
+      "actor": "사업자",
+      "action": "본안 작성",
+      "input_documents": [
+        "주민의견서",
+        "관계기관 의견"
+      ],
+      "output_documents": [
+        "환경영향평가서 본안",
+        "의견반영표"
+      ],
+      "confidence": 0.82,
+      "legal_basis": [
+        {
+          "law": "환경영향평가법 및 하위법령",
+          "article": "평가서 작성 및 협의요청 관련 조문",
+          "text": "의견수렴 결과를 반영하여 환경영향평가서를 작성한다."
+        }
+      ]
+    },
+    {
+      "id": "P09",
+      "name": "협의 요청 공문 발송",
+      "lane": "승인기관",
+      "stage": "G4 의견수렴·본안",
+      "type": "task",
+      "status": "waiting",
+      "progress": 0,
+      "actor": "승인기관",
+      "receiver": "협의기관",
+      "action": "협의 요청",
+      "input_documents": [
+        "환경영향평가서 본안",
+        "검토의견"
+      ],
+      "output_documents": [
+        "협의요청 공문"
+      ],
+      "confidence": 0.9,
+      "legal_basis": [
+        {
+          "law": "환경영향평가법 및 하위법령",
+          "article": "협의요청 관련 조문",
+          "text": "승인기관의 장은 사업계획 승인 전에 협의기관에 협의를 요청한다."
+        }
+      ]
+    },
+    {
+      "id": "P10",
+      "name": "평가서 접수·내용검토",
+      "lane": "협의기관",
+      "stage": "G5 협의검토·보완",
+      "type": "task",
+      "status": "waiting",
+      "progress": 0,
+      "actor": "협의기관",
+      "action": "검토",
+      "input_documents": [
+        "환경영향평가서 본안",
+        "협의요청 공문"
+      ],
+      "output_documents": [
+        "검토의견"
+      ],
+      "deadline": "협의요청 후 45일, 연장 시 60일",
+      "confidence": 0.88,
+      "legal_basis": [
+        {
+          "law": "환경영향평가법 및 하위법령",
+          "article": "평가서 검토 관련 조문",
+          "text": "협의기관은 주민의견 수렴 절차 이행 여부와 평가서 내용을 검토한다."
+        }
+      ]
+    },
+    {
+      "id": "P11",
+      "name": "전문검토서 작성",
+      "lane": "전문검토기관/관계기관",
+      "stage": "G5 협의검토·보완",
+      "type": "task",
+      "status": "waiting",
+      "progress": 0,
+      "actor": "전문검토기관",
+      "action": "전문검토",
+      "input_documents": [
+        "평가서 본안"
+      ],
+      "output_documents": [
+        "전문검토서",
+        "관계기관 의견"
+      ],
+      "blocker": "검토의뢰 전",
+      "confidence": 0.8,
+      "legal_basis": [
+        {
+          "law": "환경영향평가법 및 하위법령",
+          "article": "전문기관 검토 관련 조문",
+          "text": "협의기관은 필요한 경우 전문기관·관계전문가 의견 또는 현지조사를 의뢰할 수 있다."
+        }
+      ]
+    },
+    {
+      "id": "P12",
+      "name": "보완·반려·재검토 판단",
+      "lane": "협의기관",
+      "stage": "G5 협의검토·보완",
+      "type": "gateway",
+      "status": "gateway",
+      "progress": 0,
+      "actor": "협의기관",
+      "action": "판단",
+      "condition": "보완 필요 여부, 반려 사유, 사업계획 재검토 필요성",
+      "output_documents": [
+        "보완요청서",
+        "반려통보",
+        "재검토 통보"
+      ],
+      "confidence": 0.86,
+      "legal_basis": [
+        {
+          "law": "환경영향평가법 및 하위법령",
+          "article": "보완·반려·재검토 관련 조문",
+          "text": "보완·조정 요청, 반려, 사업규모·내용·시행시기 재검토 통보를 할 수 있다."
+        }
+      ]
+    },
+    {
+      "id": "P13",
+      "name": "보완서·수정평가서 작성",
+      "lane": "사업자/시행자",
+      "stage": "G5 협의검토·보완",
+      "type": "task",
+      "status": "loop",
+      "progress": 0,
+      "actor": "사업자/평가대행자",
+      "action": "보완",
+      "input_documents": [
+        "보완요청서"
+      ],
+      "output_documents": [
+        "보완서",
+        "수정평가서"
+      ],
+      "blocker": "조건부 회귀 단계",
+      "confidence": 0.78,
+      "legal_basis": [
+        {
+          "law": "환경영향평가법 및 하위법령",
+          "article": "보완 관련 조문",
+          "text": "보완 요청을 받은 경우 보완자료를 작성하여 재제출한다."
+        }
+      ]
+    },
+    {
+      "id": "P14",
+      "name": "협의내용 통보",
+      "lane": "협의기관",
+      "stage": "G6 협의통보·승인",
+      "type": "task",
+      "status": "waiting",
+      "progress": 0,
+      "actor": "협의기관",
+      "receiver": "승인기관",
+      "action": "통보",
+      "output_documents": [
+        "협의내용 통보서"
+      ],
+      "confidence": 0.89,
+      "legal_basis": [
+        {
+          "law": "환경영향평가법 및 하위법령",
+          "article": "협의내용 통보 관련 조문",
+          "text": "협의기관은 협의내용을 승인기관장등에게 통보한다."
+        }
+      ]
+    },
+    {
+      "id": "P15",
+      "name": "협의내용 반영 확인·승인",
+      "lane": "승인기관",
+      "stage": "G6 협의통보·승인",
+      "type": "gateway",
+      "status": "waiting",
+      "progress": 0,
+      "actor": "승인기관",
+      "action": "반영 확인·승인",
+      "input_documents": [
+        "협의내용 통보서",
+        "수정 사업계획"
+      ],
+      "output_documents": [
+        "승인서",
+        "승인조건",
+        "반영결과"
+      ],
+      "confidence": 0.88,
+      "legal_basis": [
+        {
+          "law": "환경영향평가법 및 하위법령",
+          "article": "협의내용 반영 관련 조문",
+          "text": "승인기관은 승인 전에 협의내용 반영 여부를 확인한다."
+        }
+      ]
+    },
+    {
+      "id": "P16",
+      "name": "착공 전 이행계획·관리대장",
+      "lane": "사업자/시행자",
+      "stage": "G7 이행·사후관리",
+      "type": "task",
+      "status": "waiting",
+      "progress": 0,
+      "actor": "사업자",
+      "action": "이행계획 수립",
+      "output_documents": [
+        "이행계획",
+        "관리대장",
+        "관리책임자 지정"
+      ],
+      "confidence": 0.8,
+      "legal_basis": [
+        {
+          "law": "환경영향평가법 및 하위법령",
+          "article": "협의내용 이행관리 관련 조문",
+          "text": "사업자는 협의내용 이행을 관리하고 필요한 대장을 작성한다."
+        }
+      ]
+    },
+    {
+      "id": "P17",
+      "name": "사후환경영향조사 실시",
+      "lane": "사업자/시행자",
+      "stage": "G7 이행·사후관리",
+      "type": "task",
+      "status": "waiting",
+      "progress": 0,
+      "actor": "사업자",
+      "action": "사후조사",
+      "output_documents": [
+        "사후환경영향조사서",
+        "조치결과 보고"
+      ],
+      "confidence": 0.84,
+      "legal_basis": [
+        {
+          "law": "환경영향평가법 및 하위법령",
+          "article": "사후환경영향조사 관련 조문",
+          "text": "사업자는 사후환경영향조사를 실시하고 필요한 조치를 한다."
+        }
+      ]
+    },
+    {
+      "id": "S01",
+      "name": "초안·공람자료 공개",
+      "lane": "정보시스템",
+      "stage": "G3 공고·공람",
+      "type": "system",
+      "status": "waiting",
+      "progress": 0,
+      "actor": "정보지원시스템",
+      "action": "공개",
+      "input_documents": [
+        "평가서 초안",
+        "공고문"
+      ],
+      "output_documents": [
+        "공개 게시자료"
+      ],
+      "confidence": 0.76,
+      "legal_basis": [
+        {
+          "law": "환경영향평가법 및 하위법령",
+          "article": "정보지원시스템 관련 조문",
+          "text": "공고·공람 내용 및 초안 자료를 정보지원시스템에 게시한다."
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "E01",
+      "source": "P01",
+      "target": "P02",
+      "type": "sequence",
+      "label": null
+    },
+    {
+      "id": "E02",
+      "source": "P02",
+      "target": "P03",
+      "type": "sequence",
+      "label": null
+    },
+    {
+      "id": "E03",
+      "source": "P03",
+      "target": "P04",
+      "type": "sequence",
+      "label": null
+    },
+    {
+      "id": "E04",
+      "source": "P04",
+      "target": "P05",
+      "type": "sequence",
+      "label": null
+    },
+    {
+      "id": "E05",
+      "source": "P05",
+      "target": "P06",
+      "type": "sequence",
+      "label": null
+    },
+    {
+      "id": "E06",
+      "source": "P06",
+      "target": "P07",
+      "type": "sequence",
+      "label": null
+    },
+    {
+      "id": "E07",
+      "source": "P07",
+      "target": "P08",
+      "type": "sequence",
+      "label": null
+    },
+    {
+      "id": "E08",
+      "source": "P08",
+      "target": "P09",
+      "type": "sequence",
+      "label": null
+    },
+    {
+      "id": "E09",
+      "source": "P09",
+      "target": "P10",
+      "type": "sequence",
+      "label": null
+    },
+    {
+      "id": "E10",
+      "source": "P10",
+      "target": "P11",
+      "type": "sequence",
+      "label": null
+    },
+    {
+      "id": "E11",
+      "source": "P11",
+      "target": "P12",
+      "type": "sequence",
+      "label": null
+    },
+    {
+      "id": "E12",
+      "source": "P12",
+      "target": "P14",
+      "type": "sequence",
+      "label": null
+    },
+    {
+      "id": "E13",
+      "source": "P14",
+      "target": "P15",
+      "type": "sequence",
+      "label": null
+    },
+    {
+      "id": "E14",
+      "source": "P15",
+      "target": "P16",
+      "type": "sequence",
+      "label": null
+    },
+    {
+      "id": "E15",
+      "source": "P16",
+      "target": "P17",
+      "type": "sequence",
+      "label": null
+    },
+    {
+      "id": "M01",
+      "source": "P05",
+      "target": "S01",
+      "type": "message",
+      "label": "초안 공개자료"
+    },
+    {
+      "id": "M02",
+      "source": "P06",
+      "target": "P07",
+      "type": "message",
+      "label": "공고·공람"
+    },
+    {
+      "id": "M03",
+      "source": "P11",
+      "target": "P12",
+      "type": "message",
+      "label": "전문검토"
+    },
+    {
+      "id": "L01",
+      "source": "P12",
+      "target": "P13",
+      "type": "loop",
+      "label": "보완 필요"
+    },
+    {
+      "id": "L02",
+      "source": "P13",
+      "target": "P09",
+      "type": "loop",
+      "label": "보완 재제출"
+    }
+  ],
+  "warnings": []
+};
+const statusMeta = {
+  done:{label:'● 완료', cls:'done'}, current:{label:'◐ 진행', cls:'current'}, risk:{label:'▲ 위험', cls:'risk'}, delayed:{label:'■ 지연', cls:'delayed'}, waiting:{label:'○ 예정', cls:'waiting'}, gateway:{label:'◆ 판단', cls:'gateway'}, loop:{label:'↺ 회귀', cls:'loop'}, stopped:{label:'⛔ 중단', cls:'delayed'}, system:{label:'시스템', cls:'system'}
+};
+let model = structuredClone(SAMPLE_MODEL);
+let selectedId = null;
+let selectedApiLaw = null;
+let visibleEdges = {sequence:true, message:true, loop:true, condition:true};
+
+function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2200)}
+function esc(s){return String(s ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+function statusLabel(status){return statusMeta[status]?.label || status}
+function statusCls(status){return statusMeta[status]?.cls || 'waiting'}
+function laneNote(lane){return ({
+  '사업자/시행자':'사업계획·평가서·보완·이행 책임', '평가대행자':'조사·예측·저감방안 작성 실무', '승인기관':'인허가권자·공식 협의 경유', '관할 지자체':'공고·공람·지역 의견 접수', '협의기관':'평가서 검토·협의내용 통보', '위원회/협의회':'스코핑·쟁점 심의', '전문검토기관/관계기관':'전문검토·분야별 의견', '주민/이해관계자':'의견 제출·공청회·민원', '정보시스템':'공개·이력·자료관리'
+}[lane] || '')}
+
+function render(){
+  renderMetrics(); renderGatebar(); renderBoard(); renderInspector();
+  setTimeout(drawFlows, 60);
+}
+function renderMetrics(){
+  const cur = model.nodes.filter(n=>['current','risk','delayed'].includes(n.status));
+  const done = model.nodes.filter(n=>n.status==='done').length;
+  const main = model.nodes.filter(n=>!n.id.startsWith('S'));
+  const progress = Math.round((main.reduce((a,n)=>a+(n.progress||0),0) / Math.max(main.length,1)));
+  const blockers = model.nodes.filter(n=>n.blocker);
+  const next = model.edges.find(e=>e.type==='sequence' && cur.some(n=>n.id===e.source));
+  const nextNode = next ? model.nodes.find(n=>n.id===next.target) : model.nodes.find(n=>n.status==='waiting');
+  document.getElementById('metrics').innerHTML = `
+    <div class="metric current"><div class="k">전체 진행률</div><div class="v">${progress}%</div></div>
+    <div class="metric current"><div class="k">현재 단계</div><div class="v">${cur[0] ? esc(cur[0].stage.replace(/^G\d\s*/,'')) : '-'}</div></div>
+    <div class="metric risk"><div class="k">위험·지연 업무</div><div class="v">${model.nodes.filter(n=>['risk','delayed'].includes(n.status)).length}</div></div>
+    <div class="metric next"><div class="k">다음 게이트</div><div class="v">${nextNode ? esc(nextNode.name) : '-'}</div></div>`;
+  const owners = [...new Set(cur.map(n=>n.lane))].join(' / ') || '대기';
+  document.getElementById('currentOwnerBadge').textContent = `현재 공: ${owners}`;
+  document.getElementById('boardTitle').textContent = `${model.institution_name} · Swimlane 체계도`;
+}
+function renderGatebar(){
+  const html = model.stages.map(st=>{
+    const nodes = model.nodes.filter(n=>n.stage===st);
+    let cls = 'waiting';
+    if(nodes.some(n=>['risk','delayed'].includes(n.status))) cls = 'risk';
+    else if(nodes.some(n=>n.status==='current')) cls = 'current';
+    else if(nodes.length && nodes.every(n=>n.status==='done')) cls = 'done';
+    return `<div class="gate ${cls}"><span class="dot"></span>${esc(st)}</div>`
+  }).join('');
+  document.getElementById('gatebar').innerHTML = html;
+}
+function renderBoard(){
+  const filter = document.getElementById('statusFilter').value;
+  const allowed = filter==='all' ? null : new Set(filter.split(','));
+  const grid = document.getElementById('boardGrid');
+  const cols = model.stages.length;
+  const rows = model.lanes.length;
+  document.documentElement.style.setProperty('--stage-w','270px');
+  document.documentElement.style.setProperty('--row-h','196px');
+  grid.style.gridTemplateColumns = `var(--lane-w) repeat(${cols}, var(--stage-w))`;
+  grid.style.gridTemplateRows = `58px repeat(${rows}, var(--row-h))`;
+  const canvas = document.getElementById('boardCanvas');
+  canvas.style.minWidth = `calc(var(--lane-w) + var(--stage-w) * ${cols})`;
+  canvas.style.minHeight = `${58 + rows*196 + 40}px`;
+  let html = `<div class="corner">행위주체 / 업무단계</div>`;
+  model.stages.forEach(s=> html += `<div class="stage-head">${esc(s)}</div>`);
+  const byCell = new Map();
+  model.nodes.forEach(n=>{
+    if(allowed && !allowed.has(n.status)) return;
+    const key = `${n.lane}||${n.stage}`;
+    if(!byCell.has(key)) byCell.set(key, []);
+    byCell.get(key).push(n);
+  });
+  model.lanes.forEach((lane, r)=>{
+    html += `<div class="lane-head"><div class="lane-icon">${r+1}</div><div><div class="lane-name">${esc(lane)}</div><div class="lane-note">${esc(laneNote(lane))}</div></div></div>`;
+    model.stages.forEach(stage=>{
+      const nodes = byCell.get(`${lane}||${stage}`) || [];
+      html += `<div class="cell" data-lane="${esc(lane)}" data-stage="${esc(stage)}">`;
+      nodes.forEach(n=> html += renderNode(n));
+      html += `</div>`;
+    });
+  });
+  grid.innerHTML = html;
+  grid.querySelectorAll('.node').forEach(el=>el.addEventListener('click',()=>{selectedId=el.dataset.id;renderInspector();grid.querySelectorAll('.node').forEach(n=>n.classList.toggle('selected', n.dataset.id===selectedId));}));
+}
+function renderNode(n){
+  const cls = statusCls(n.status);
+  const docs = (n.output_documents||[]).slice(0,2).map(d=>`<span class="tag">${esc(d)}</span>`).join('');
+  const deadline = n.deadline ? `<span class="tag">⏱ ${esc(n.deadline)}</span>` : '';
+  const blocker = n.blocker ? `<div class="node-blocker">병목: ${esc(n.blocker)}</div>` : '';
+  const actor = n.actor ? `<span class="tag">${esc(n.actor)}</span>` : '';
+  return `<article class="node ${cls} ${selectedId===n.id?'selected':''}" data-id="${esc(n.id)}">
+    <div class="node-top"><div class="node-name">${esc(n.id)} · ${esc(n.name)}</div><span class="badge ${cls}">${statusLabel(n.status)}</span></div>
+    <div class="progress"><span style="width:${Math.max(0,Math.min(100,n.progress||0))}%"></span></div>
+    <div class="node-meta">${actor}${deadline}${docs}</div>
+    <div class="node-text">${esc(n.action||'업무')} · 신뢰도 ${Math.round((n.confidence||0)*100)}%</div>
+    ${blocker}
+  </article>`;
+}
+function renderInspector(){
+  const box = document.getElementById('inspector');
+  const n = model.nodes.find(x=>x.id===selectedId);
+  if(!n){box.innerHTML = `<div class="inspector-empty">체계도에서 업무카드를 클릭하면 담당주체, 산출문서, 법정기한, 병목, 근거 조문이 표시됩니다.</div>`;return;}
+  const cls = statusCls(n.status);
+  const basis = (n.legal_basis||[])[0];
+  box.innerHTML = `
+    <div class="detail-title">${esc(n.id)} · ${esc(n.name)}</div>
+    <div class="detail-status"><span class="badge ${cls}">${statusLabel(n.status)}</span><span class="badge waiting">진행률 ${n.progress||0}%</span><span class="badge waiting">신뢰도 ${Math.round((n.confidence||0)*100)}%</span></div>
+    ${kv('Lane', n.lane)}${kv('단계', n.stage)}${kv('주체', n.actor)}${kv('수신자', n.receiver)}${kv('행위', n.action)}${kv('기한', n.deadline)}${kv('조건', n.condition)}${kv('산출물', (n.output_documents||[]).join(', '))}${kv('병목', n.blocker)}
+    <div class="field" style="margin-top:14px"><label class="label">상태 수정</label><select class="select" id="editStatus"><option value="done">완료</option><option value="current">진행</option><option value="risk">위험</option><option value="delayed">지연</option><option value="waiting">예정</option><option value="gateway">판단</option><option value="loop">회귀</option></select></div>
+    <div class="field"><label class="label">진행률</label><input class="input" id="editProgress" type="number" min="0" max="100" value="${n.progress||0}"></div>
+    <div class="field"><label class="label">병목 사유</label><input class="input" id="editBlocker" value="${esc(n.blocker||'')}"></div>
+    <button class="btn" id="applyEdit">상태 반영</button>
+    <div class="field" style="margin-top:16px"><div class="label">근거 조문</div><div class="quote"><b>${esc(basis?.law||model.law_name)} ${esc(basis?.article||'')}</b><br>${esc(basis?.text||'근거 문장 없음')}</div></div>
+    <div class="footer-note">근거 없는 단계는 실제 서비스에서 ‘추정’으로 표시하고 검수 워크플로우로 보냅니다.</div>`;
+  document.getElementById('editStatus').value = n.status;
+  document.getElementById('applyEdit').onclick = ()=>{
+    n.status = document.getElementById('editStatus').value;
+    n.progress = Number(document.getElementById('editProgress').value || 0);
+    n.blocker = document.getElementById('editBlocker').value.trim() || null;
+    render(); toast('상태가 반영되었습니다');
+  };
+}
+function kv(k,v){ if(v===undefined || v===null || v==='') return ''; return `<div class="kv"><b>${esc(k)}</b><span>${esc(v)}</span></div>`; }
+function drawFlows(){
+  const svg = document.getElementById('flows'); const canvas = document.getElementById('boardCanvas'); const rect = canvas.getBoundingClientRect();
+  svg.setAttribute('width', canvas.scrollWidth); svg.setAttribute('height', canvas.scrollHeight); svg.setAttribute('viewBox', `0 0 ${canvas.scrollWidth} ${canvas.scrollHeight}`);
+  let defs = `<defs><marker id="arrow-sequence" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#3f62d9"/></marker><marker id="arrow-message" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#0d9db1"/></marker><marker id="arrow-loop" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#d64f86"/></marker></defs>`;
+  const statusFilter = document.getElementById('statusFilter').value;
+  let body = '';
+  model.edges.forEach(e=>{
+    if(!visibleEdges[e.type]) return;
+    const s = document.querySelector(`.node[data-id="${CSS.escape(e.source)}"]`);
+    const t = document.querySelector(`.node[data-id="${CSS.escape(e.target)}"]`);
+    if(!s || !t) return;
+    const a = s.getBoundingClientRect(); const b = t.getBoundingClientRect();
+    const x1 = a.right - rect.left; const y1 = a.top + a.height/2 - rect.top;
+    const x2 = b.left - rect.left; const y2 = b.top + b.height/2 - rect.top;
+    const cls = e.type; const marker = `url(#arrow-${e.type==='loop'?'loop':e.type==='message'?'message':'sequence'})`;
+    const d = routePath(x1,y1,x2,y2,e.type);
+    body += `<path class="${cls}" d="${d}" marker-end="${marker}"/>`;
+    if(e.label){ const lx=(x1+x2)/2, ly=(y1+y2)/2 - 8; body += `<text class="flow-label" x="${lx}" y="${ly}" text-anchor="middle">${esc(e.label)}</text>`; }
+  });
+  svg.innerHTML = defs + body;
+}
+function routePath(x1,y1,x2,y2,type){
+  if(type==='loop'){
+    const pad = 42; const down = Math.max(y1,y2)+62; return `M ${x1} ${y1} L ${x1+pad} ${y1} L ${x1+pad} ${down} L ${x2-36} ${down} L ${x2-36} ${y2} L ${x2} ${y2}`;
+  }
+  const dx = x2 - x1;
+  const mid = dx > 120 ? x1 + dx/2 : x1 + 46;
+  if(Math.abs(y1-y2) < 18 && dx > 0) return `M ${x1} ${y1} L ${x2} ${y2}`;
+  return `M ${x1} ${y1} L ${mid} ${y1} L ${mid} ${y2} L ${x2} ${y2}`;
+}
+
+function tabTo(name){document.querySelectorAll('.seg button').forEach(b=>b.classList.toggle('active', b.dataset.tab===name));document.querySelectorAll('.tab').forEach(s=>s.hidden = s.id !== `tab-${name}`)}
+document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>tabTo(b.dataset.tab));
+document.querySelectorAll('[data-edge]').forEach(cb=>cb.onchange=()=>{visibleEdges[cb.dataset.edge]=cb.checked;drawFlows()});
+document.getElementById('statusFilter').onchange=render;
+document.getElementById('loadSample').onclick = document.getElementById('loadSampleTop').onclick = ()=>{model=structuredClone(SAMPLE_MODEL);selectedId=null;render();toast('환경영향평가 샘플을 불러왔습니다')};
+document.getElementById('markScenario').onclick = ()=>{
+  const p12=model.nodes.find(n=>n.id==='P12'), p13=model.nodes.find(n=>n.id==='P13'), p10=model.nodes.find(n=>n.id==='P10');
+  if(p10){p10.status='done';p10.progress=100} if(p12){p12.status='risk';p12.progress=40;p12.blocker='전문검토 보완의견 3건 발생'} if(p13){p13.status='current';p13.progress=18;p13.blocker='보완서 작성 중'}
+  selectedId='P13';render();toast('보완 발생 시나리오로 전환했습니다')
+};
+document.getElementById('exportJsonTop').onclick = exportJson;
+function exportJson(){const blob = new Blob([JSON.stringify(model,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`${model.institution_name.replace(/\s+/g,'_')}_process_model.json`;a.click();URL.revokeObjectURL(a.href)}
+
+// Lightweight browser extractor for pasted legal text.
+const lanes = SAMPLE_MODEL.lanes, stages = SAMPLE_MODEL.stages;
+const actorRules = [[/사업자|시행자|개발사업자/,'사업자/시행자'],[/평가대행자|환경영향평가업자/,'평가대행자'],[/승인기관|인가기관|허가기관/,'승인기관'],[/시장|군수|구청장|지방자치단체|시ㆍ군ㆍ구|시·군·구/,'관할 지자체'],[/협의기관|환경부장관|기후에너지환경부장관|유역환경청|지방환경청/,'협의기관'],[/협의회|위원회/,'위원회/협의회'],[/전문기관|한국환경연구원|관계 행정기관|해양수산부/,'전문검토기관/관계기관'],[/주민|이해관계자/,'주민/이해관계자'],[/정보지원시스템|정보통신망|시스템/,'정보시스템']];
+const actionRules = [['작성',/작성/],['제출',/제출/],['요청',/요청|요구/],['검토',/검토/],['심의',/심의/],['협의',/협의/],['보완',/보완/],['반려',/반려/],['통보',/통보|알려야/],['공고',/공고/],['공람',/공람/],['의견수렴',/의견\s*수렴|의견을\s*듣|의견을\s*수렴/],['승인',/승인|허가|인가|확정/],['조사',/조사/],['이행',/이행/],['공개',/공개|게시/]];
+const docs = ['평가준비서','환경영향평가서','평가서 초안','평가서','보완서','협의내용 통보서','협의내용','사업계획','의견서','의견반영표','사후환경영향조사서','관리대장','공고문','공람대장','심의결과','검토의견'];
+const stageRules = [[/대상|판정|대상사업/,'G0 대상판정'],[/평가준비서|평가항목|범위|방법|협의회|대안/,'G1 착수·스코핑'],[/초안|현황조사|영향예측|저감방안|조사/,'G2 조사·초안'],[/공고|공람|열람|설명회|공청회/,'G3 공고·공람'],[/의견|본안|반영|미반영/,'G4 의견수렴·본안'],[/협의 요청|협의요청|검토|전문기관|보완|반려|재검토/,'G5 협의검토·보완'],[/협의내용|통보|승인(?!기관)|허가|인가|확정|고시/,'G6 협의통보·승인'],[/이행|사후|착공|준공|관리대장|조치명령|재협의|변경/,'G7 이행·사후관리']];
+function browserExtract(text, lawName, institutionName){
+  const sentences = text.replace(/\s+/g,' ').split(/(?<=다)\s+|(?=제\d+조)/).map(s=>s.trim()).filter(s=>s.length>10);
+  const nodes=[]; const seen=new Set();
+  for(const s of sentences){
+    const ar=actionRules.find(([a,re])=>re.test(s)); if(!ar) continue; const action=ar[0];
+    const laneRule=actorRules.find(([re,l])=>re.test(s)); const lane=laneRule?laneRule[1]:'사업자/시행자'; const actorMatch=laneRule?s.match(laneRule[0])?.[0]:null;
+    const ds=docs.filter(d=>s.includes(d)); const deadline=(s.match(/(\d+\s*(?:일|개월|년)\s*이내|지체\s*없이|즉시)/)||[])[1]||null;
+    const cond=(s.match(/(.{0,25}경우)/)||[])[1]||null; const stage=(stageRules.find(([re,st])=>re.test(s))||[null,'G1 착수·스코핑'])[1];
+    const name=(ds[0]?`${ds[0]} ${action}`:`${action} 업무`); const key=`${lane}-${stage}-${name}`; if(seen.has(key)) continue; seen.add(key);
+    const id=`P${String(nodes.length+1).padStart(2,'0')}`; let status=(action==='보완'||action==='반려')?'gateway':'waiting';
+    nodes.push({id,name,lane,stage,type:status==='gateway'?'gateway':'task',status,progress:0,actor:actorMatch,action,output_documents:ds.slice(0,4),deadline,condition:cond,confidence:0.55+(actorMatch?0.2:0)+(ds.length?0.15:0)+(deadline?0.1:0),legal_basis:[{law:lawName,article:(s.match(/제\d+조(?:의\d+)?/)||[])[0]||'조문 미상',text:s}]});
+  }
+  const stageIdx=Object.fromEntries(stages.map((s,i)=>[s,i])); const laneIdx=Object.fromEntries(lanes.map((l,i)=>[l,i]));
+  nodes.sort((a,b)=>(stageIdx[a.stage]-stageIdx[b.stage]) || (laneIdx[a.lane]-laneIdx[b.lane])); nodes.forEach((n,i)=>n.id=`P${String(i+1).padStart(2,'0')}`);
+  const edges=[]; for(let i=0;i<nodes.length-1;i++) edges.push({id:`E${String(i+1).padStart(2,'0')}`,source:nodes[i].id,target:nodes[i+1].id,type:'sequence'});
+  return {institution_name:institutionName,law_name:lawName,lanes,stages,nodes,edges,warnings:nodes.length?[]:['절차형 문장을 찾지 못했습니다.']};
+}
+document.getElementById('extractBtn').onclick=()=>{
+  const text=document.getElementById('lawText').value, lawName=document.getElementById('lawName').value, inst=document.getElementById('institutionName').value;
+  model=browserExtract(text, lawName, inst); selectedId=model.nodes[0]?.id || null; render(); toast(`${model.nodes.length}개 업무카드를 생성했습니다`);
+};
+
+document.getElementById('apiSearchBtn').onclick=async()=>{
+  const result=document.getElementById('apiResult'); result.textContent='검색 중...';
+  try{
+    const res=await fetch('/api/law/search',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:document.getElementById('apiQuery').value, oc:document.getElementById('apiOc').value || null, display:8})});
+    const data=await res.json(); if(!res.ok) throw new Error(data.detail||'검색 실패');
+    const arr = data?.LawSearch?.law || data?.law || [];
+    const list = Array.isArray(arr)?arr:[arr];
+    result.innerHTML=list.map((it,i)=>`<div class="api-item" data-lawid="${esc(it.법령ID||it.lawId||'')}" data-mst="${esc(it.법령일련번호||'')}" data-name="${esc(it.법령명한글||it.법령명||'')}"><b>${i+1}. ${esc(it.법령명한글||it.법령명||'법령명')}</b><span>법령ID ${esc(it.법령ID||'-')} · 시행일 ${esc(it.시행일자||'-')}</span></div>`).join('') || '결과 없음';
+    result.querySelectorAll('.api-item').forEach(el=>el.onclick=()=>{selectedApiLaw={law_id:el.dataset.lawid,mst:el.dataset.mst,name:el.dataset.name};result.querySelectorAll('.api-item').forEach(x=>x.style.outline='');el.style.outline='3px solid rgba(49,87,213,.18)';toast(`${el.dataset.name} 선택`)});
+  }catch(e){result.innerHTML=`<div class="warn">${esc(e.message)}<br>이 기능은 FastAPI 서버로 실행해야 합니다.</div>`}
+};
+document.getElementById('apiExtractBtn').onclick=async()=>{
+  if(!selectedApiLaw){toast('먼저 법령 검색 결과를 선택하세요');return}
+  try{
+    const detail=await fetch('/api/law/detail',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({law_id:selectedApiLaw.law_id, oc:document.getElementById('apiOc').value || null})}).then(r=>r.json());
+    if(detail.detail) throw new Error(detail.detail);
+    const extracted=await fetch('/api/process/extract',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({institution_name:selectedApiLaw.name, law_name:selectedApiLaw.name, text:detail.flattened_text})}).then(r=>r.json());
+    model=extracted; selectedId=model.nodes[0]?.id || null; render(); toast('법령 API 본문을 분석했습니다');
+  }catch(e){toast(e.message||'상세 분석 실패')}
+};
+
+window.addEventListener('resize',()=>setTimeout(drawFlows,80));
+document.getElementById('boardShell').addEventListener('scroll',()=>requestAnimationFrame(drawFlows));
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+@import "tailwindcss";
+
+@theme {
+  /* --- Color palette (DESIGN.md) --- */
+  --color-canvas: #fcfcfb;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f5f7f6;
+  --color-surface-tint: #eef8f3;
+  --color-text: #111714;
+  --color-muted: #5d6b63;
+  --color-faint: #87938d;
+  --color-border: #dde5df;
+  --color-border-strong: #bdcbc4;
+  --color-accent: #0f9f72;
+  --color-accent-dark: #087452;
+  --color-accent-soft: #dff5eb;
+  --color-warning: #c78116;
+  --color-warning-soft: #fef6e7;
+  --color-ink: #0b1410;
+
+  /* --- Typography --- */
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+  --font-mono: "SFMono-Regular", "Roboto Mono", "Cascadia Code", ui-monospace,
+    monospace;
+
+  /* --- Border radius --- */
+  --radius-card: 12px;
+  --radius-panel: 18px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  line-height: 1.65;
+}
+
+/* Typography helpers */
+.display {
+  font-size: clamp(32px, 6vw, 68px);
+  font-weight: 720;
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+}
+
+.h1 {
+  font-size: 40px;
+  font-weight: 720;
+  line-height: 1.1;
+}
+
+.h2 {
+  font-size: 28px;
+  font-weight: 680;
+  line-height: 1.2;
+}
+
+.h3 {
+  font-size: 20px;
+  font-weight: 680;
+  line-height: 1.3;
+}
+
+.body-lg {
+  font-size: 18px;
+  font-weight: 450;
+  line-height: 1.65;
+}
+
+.label-caps {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+}
+
+/* Status badge styles */
+.badge-done {
+  background: var(--color-accent-soft);
+  color: var(--color-accent-dark);
+}
+
+.badge-current {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.badge-waiting {
+  background: var(--color-surface-muted);
+  color: var(--color-muted);
+}
+
+.badge-risk {
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+}
+
+.badge-loop {
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+}
+
+/* Pulse animation for current node */
+@keyframes pulse-ring {
+  0% { opacity: 0.8; transform: scale(1); }
+  70% { opacity: 0; transform: scale(1.5); }
+  100% { opacity: 0; transform: scale(1.5); }
+}
+
+.pulse-dot::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  border: 2px solid var(--color-accent);
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Hover utilities for server component links/cards */
+.card-link {
+  transition: border-color 140ms ease-out, box-shadow 140ms ease-out;
+}
+.card-link:hover {
+  border-color: var(--color-border-strong) !important;
+  box-shadow: 0 4px 16px rgba(11,20,16,0.08) !important;
+}
+
+.btn-outline:hover {
+  border-color: var(--color-ink) !important;
+  background: var(--color-surface-muted) !important;
+}
+
+.nav-link:hover {
+  color: var(--color-text) !important;
+  background: var(--color-surface-muted) !important;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  border-radius: 3px;
+}
