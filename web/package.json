@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "generate:catalog": "node scripts/generate-catalog-assets.mjs",
+    "generate:process-image": "node scripts/generate-process-article-image.mjs",
     "generate:verification-queue": "node scripts/generate-field-verification-queue.mjs",
     "check:freshness": "node scripts/sync-verification.mjs --check",
     "predev": "npm run generate:catalog && npm run generate:verification-queue",
@@ -30,6 +31,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4",
     "typescript": "^5"
   },
