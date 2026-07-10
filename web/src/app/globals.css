@@ -3225,12 +3225,44 @@ body:has(.og-card-page) > main {
 }
 
 @media (max-width: 900px) {
+  .model-process-section {
+    padding: 22px 18px 32px !important;
+  }
+
+  .process-section-heading {
+    margin-bottom: 10px !important;
+  }
+
+  .process-section-heading h2 {
+    margin-bottom: 0 !important;
+    font-size: 20px !important;
+  }
+
+  .process-section-heading p,
+  .process-section-notice,
+  .process-mode-bar,
+  .portrait-process-board > .process-verification-summary,
+  .portrait-process-mobile-view .mobile-process-toolbar,
+  .portrait-process-mobile-view .mobile-process-stage-nav,
+  .portrait-process-mobile-view .process-board-legend {
+    display: none;
+  }
+
+  .process-section-panel {
+    padding-top: 0 !important;
+    border-top: 0 !important;
+  }
+
   .portrait-process-desktop-view {
     display: none;
   }
 
   .portrait-process-mobile-view {
     display: block;
+  }
+
+  .portrait-process-mobile-view .mobile-process-timeline {
+    margin-top: 0;
   }
 }
 

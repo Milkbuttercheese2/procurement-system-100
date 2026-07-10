@@ -517,7 +517,7 @@ function FullProcessSection({
 }) {
   return (
     <div>
-      <div style={{ marginBottom: 20 }}>
+      <div className="process-section-heading" style={{ marginBottom: 20 }}>
         <h2
           style={{
             fontSize: 22,
@@ -533,6 +533,7 @@ function FullProcessSection({
         </p>
       </div>
       <div
+        className="process-section-panel"
         style={{
           background: "var(--color-surface)",
           borderTop: "1px solid var(--color-border)",
@@ -541,6 +542,7 @@ function FullProcessSection({
         }}
       >
         <div
+          className="process-section-notice"
           style={{
             marginBottom: 18,
             padding: "8px 12px",

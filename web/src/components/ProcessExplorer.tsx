@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import type {
   ProcessLaneGroup,
@@ -32,8 +32,21 @@ export default function ProcessExplorer({
   const [layout, setLayout] = useState<ProcessLayout>(() =>
     searchParams.get("layout") === "landscape" ? "landscape" : "portrait"
   );
+  const [isMobile, setIsMobile] = useState(false);
   const initialNodeId = searchParams.get("node") ?? undefined;
   const imageHref = `${BASE_PATH}/exports/process-maps/${slug}.png`;
+
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 900px)");
+    const updateMobileState = () => setIsMobile(query.matches);
+
+    updateMobileState();
+    query.addEventListener("change", updateMobileState);
+    return () => query.removeEventListener("change", updateMobileState);
+  }, []);
+
+  const effectiveMode = isMobile ? "full" : mode;
+  const effectiveLayout = isMobile ? "portrait" : layout;
 
   function selectMode(nextMode: ProcessMode) {
     setMode(nextMode);
@@ -122,8 +135,8 @@ export default function ProcessExplorer({
       <ProcessBoard
         process={process}
         verification={verification}
-        compact={mode === "summary"}
-        layout={layout}
+        compact={effectiveMode === "summary"}
+        layout={effectiveLayout}
         laneGroups={laneGroups}
         initialNodeId={initialNodeId}
         onNodeChange={handleNodeChange}
