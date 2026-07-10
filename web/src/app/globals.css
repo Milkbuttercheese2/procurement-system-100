@@ -692,6 +692,8 @@ button:not(:disabled):active {
 }
 
 .institution-card-meta button {
+  min-width: 52px;
+  min-height: 30px;
   margin-left: auto;
   padding: 3px 7px;
   border: 1px solid var(--color-border);
@@ -1185,6 +1187,11 @@ button:not(:disabled):active {
 
   .institution-card {
     min-height: 205px;
+  }
+
+  .institution-card-meta button {
+    min-height: 38px;
+    padding: 7px 9px;
   }
 
   .comparison-panel {
