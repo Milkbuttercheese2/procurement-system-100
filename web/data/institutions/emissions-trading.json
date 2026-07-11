@@ -301,17 +301,18 @@
     "output_documents": [
      "이의신청 결정"
     ],
+    "deadline": "이의신청을 받은 날부터 30일 이내(부득이한 경우 30일 범위 연장)",
     "confidence": 0.76,
     "legal_basis": [
      {
       "law": "배출권거래법",
-      "article": "할당 이의신청 조항",
-      "text": "할당량에 이의가 있는 업체는 이의신청할 수 있다."
+      "article": "제38조제1항·제2항",
+      "text": "배출권 할당 등에 이의가 있는 자는 정해진 날부터 30일 이내에 주무관청에 이의신청할 수 있고, 주무관청은 접수일부터 30일 이내에 결과를 통보해야 한다."
      },
      {
       "law": "배출권거래법 시행령",
-      "article": "제55조(이의신청)",
-      "text": "할당량 등 처분에 이의가 있는 업체의 이의신청 절차·기한을 정한다."
+      "article": "제55조",
+      "text": "이의신청서와 소명자료를 기후에너지환경부장관 또는 부문별 관장기관에 제출하는 절차를 정한다."
      }
     ]
    },
@@ -556,13 +557,14 @@
    },
    {
     "id": "P16",
-    "name": "이의신청·행정심판",
+    "name": "이의신청",
     "lane": "할당대상업체",
     "stage": "G7 과징금·이의",
     "type": "task",
     "status": "waiting",
     "progress": 0,
     "actor": "할당대상업체",
+    "receiver": "기후에너지환경부장관",
     "action": "이의신청",
     "input_documents": [
      "과징금 처분서",
@@ -570,19 +572,48 @@
     ],
     "output_documents": [
      "이의신청서",
-     "행정심판 청구"
+     "소명자료"
     ],
+    "deadline": "과징금 고지를 받은 날부터 30일 이내",
     "confidence": 0.74,
     "legal_basis": [
      {
       "law": "배출권거래법",
-      "article": "이의신청·불복 조항",
-      "text": "처분에 불복하는 업체는 이의신청·행정심판을 청구할 수 있다."
+      "article": "제38조제1항제9호·제3항",
+      "text": "과징금 부과처분에 이의가 있는 자는 고지받은 날부터 30일 이내에 이의를 신청할 수 있고, 그 밖의 절차에는 행정기본법 제36조를 따른다."
      },
      {
       "law": "배출권거래법 시행령",
-      "article": "제55조(이의신청)",
-      "text": "과징금 등 처분에 불복하는 업체의 이의신청 절차를 정한다."
+      "article": "제55조제1항·제2항",
+      "text": "이의신청서에 처분 내용·이의 내용과 소명자료를 적어 기후에너지환경부장관에게 제출해야 한다."
+     }
+    ]
+   },
+   {
+    "id": "P19",
+    "name": "이의신청 처리결과 통보",
+    "lane": "기후에너지환경부(주무)",
+    "stage": "G7 과징금·이의",
+    "type": "gateway",
+    "status": "waiting",
+    "progress": 0,
+    "actor": "기후에너지환경부장관",
+    "action": "이의신청 결정·통보",
+    "condition": "처분 시정 여부",
+    "input_documents": [
+     "이의신청서",
+     "소명자료"
+    ],
+    "output_documents": [
+     "이의신청 결과 통보서"
+    ],
+    "deadline": "이의신청을 받은 날부터 30일 이내(부득이한 경우 30일 범위 연장)",
+    "confidence": 0.86,
+    "legal_basis": [
+     {
+      "law": "온실가스 배출권의 할당 및 거래에 관한 법률",
+      "article": "제38조제2항",
+      "text": "주무관청은 이의신청을 받은 날부터 30일 이내에 결과를 통보해야 하며, 부득이한 경우 30일 범위에서 기간을 연장하고 신청인에게 알려야 한다."
      }
     ]
    },
@@ -741,6 +772,13 @@
     "label": null
    },
    {
+    "id": "E14",
+    "source": "P16",
+    "target": "P19",
+    "type": "sequence",
+    "label": "이의신청 심사·결과 통보"
+   },
+   {
     "id": "M01",
     "source": "P05",
     "target": "P06",
@@ -770,7 +808,7 @@
    },
    {
     "id": "L01",
-    "source": "P16",
+    "source": "P19",
     "target": "P11",
     "type": "loop",
     "label": "이의 인용 시 인증·정산 재산정"
@@ -801,9 +839,9 @@
  },
  "verification": {
   "status": "needs-review",
-  "verifiedAt": "2026-07-10",
+  "verifiedAt": "2026-07-11",
   "method": "국가법령정보센터 Open API (Korean Law MCP CLI) 출처·조문 대조",
-  "scope": "법적 근거 4건 중 공식 원문 3건을 연결했다. 캔버스와 절차 노드의 명시 조문 48건 가운데 48건의 조문 번호 존재를 확인했고, 0건은 불일치, 0건은 자동 검증 불가로 분류했다. 인용 문구의 해석·적용 타당성은 검증 범위에 포함하지 않는다.",
+  "scope": "법적 근거 4건 중 공식 원문 3건을 연결했다. 캔버스와 절차 노드의 명시 조문 51건 가운데 51건의 조문 번호 존재를 확인했고, 0건은 불일치, 0건은 자동 검증 불가로 분류했다. 인용 문구의 해석·적용 타당성은 검증 범위에 포함하지 않는다.",
   "sources": [
    {
     "law": "온실가스 배출권의 할당 및 거래에 관한 법률",
@@ -848,12 +886,12 @@
    }
   ],
   "articleVerification": {
-   "checkedAt": "2026-07-10",
+   "checkedAt": "2026-07-11",
    "method": "현행 법령 조문 일괄조회 및 행정규칙 전문조회",
-   "citationEntries": 40,
-   "explicitCitationEntries": 24,
-   "articleReferences": 48,
-   "verifiedReferences": 48,
+   "citationEntries": 41,
+   "explicitCitationEntries": 27,
+   "articleReferences": 51,
+   "verifiedReferences": 51,
    "missingReferences": 0,
    "uncheckableReferences": 0
   }

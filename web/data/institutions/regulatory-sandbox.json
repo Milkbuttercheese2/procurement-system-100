@@ -365,26 +365,27 @@
     "id": "P08",
     "name": "심의 보완·재상정",
     "lane": "신기술 사업자·스타트업",
-    "stage": "G3 심의·의결",
+    "stage": "G2 관계부처검토",
     "type": "task",
     "status": "loop",
     "progress": 0,
     "actor": "신기술 사업자·스타트업",
-    "receiver": "규제특례심의위원회",
-    "action": "보완·재상정",
+    "receiver": "규제소관 부처·전문기관",
+    "action": "보완자료 제출",
     "input_documents": [
      "보완요구서"
     ],
     "output_documents": [
-     "보완 사업계획"
+     "보완 사업계획",
+     "안전성·손해배상 보완자료"
     ],
     "blocker": "조건부 회귀 단계(심의 보완요구 시)",
     "confidence": 0.74,
     "legal_basis": [
      {
-      "law": "행정절차법",
-      "article": "제17조",
-      "text": "흠결 보완 요구와 보완 제출 절차를 따른다."
+      "law": "산업융합 촉진법",
+      "article": "제10조의3제4항",
+      "text": "관계 행정기관의 장은 규제특례 여부 검토를 위해 신청자에게 자료 보완을 요구할 수 있고, 보완 기간은 회신 기간에서 제외하되 90일 이내에는 검토결과를 회신하여야 한다."
      }
     ]
    },
@@ -616,7 +617,7 @@
     "id": "E12",
     "source": "P08",
     "target": "P05",
-    "type": "sequence",
+    "type": "loop",
     "label": "보완 후 재검토"
    },
    {
@@ -659,7 +660,7 @@
  },
  "verification": {
   "status": "article-verified",
-  "verifiedAt": "2026-07-10",
+  "verifiedAt": "2026-07-11",
   "method": "국가법령정보센터 Open API (Korean Law MCP CLI) 출처·조문 대조",
   "scope": "법적 근거 7건 중 공식 원문 7건을 연결했다. 캔버스와 절차 노드의 명시 조문 48건 가운데 48건의 조문 번호 존재를 확인했고, 0건은 불일치, 0건은 자동 검증 불가로 분류했다. 인용 문구의 해석·적용 타당성은 검증 범위에 포함하지 않는다.",
   "sources": [
@@ -742,7 +743,7 @@
    }
   ],
   "articleVerification": {
-   "checkedAt": "2026-07-10",
+   "checkedAt": "2026-07-11",
    "method": "현행 법령 조문 일괄조회 및 행정규칙 전문조회",
    "citationEntries": 34,
    "explicitCitationEntries": 32,

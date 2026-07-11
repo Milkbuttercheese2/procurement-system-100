@@ -91,9 +91,9 @@
  ],
  "verification": {
   "status": "article-verified",
-  "verifiedAt": "2026-07-10",
+  "verifiedAt": "2026-07-11",
   "method": "국가법령정보센터 Open API (Korean Law MCP CLI) 출처·조문 대조",
-  "scope": "법적 근거 4건 중 공식 원문 4건을 연결했다. 캔버스와 절차 노드의 명시 조문 67건 가운데 67건의 조문 번호 존재를 확인했고, 0건은 불일치, 0건은 자동 검증 불가로 분류했다. 인용 문구의 해석·적용 타당성은 검증 범위에 포함하지 않는다.",
+  "scope": "법적 근거 4건 중 공식 원문 4건을 연결했다. 캔버스와 절차 노드의 명시 조문 69건 가운데 69건의 조문 번호 존재를 확인했고, 0건은 불일치, 0건은 자동 검증 불가로 분류했다. 인용 문구의 해석·적용 타당성은 검증 범위에 포함하지 않는다.",
   "sources": [
    {
     "law": "국민기초생활 보장법",
@@ -140,12 +140,12 @@
    }
   ],
   "articleVerification": {
-   "checkedAt": "2026-07-10",
+   "checkedAt": "2026-07-11",
    "method": "현행 법령 조문 일괄조회 및 행정규칙 전문조회",
-   "citationEntries": 34,
-   "explicitCitationEntries": 33,
-   "articleReferences": 67,
-   "verifiedReferences": 67,
+   "citationEntries": 37,
+   "explicitCitationEntries": 36,
+   "articleReferences": 69,
+   "verifiedReferences": 69,
    "missingReferences": 0,
    "uncheckableReferences": 0
   }
@@ -159,6 +159,7 @@
    "시군구(통합조사·보장결정)",
    "사회보장정보원",
    "지방생활보장위원회",
+   "시·도지사·중앙행정기관",
    "보건복지부(기준 고시)"
   ],
   "stages": [
@@ -627,61 +628,168 @@
    },
    {
     "id": "P16",
-    "name": "이의신청(시·도지사·복지부장관)",
+    "name": "1차 이의신청(시·도지사)",
     "lane": "신청자(수급희망자)",
     "stage": "G6 이의신청",
     "type": "task",
     "status": "loop",
     "progress": 0,
     "actor": "수급(권)자·신청자",
-    "receiver": "시·도지사·보건복지부장관",
-    "action": "이의신청",
+    "receiver": "보장기관(경유)·시·도지사",
+    "action": "1차 이의신청",
     "input_documents": [
-     "급여 결정 통지서"
+     "보장 결정·변경·중지 통지서"
     ],
     "output_documents": [
      "이의신청서"
     ],
-    "deadline": "결정 통지받은 날부터 90일 이내",
-    "blocker": "보장 결정 불복 회귀 단계",
-    "confidence": 0.81,
+    "deadline": "시장·군수·구청장 처분 통지일부터 90일 이내",
+    "blocker": "초기 보장결정·변경·중지 처분의 1차 불복 단계",
+    "confidence": 0.9,
     "legal_basis": [
      {
       "law": "국민기초생활 보장법",
-      "article": "제38조·제40조",
-      "text": "결정에 이의가 있으면 90일 이내에 시·도지사에게, 그 처분에 다시 이의가 있으면 보건복지부장관에게 이의신청할 수 있다."
-     },
-     {
-      "law": "국민기초생활 보장법 시행령",
-      "article": "제38조의2",
-      "text": "법 제40조의 위임에 따라 이의신청은 인적사항·통지받은 연월일·처분 내용·이의사유를 적은 이의신청서에 증명서류를 첨부하여 시·도지사에게 제출한다."
+      "article": "제38조제1항",
+      "text": "수급자나 급여·급여변경 신청자는 시장·군수·구청장 처분에 대해 보장기관을 거쳐 시·도지사에게 이의신청할 수 있다."
      }
     ]
    },
    {
     "id": "P17",
-    "name": "이의신청 심사·재결정",
-    "lane": "지방생활보장위원회",
+    "name": "보장기관 의견서·관계서류 송부",
+    "lane": "시군구(통합조사·보장결정)",
     "stage": "G6 이의신청",
-    "type": "gateway",
+    "type": "task",
     "status": "waiting",
     "progress": 0,
-    "actor": "시·도지사·보건복지부장관",
-    "action": "이의신청 심사·처분",
-    "condition": "이의신청 인용 여부(인용 시 보장 결정 시정 회귀)",
+    "actor": "시장·군수·구청장",
+    "receiver": "시·도지사",
+    "action": "의견서·관계서류 송부",
     "input_documents": [
      "이의신청서"
     ],
     "output_documents": [
-     "이의신청 처리결과 통지"
+     "의견서",
+     "관계 서류"
     ],
-    "deadline": "이의신청 받은 날부터 30일 이내(제39조)",
-    "confidence": 0.78,
+    "deadline": "이의신청을 받은 날부터 10일 이내",
+    "confidence": 0.9,
+    "legal_basis": [
+     {
+      "law": "국민기초생활 보장법",
+      "article": "제38조제2항",
+      "text": "시장·군수·구청장은 이의신청을 받으면 10일 이내 의견서와 관계 서류를 시·도지사에게 보낸다."
+     }
+    ]
+   },
+   {
+    "id": "P18",
+    "name": "시·도지사 심사·처분",
+    "lane": "시·도지사·중앙행정기관",
+    "stage": "G6 이의신청",
+    "type": "gateway",
+    "status": "waiting",
+    "progress": 0,
+    "actor": "시·도지사",
+    "action": "1차 이의 심사·처분",
+    "condition": "각하·기각 또는 원 처분 변경·취소·필요 급여 명령 여부",
+    "input_documents": [
+     "이의신청서",
+     "의견서·관계 서류"
+    ],
+    "output_documents": [
+     "이의신청 처분 통지"
+    ],
+    "deadline": "이의신청서를 받은 날부터 30일 이내",
+    "confidence": 0.9,
     "legal_basis": [
      {
       "law": "국민기초생활 보장법",
       "article": "제39조",
-      "text": "시·도지사는 이의신청을 받으면 필요한 심사를 거쳐 처분을 변경하거나 급여를 실시하는 등의 조치를 한다."
+      "text": "시·도지사는 30일 이내 필요한 심사를 거쳐 각하·기각하거나 처분 변경·취소 또는 필요한 급여를 명한다."
+     }
+    ]
+   },
+   {
+    "id": "P19",
+    "name": "2차 이의신청(복지부·소관 중앙행정기관)",
+    "lane": "신청자(수급희망자)",
+    "stage": "G6 이의신청",
+    "type": "task",
+    "status": "loop",
+    "progress": 0,
+    "actor": "수급자·신청자",
+    "receiver": "시·도지사(경유)·보건복지부 또는 소관 중앙행정기관",
+    "action": "2차 이의신청",
+    "input_documents": [
+     "시·도지사 이의신청 처분 통지"
+    ],
+    "output_documents": [
+     "2차 이의신청서"
+    ],
+    "deadline": "시·도지사 처분 통지일부터 90일 이내",
+    "confidence": 0.9,
+    "legal_basis": [
+     {
+      "law": "국민기초생활 보장법",
+      "article": "제40조제1항",
+      "text": "제39조 처분 등에 이의가 있으면 시·도지사를 거쳐 보건복지부장관 또는 소관 중앙행정기관의 장에게 이의신청할 수 있다."
+     }
+    ]
+   },
+   {
+    "id": "P20",
+    "name": "시·도지사 의견서·관계서류 송부",
+    "lane": "시·도지사·중앙행정기관",
+    "stage": "G6 이의신청",
+    "type": "task",
+    "status": "waiting",
+    "progress": 0,
+    "actor": "시·도지사",
+    "receiver": "보건복지부 또는 소관 중앙행정기관",
+    "action": "의견서·관계서류 송부",
+    "input_documents": [
+     "2차 이의신청서"
+    ],
+    "output_documents": [
+     "의견서",
+     "관계 서류"
+    ],
+    "deadline": "2차 이의신청을 받은 날부터 10일 이내",
+    "confidence": 0.9,
+    "legal_basis": [
+     {
+      "law": "국민기초생활 보장법",
+      "article": "제40조제2항",
+      "text": "시·도지사는 2차 이의신청을 받으면 10일 이내 의견서와 관계 서류를 보건복지부장관 또는 소관 중앙행정기관의 장에게 보낸다."
+     }
+    ]
+   },
+   {
+    "id": "P21",
+    "name": "복지부·소관 중앙행정기관 심사·결정",
+    "lane": "시·도지사·중앙행정기관",
+    "stage": "G6 이의신청",
+    "type": "gateway",
+    "status": "waiting",
+    "progress": 0,
+    "actor": "보건복지부장관·소관 중앙행정기관의 장",
+    "action": "2차 이의 심사·결정",
+    "condition": "각하·기각 또는 원 처분 변경·취소 여부",
+    "input_documents": [
+     "2차 이의신청서",
+     "의견서·관계 서류"
+    ],
+    "output_documents": [
+     "2차 이의신청 결정 통지"
+    ],
+    "deadline": "이의신청서를 받은 날부터 30일 이내",
+    "confidence": 0.9,
+    "legal_basis": [
+     {
+      "law": "국민기초생활 보장법",
+      "article": "제41조",
+      "text": "보건복지부장관 또는 소관 중앙행정기관의 장은 30일 이내 각하·기각하거나 처분 변경·취소를 결정하고 통지한다."
      }
     ]
    }
@@ -801,10 +909,66 @@
    },
    {
     "id": "L02",
+    "source": "P11",
+    "target": "P16",
+    "type": "loop",
+    "label": "보장결정 불복"
+   },
+   {
+    "id": "L03",
+    "source": "P15",
+    "target": "P16",
+    "type": "loop",
+    "label": "변경·중지 처분 불복"
+   },
+   {
+    "id": "E13",
     "source": "P16",
+    "target": "P17",
+    "type": "sequence",
+    "label": "보장기관 경유"
+   },
+   {
+    "id": "E14",
+    "source": "P17",
+    "target": "P18",
+    "type": "sequence",
+    "label": "의견서·관계서류"
+   },
+   {
+    "id": "L04",
+    "source": "P18",
     "target": "P09",
     "type": "loop",
-    "label": "이의신청 재결정 회귀"
+    "label": "처분 변경·취소·급여 명령"
+   },
+   {
+    "id": "E15",
+    "source": "P18",
+    "target": "P19",
+    "type": "sequence",
+    "label": "기각·각하 등 불복"
+   },
+   {
+    "id": "E16",
+    "source": "P19",
+    "target": "P20",
+    "type": "sequence",
+    "label": "시·도지사 경유"
+   },
+   {
+    "id": "E17",
+    "source": "P20",
+    "target": "P21",
+    "type": "sequence",
+    "label": "의견서·관계서류"
+   },
+   {
+    "id": "L05",
+    "source": "P21",
+    "target": "P09",
+    "type": "loop",
+    "label": "처분 변경·취소"
    }
   ],
   "warnings": []
