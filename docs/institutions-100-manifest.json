@@ -29,41 +29,111 @@
  },
  {
   "priority": 5,
+  "slug": "estimated-price",
+  "name": "예정가격 작성",
+  "type": "발주",
+  "category": "발주"
+ },
+ {
+  "priority": 6,
+  "slug": "bid-announcement",
+  "name": "입찰공고",
+  "type": "공고",
+  "category": "공고"
+ },
+ {
+  "priority": 7,
+  "slug": "general-competitive-bidding",
+  "name": "일반경쟁입찰",
+  "type": "입찰",
+  "category": "입찰"
+ },
+ {
+  "priority": 8,
+  "slug": "restricted-competitive-bidding",
+  "name": "제한경쟁입찰",
+  "type": "입찰",
+  "category": "입찰"
+ },
+ {
+  "priority": 9,
+  "slug": "designated-competitive-bidding",
+  "name": "지명경쟁입찰",
+  "type": "입찰",
+  "category": "입찰"
+ },
+ {
+  "priority": 10,
   "slug": "negotiated-contract",
   "name": "수의계약(소액수의·견적 제출)",
   "type": "입찰",
   "category": "입찰"
  },
  {
-  "priority": 6,
+  "priority": 11,
+  "slug": "bid-and-contract-bonds",
+  "name": "입찰보증금과 계약보증금",
+  "type": "입찰",
+  "category": "입찰"
+ },
+ {
+  "priority": 12,
+  "slug": "pre-qualification",
+  "name": "입찰참가자격 사전심사(PQ)",
+  "type": "심사·평가",
+  "category": "심사·평가"
+ },
+ {
+  "priority": 13,
   "slug": "qualification-screening",
   "name": "적격심사낙찰제",
   "type": "심사·평가",
   "category": "심사·평가"
  },
  {
-  "priority": 7,
+  "priority": 14,
+  "slug": "comprehensive-evaluation-award",
+  "name": "종합심사낙찰제",
+  "type": "심사·평가",
+  "category": "심사·평가"
+ },
+ {
+  "priority": 15,
+  "slug": "contract-by-negotiation",
+  "name": "협상에 의한 계약",
+  "type": "심사·평가",
+  "category": "심사·평가"
+ },
+ {
+  "priority": 16,
   "slug": "advance-payment-and-settlement",
   "name": "선금과 대가 지급",
   "type": "계약·이행",
   "category": "계약·이행"
  },
  {
-  "priority": 8,
+  "priority": 17,
   "slug": "price-fluctuation-adjustment",
   "name": "물가변동으로 인한 계약금액 조정",
   "type": "계약·이행",
   "category": "계약·이행"
  },
  {
-  "priority": 9,
+  "priority": 18,
+  "slug": "liquidated-damages",
+  "name": "지체상금",
+  "type": "계약·이행",
+  "category": "계약·이행"
+ },
+ {
+  "priority": 19,
   "slug": "multiple-award-schedule",
   "name": "다수공급자계약(MAS)",
   "type": "계약·이행",
   "category": "계약·이행"
  },
  {
-  "priority": 10,
+  "priority": 20,
   "slug": "debarment",
   "name": "부정당업자 입찰참가자격 제한",
   "type": "사후관리·제재",
