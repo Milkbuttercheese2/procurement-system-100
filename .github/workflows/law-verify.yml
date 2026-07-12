@@ -41,7 +41,7 @@ jobs:
           cache-dependency-path: web/package-lock.json
       - run: npm ci
       - name: Install korean-law CLI
-        run: npm install -g korean-law
+        run: npm install -g korean-law-mcp
       - name: Smoke-test Open API credential
         run: |
           set -o pipefail
