@@ -636,24 +636,20 @@ function ComparisonPanel({
     render: (institution: ComparableInstitution) => React.ReactNode;
   }> = [
     { label: "분야·유형", render: (item) => `${item.category} · ${item.type}` },
-    { label: "목적", render: (item) => item.purpose },
+    { label: "무엇을 하는 제도인가", render: (item) => item.oneLiner },
     { label: "대상·이해관계자", render: (item) => item.stakeholders },
-    { label: "핵심 기관", render: (item) => item.authorityNames.join(" · ") },
+    { label: "기관별 업무", render: (item) => item.partyNames.join(" · ") },
     { label: "주요 법령", render: (item) => item.legalBasisNames.join(" · ") },
     {
       label: "업무 구조",
       render: (item) =>
         `${item.processNodeCount}개 업무 · ${item.processStageCount}단계 · ${item.processLaneCount}개 행위자 레인`,
     },
-    { label: "돈의 흐름", render: (item) => item.moneyFlow },
-    { label: "문서·데이터", render: (item) => item.docsFlow },
+    { label: "적용대상", render: (item) => item.applicability },
+    { label: "기관별 제출 서류", render: (item) => item.submittedDocuments },
     {
       label: "핵심 병목",
       render: (item) => item.keyBottlenecks.join(" / "),
-    },
-    {
-      label: "개선 포인트",
-      render: (item) => item.keyReformPoints.join(" / "),
     },
   ];
 

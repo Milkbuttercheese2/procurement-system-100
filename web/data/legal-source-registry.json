@@ -1,9 +1,22 @@
 {
   "generatedAt": "2026-07-12",
-  "total": 5,
-  "linked": 5,
+  "total": 11,
+  "linked": 11,
   "unresolved": 0,
   "entries": [
+    {
+      "key": "고시·지침\u0000(계약예규) 적격심사기준",
+      "source": {
+        "law": "(계약예규) 적격심사기준",
+        "kind": "고시·지침",
+        "sourceType": "admin-rule",
+        "officialName": "(계약예규) 적격심사기준",
+        "adminRuleId": "27941",
+        "adminRuleSerial": "2100000274732",
+        "promulgatedOn": "2026-01-02",
+        "officialUrl": "https://law.go.kr/행정규칙/(계약예규)적격심사기준"
+      }
+    },
     {
       "key": "고시·지침\u0000국가종합전자조달시스템 입찰참가자격등록규정",
       "source": {
@@ -15,6 +28,32 @@
         "adminRuleSerial": "2100000274756",
         "promulgatedOn": "2026-01-23",
         "officialUrl": "https://law.go.kr/행정규칙/국가종합전자조달시스템입찰참가자격등록규정"
+      }
+    },
+    {
+      "key": "고시·지침\u0000물품 다수공급자계약 업무처리규정",
+      "source": {
+        "law": "물품 다수공급자계약 업무처리규정",
+        "kind": "고시·지침",
+        "sourceType": "admin-rule",
+        "officialName": "물품 다수공급자계약 업무처리규정",
+        "adminRuleId": "65191",
+        "adminRuleSerial": "2100000280094",
+        "promulgatedOn": "2026-05-29",
+        "officialUrl": "https://law.go.kr/행정규칙/물품다수공급자계약업무처리규정"
+      }
+    },
+    {
+      "key": "고시·지침\u0000조달청 물품구매적격심사 세부기준",
+      "source": {
+        "law": "조달청 물품구매적격심사 세부기준",
+        "kind": "고시·지침",
+        "sourceType": "admin-rule",
+        "officialName": "조달청 물품구매적격심사 세부기준",
+        "adminRuleId": "37670",
+        "adminRuleSerial": "2100000279836",
+        "promulgatedOn": "2026-05-21",
+        "officialUrl": "https://law.go.kr/행정규칙/조달청물품구매적격심사세부기준"
       }
     },
     {
@@ -32,6 +71,20 @@
       }
     },
     {
+      "key": "대통령령\u0000조달사업에 관한 법률 시행령",
+      "source": {
+        "law": "조달사업에 관한 법률 시행령",
+        "kind": "대통령령",
+        "sourceType": "statute",
+        "officialName": "조달사업에 관한 법률 시행령",
+        "lawId": "004862",
+        "mst": "280891",
+        "promulgatedOn": "2025-12-30",
+        "effectiveOn": "2026-01-02",
+        "officialUrl": "https://law.go.kr/법령/조달사업에관한법률시행령"
+      }
+    },
+    {
       "key": "법률\u0000국가를 당사자로 하는 계약에 관한 법률",
       "source": {
         "law": "국가를 당사자로 하는 계약에 관한 법률",
@@ -43,6 +96,20 @@
         "promulgatedOn": "2026-03-10",
         "effectiveOn": "2026-06-11",
         "officialUrl": "https://law.go.kr/법령/국가를당사자로하는계약에관한법률"
+      }
+    },
+    {
+      "key": "법률\u0000조달사업에 관한 법률",
+      "source": {
+        "law": "조달사업에 관한 법률",
+        "kind": "법률",
+        "sourceType": "statute",
+        "officialName": "조달사업에 관한 법률",
+        "lawId": "000705",
+        "mst": "277155",
+        "promulgatedOn": "2025-10-01",
+        "effectiveOn": "2026-01-02",
+        "officialUrl": "https://law.go.kr/법령/조달사업에관한법률"
       }
     },
     {
@@ -71,6 +138,20 @@
         "promulgatedOn": "2026-01-02",
         "effectiveOn": "2026-01-02",
         "officialUrl": "https://law.go.kr/법령/국가를당사자로하는계약에관한법률시행규칙"
+      }
+    },
+    {
+      "key": "부령\u0000조달사업에 관한 법률 시행규칙",
+      "source": {
+        "law": "조달사업에 관한 법률 시행규칙",
+        "kind": "부령",
+        "sourceType": "statute",
+        "officialName": "조달사업에 관한 법률 시행규칙",
+        "lawId": "008200",
+        "mst": "282675",
+        "promulgatedOn": "2026-01-02",
+        "effectiveOn": "2026-01-02",
+        "officialUrl": "https://law.go.kr/법령/조달사업에관한법률시행규칙"
       }
     }
   ]

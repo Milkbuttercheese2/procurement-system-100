@@ -33,21 +33,25 @@ interface Institution {
   // canvas = 9칸 캔버스까지 (프로세스는 추후)
 
   canvas: {
-    purpose: string;                 // 1. 무엇을 해결하나
-    stakeholders: string;            // 2. 누구에게 영향을 주나
-    legalBasis: Array<{              // 3. 법적 근거 (조문번호 필수 지향)
+    stakeholders: string;            // 1. 누구에게 영향을 주나
+    legalBasis: Array<{              // 2. 법적 근거 (조문번호 필수 지향)
       law: string;                   //   "환경영향평가법"
       articles?: string;             //   "제24조, 제27~30조"
       kind: LegalBasisKind;
     }>;
-    authorities: Array<{             // 4. 누가 권한을 갖나
-      name: string; role: string;
+    procedurePurposes: Array<{       // 3. 각 절차 단계가 왜 이루어지나 (절차 목적)
+      step: string;                  //   process.stages의 단계명 "G0 사전 준비"
+      purpose: string;               //   그 단계가 이루어지는 이유 1~2문장
+    }>;
+    partyTasks: Array<{              // 4. 기관별 업무 (조달청 계약담당자·조달업체·수요기관)
+      party: string; tasks: string[];
     }>;
     procedure: string[];             // 5. 절차 대표 단계 (짧은 문장 6~10개)
-    moneyFlow: string;               // 6. 돈의 흐름
-    docsFlow: string;                // 7. 문서/데이터 흐름
+    applicability: string;           // 6. 적용대상 (그 법·제도가 누구에게/어떤 계약에 적용되나)
+    documentsByParty: Array<{        // 7. 기관별 제출 서류
+      party: string; documents: string[];
+    }>;
     bottlenecks: string[];           // 8. 어디서 막히나
-    reformPoints: string[];          // 9. 어떻게 바꿀 수 있나
   };
   related: string[];                 // 관련 제도 (이름 문자열, 내부 제도면 slug와 동일 명칭)
   fieldVerification: string[];       // "현장 검증 필요" 항목 명시 (없으면 [])
@@ -151,8 +155,8 @@ interface ProcessNode {
 
 - `/` 홈: 경량 `InstitutionSummary` 전체를 먼저 렌더링하고, 상세 검색·비교 데이터는 사용 시에만 정적 JSON으로 불러온다.
 - 홈의 `q`, `category`, `type`, `verification`, `sort`, `compare`, `view` 상태는 URL query와 동기화한다.
-- 비교는 최대 3개 제도를 대상으로 하며 목적, 이해관계자, 기관, 법령, 절차 규모, 돈, 문서, 병목, 개선점을 같은 행으로 보여준다.
-- `/model/{slug}`: 한 장 요약, 법령 근거, 핵심/전체 프로세스, 돈·문서·병목·개혁·관련 제도를 제공한다.
+- 비교는 최대 3개 제도를 대상으로 하며 한 줄 요약, 이해관계자, 기관별 업무, 법령, 절차 규모, 적용대상, 기관별 제출 서류, 병목을 같은 행으로 보여준다.
+- `/model/{slug}`: 한 장 요약, 절차 목적과 법령 근거, 핵심/전체 프로세스, 기관별 업무·적용대상·기관별 제출 서류·병목·관련 제도를 제공한다.
 - status="full"은 상태 인식형 보드(게이트 타임라인 + 레인 그리드 + 노드 drawer + 회귀 엣지 표시)다. `process=full`, `node=P04`처럼 모드와 노드를 공유할 수 있다.
 - `/verification`: 생성된 전체 `fieldVerification` 항목을 분야·검증 영역별로 검색하고 공개 근거 제보로 연결한다.
 - `/request`: JSON POST가 2xx일 때만 완료로 표시한다. 엔드포인트가 없거나 실패하면 로컬 초안과 이메일·공개 이슈 대체 경로를 제공한다.
@@ -163,7 +167,7 @@ interface ProcessNode {
 ## 화면용 파생 타입
 
 - `InstitutionSummary`: 홈 최초 HTML에 포함하는 이름, 분류, 우선순위, 한 줄 설명, 검증·프로세스 집계
-- `InstitutionComparison`: 비교를 열 때만 필요한 목적, 이해관계자, 기관, 법령, 돈·문서, 병목·개선
+- `InstitutionComparison`: 비교를 열 때만 필요한 이해관계자, 기관별 업무(partyNames), 법령, 적용대상, 기관별 제출 서류(submittedDocuments), 병목
 - `FieldVerificationQueue`: 기준일, 총계, 영역별 집계와 안정적인 `{slug}-FVnn` 항목 ID
 
 파생 타입은 원본 `Institution`의 대체 진실 원천이 아니다. 생성 로직과 타입 정의가 달라지면 데이터 검증과 정적 빌드를 함께 실행한다.

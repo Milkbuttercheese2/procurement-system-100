@@ -75,21 +75,30 @@ export interface SourceVerification {
   articleVerification?: ArticleVerificationSummary;
 }
 
-export interface Authority {
-  name: string;
-  role: string;
+export interface ProcedurePurpose {
+  step: string;
+  purpose: string;
+}
+
+export interface PartyTasks {
+  party: string;
+  tasks: string[];
+}
+
+export interface PartyDocuments {
+  party: string;
+  documents: string[];
 }
 
 export interface Canvas {
-  purpose: string;
   stakeholders: string;
   legalBasis: LegalBasis[];
-  authorities: Authority[];
+  procedurePurposes: ProcedurePurpose[];
+  partyTasks: PartyTasks[];
   procedure: string[];
-  moneyFlow: string;
-  docsFlow: string;
+  applicability: string;
+  documentsByParty: PartyDocuments[];
   bottlenecks: string[];
-  reformPoints: string[];
 }
 
 export interface ProcessNodeLegalBasis {
@@ -186,14 +195,12 @@ export interface InstitutionSummary {
 
 export interface InstitutionComparison {
   slug: string;
-  purpose: string;
   stakeholders: string;
-  authorityNames: string[];
+  partyNames: string[];
   legalBasisNames: string[];
-  moneyFlow: string;
-  docsFlow: string;
+  applicability: string;
+  submittedDocuments: string;
   keyBottlenecks: string[];
-  keyReformPoints: string[];
 }
 
 export interface FieldVerificationEntry {

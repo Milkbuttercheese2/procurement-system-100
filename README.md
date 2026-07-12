@@ -76,7 +76,7 @@ LAW_OC=... npm run check:freshness
 
 각 제도 JSON은 두 층으로 구성됩니다.
 
-1. `canvas`: 목적, 이해관계자, 법적 근거, 기관 권한, 대표 절차, 돈·문서 흐름, 병목과 개선점
+1. `canvas`: 이해관계자, 법적 근거, 절차 목적, 기관별 업무, 대표 절차, 적용대상, 기관별 제출 서류, 병목
 2. `process`: 행위주체 lane, 단계 gate, 업무 node, 순서·정보·회귀 edge, 근거 조문과 확신도
 
 법령만으로 확인하기 어려운 내부 처리, 실무 관행, 시스템 단계는 `fieldVerification` 또는 낮은 `confidence`로 구분합니다.

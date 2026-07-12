@@ -119,18 +119,26 @@ function CompareDialog({
     { label: "분야 · 유형", render: (item) => `${item.category} · ${item.type}` },
     {
       label: "무엇을 하는 제도인가",
-      render: (item) => comparisonOf(item)?.purpose ?? pending,
+      render: (item) => item.oneLiner,
     },
     {
       label: "누가 관여하나",
       render: (item) => comparisonOf(item)?.stakeholders ?? pending,
     },
     {
-      label: "결정 권한은 어디에",
+      label: "기관별 업무",
       render: (item) =>
-        comparisonOf(item)?.authorityNames.join(" · ") ?? pending,
+        comparisonOf(item)?.partyNames.join(" · ") ?? pending,
     },
     { label: "근거 법령 · 규정", render: (item) => item.laws.join(" · ") },
+    {
+      label: "적용대상",
+      render: (item) => comparisonOf(item)?.applicability ?? pending,
+    },
+    {
+      label: "기관별 제출 서류",
+      render: (item) => comparisonOf(item)?.submittedDocuments ?? pending,
+    },
     {
       label: "실무에서 걸리는 곳",
       render: (item) => {

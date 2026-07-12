@@ -1,9 +1,9 @@
 {
   "generatedAt": "2026-07-12",
-  "institutions": 3,
-  "sourceLinked": 3,
+  "institutions": 6,
+  "sourceLinked": 6,
   "needsReview": 0,
-  "linkedSources": 9,
+  "linkedSources": 21,
   "unresolvedReferences": 0,
   "coverage": [
     {
@@ -28,6 +28,33 @@
       "priority": 3,
       "slug": "debarment",
       "name": "부정당업자 입찰참가자격 제한",
+      "status": "source-linked",
+      "total": 4,
+      "linked": 4,
+      "unresolved": 0
+    },
+    {
+      "priority": 4,
+      "slug": "qualification-screening",
+      "name": "적격심사낙찰제",
+      "status": "source-linked",
+      "total": 4,
+      "linked": 4,
+      "unresolved": 0
+    },
+    {
+      "priority": 5,
+      "slug": "procurement-request",
+      "name": "조달요청(중앙조달)",
+      "status": "source-linked",
+      "total": 4,
+      "linked": 4,
+      "unresolved": 0
+    },
+    {
+      "priority": 6,
+      "slug": "multiple-award-schedule",
+      "name": "다수공급자계약(MAS)",
       "status": "source-linked",
       "total": 4,
       "linked": 4,

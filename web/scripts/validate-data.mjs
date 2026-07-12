@@ -100,6 +100,54 @@ for (const { file, data: institution } of institutions) {
   if (institution.status !== "full") fail(scope, `현재 공개 데이터의 status는 full이어야 합니다 (${institution.status})`);
   if (!institution.asOfDate) fail(scope, "asOfDate가 없습니다");
   if (!Array.isArray(institution.fieldVerification)) fail(scope, "fieldVerification이 배열이 아닙니다");
+
+  const canvas = institution.canvas;
+  if (!canvas || typeof canvas !== "object") {
+    fail(scope, "canvas가 없습니다");
+  } else {
+    if (!canvas.stakeholders?.trim()) fail(scope, "canvas.stakeholders가 없습니다");
+    if (!canvas.applicability?.trim()) fail(scope, "canvas.applicability가 없습니다");
+    if (!Array.isArray(canvas.legalBasis) || canvas.legalBasis.length === 0) {
+      fail(scope, "canvas.legalBasis가 없습니다");
+    }
+    if (!Array.isArray(canvas.procedure) || canvas.procedure.length === 0) {
+      fail(scope, "canvas.procedure가 없습니다");
+    }
+    if (!Array.isArray(canvas.bottlenecks)) fail(scope, "canvas.bottlenecks가 배열이 아닙니다");
+    if (!Array.isArray(canvas.procedurePurposes) || canvas.procedurePurposes.length === 0) {
+      fail(scope, "canvas.procedurePurposes가 없습니다");
+    } else {
+      for (const item of canvas.procedurePurposes) {
+        if (!item.step?.trim() || !item.purpose?.trim()) {
+          fail(scope, "canvas.procedurePurposes 항목에는 step·purpose가 필요합니다");
+        }
+      }
+    }
+    if (!Array.isArray(canvas.partyTasks) || canvas.partyTasks.length === 0) {
+      fail(scope, "canvas.partyTasks가 없습니다");
+    } else {
+      for (const party of canvas.partyTasks) {
+        if (!party.party?.trim() || !Array.isArray(party.tasks) || party.tasks.length === 0) {
+          fail(scope, "canvas.partyTasks 항목에는 party·tasks가 필요합니다");
+        }
+      }
+    }
+    if (!Array.isArray(canvas.documentsByParty) || canvas.documentsByParty.length === 0) {
+      fail(scope, "canvas.documentsByParty가 없습니다");
+    } else {
+      for (const party of canvas.documentsByParty) {
+        if (!party.party?.trim() || !Array.isArray(party.documents) || party.documents.length === 0) {
+          fail(scope, "canvas.documentsByParty 항목에는 party·documents가 필요합니다");
+        }
+      }
+    }
+    for (const legacyField of ["purpose", "authorities", "moneyFlow", "docsFlow", "reformPoints"]) {
+      if (canvas[legacyField] !== undefined) {
+        fail(scope, `canvas.${legacyField}는 더 이상 사용하지 않습니다`);
+      }
+    }
+  }
+
   for (const basis of institution.canvas?.legalBasis ?? []) {
     if (!LEGAL_KINDS.has(basis.kind)) fail(scope, `지원하지 않는 법적 근거 종류입니다 (${basis.kind})`);
   }

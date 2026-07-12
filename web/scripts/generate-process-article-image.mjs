@@ -326,7 +326,7 @@ function arrowMarker(id, color) {
 function renderHeader({ institution, process }) {
   const titleSize = fitFontSize(institution.name, 48, 34, 1120);
   const oneLiner = fitTextToWidth(
-    institution.oneLiner ?? institution.canvas?.purpose ?? "",
+    institution.oneLiner ?? "",
     1180,
     19
   );
@@ -1134,7 +1134,7 @@ function validateTextLayout(context) {
   assertFits(
     [
       fitTextToWidth(
-        institution.oneLiner ?? institution.canvas?.purpose ?? "",
+        institution.oneLiner ?? "",
         WIDTH - 80,
         21
       ),

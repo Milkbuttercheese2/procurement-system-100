@@ -31,9 +31,16 @@ for (const file of fs.readdirSync(DATA_DIR).filter((name) => name.endsWith(".jso
       basis.text ?? "",
     ]),
   ]);
-  const authorityTerms = institution.canvas.authorities.flatMap((authority) => [
-    authority.name,
-    authority.role,
+  const procedurePurposeTerms = institution.canvas.procedurePurposes.flatMap(
+    (item) => [item.step, item.purpose]
+  );
+  const partyTaskTerms = institution.canvas.partyTasks.flatMap((party) => [
+    party.party,
+    ...party.tasks,
+  ]);
+  const documentTerms = institution.canvas.documentsByParty.flatMap((party) => [
+    party.party,
+    ...party.documents,
   ]);
   const legalBasisNames = institution.canvas.legalBasis.map((basis) => basis.law);
   const legalBasisTerms = institution.canvas.legalBasis.flatMap((basis) => [
@@ -47,30 +54,31 @@ for (const file of fs.readdirSync(DATA_DIR).filter((name) => name.endsWith(".jso
     institution.oneLiner,
     institution.type,
     category,
-    institution.canvas.purpose,
     institution.canvas.stakeholders,
-    institution.canvas.moneyFlow,
-    institution.canvas.docsFlow,
+    institution.canvas.applicability,
+    ...procedurePurposeTerms,
+    ...partyTaskTerms,
+    ...documentTerms,
     ...legalBasisTerms,
-    ...authorityTerms,
     ...institution.canvas.bottlenecks,
-    ...institution.canvas.reformPoints,
     ...processTerms,
   ]
     .filter(Boolean)
     .join(" ")
     .toLocaleLowerCase("ko");
 
+  const submittedDocuments = institution.canvas.documentsByParty
+    .map((party) => `${party.party}: ${party.documents.join("·")}`)
+    .join(" / ");
+
   comparisonIndex[institution.slug] = {
     slug: institution.slug,
-    purpose: institution.canvas.purpose,
     stakeholders: institution.canvas.stakeholders,
-    authorityNames: institution.canvas.authorities.map((authority) => authority.name),
+    partyNames: institution.canvas.partyTasks.map((party) => party.party),
     legalBasisNames,
-    moneyFlow: institution.canvas.moneyFlow,
-    docsFlow: institution.canvas.docsFlow,
+    applicability: institution.canvas.applicability,
+    submittedDocuments,
     keyBottlenecks: institution.canvas.bottlenecks.slice(0, 3),
-    keyReformPoints: institution.canvas.reformPoints.slice(0, 3),
   };
 }
 
