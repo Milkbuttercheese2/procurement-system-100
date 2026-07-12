@@ -31,7 +31,7 @@ export default function InstitutionDetailView({
     },
     {
       value: institution.canvas.bottlenecks.length,
-      label: "병목 구간",
+      label: "유의사항",
       accent: "warning",
     },
   ];
@@ -51,7 +51,7 @@ export default function InstitutionDetailView({
                 NO {institution.priority.toString().padStart(2, "0")}
               </span>
               <span className={styles.category}>{institution.category}</span>
-              <span>{institution.type}</span>
+              {institution.type !== institution.category && <span>{institution.type}</span>}
               <span className={styles.verificationBadge} data-tone={verification.tone}>
                 <i aria-hidden="true" />
                 {verification.label}
@@ -83,11 +83,11 @@ export default function InstitutionDetailView({
         <header className={styles.sectionHeading}>
           <div>
             <h2>업무구조도</h2>
-            <p>제도의 결정적 단계와 병목·보완 구간을 강조해 표시합니다</p>
+            <p>제도의 결정적 단계와 유의사항·보완 구간을 강조해 표시합니다</p>
           </div>
           <div className={styles.legend} aria-label="노드 표시 범례">
             <span><i data-tone="current" />핵심 단계</span>
-            <span><i data-tone="risk" />병목</span>
+            <span><i data-tone="risk" />유의</span>
             <span><i data-tone="loop" />보완 회귀</span>
           </div>
         </header>
@@ -211,7 +211,7 @@ function OnePageCanvas({
           </div>
         </CanvasBlock>
 
-        <CanvasBlock title="병목" tone="warning">
+        <CanvasBlock title="유의사항" tone="warning">
           <ul>
             {canvas.bottlenecks.map((item) => <li key={item}>{item}</li>)}
           </ul>

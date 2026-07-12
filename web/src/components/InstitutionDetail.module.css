@@ -16,7 +16,7 @@
 .switcher > span {
   flex-shrink: 0;
   color: #87938d;
-  font-size: 10px;
+  font-size: 11.5px;
   font-weight: 700;
 }
 
@@ -28,7 +28,7 @@
   background: #fff;
   padding: 0 10px;
   color: #111714;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .switcherCommands {
@@ -46,7 +46,7 @@
   border: 1px solid #bdcbc4;
   background: #fff;
   color: #111714;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 620;
   text-decoration: none;
 }
@@ -54,7 +54,7 @@
 .switcher > strong {
   color: #87938d;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11.5px;
   font-weight: 560;
 }
 
@@ -82,7 +82,7 @@
   flex-wrap: wrap;
   margin-bottom: 7px;
   color: #5d6b63;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .priority {
@@ -105,7 +105,7 @@
   padding: 3px 8px;
   background: #eef1ef;
   color: #5d6b63;
-  font-size: 10px;
+  font-size: 11.5px;
   font-weight: 650;
 }
 
@@ -144,7 +144,7 @@
   max-width: 780px;
   margin: 8px 0 0;
   color: #5d6b63;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.65;
 }
 
@@ -172,7 +172,7 @@
   border-radius: 0;
   background: #fff;
   color: #111714;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 650;
   text-decoration: none;
   cursor: pointer;
@@ -228,7 +228,7 @@
 .detailStats span {
   display: block;
   color: #87938d;
-  font-size: 9px;
+  font-size: 11px;
 }
 
 .processSection,
@@ -243,7 +243,7 @@
   border-left: 3px solid #0a8f63;
   background: #f4faf7;
   color: #33413a;
-  font-size: 12.5px;
+  font-size: 13.5px;
   line-height: 1.7;
 }
 
@@ -263,7 +263,7 @@
   padding: 6px 0;
   border-bottom: 1px solid #f0f2f1;
   color: #33413a;
-  font-size: 11.5px;
+  font-size: 12.5px;
   line-height: 1.6;
 }
 
@@ -276,7 +276,7 @@
   background: #dff5eb;
   color: #087452;
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 11px;
 }
 
 .documentGroups {
@@ -289,7 +289,7 @@
   display: block;
   margin-bottom: 4px;
   color: #111714;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 650;
 }
 
@@ -302,7 +302,7 @@
 
 .documentGroups li {
   color: #33413a;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.55;
 }
 
@@ -326,7 +326,7 @@
 .sectionHeading time {
   margin: 2px 0 0;
   color: #5d6b63;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .legend {
@@ -334,7 +334,7 @@
   align-items: center;
   gap: 12px;
   color: #5d6b63;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .legend span {
@@ -395,7 +395,7 @@
   border-left: 3px solid #c78116;
   background: #fdf9f1;
   color: #86590f;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.5;
 }
 
@@ -416,7 +416,7 @@
   padding: 10px;
   border-bottom: 1px solid #dde5df;
   color: #111714;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .procedureFallback li span {
@@ -427,7 +427,7 @@
   background: #dff5eb;
   color: #087452;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11.5px;
 }
 
 .canvasSection {
@@ -469,7 +469,7 @@
 .canvasBlock h3 {
   margin: 0 0 8px;
   color: #87938d;
-  font-size: 10px;
+  font-size: 11.5px;
   font-weight: 700;
 }
 
@@ -485,7 +485,7 @@
 .canvasBlock p,
 .canvasBlock li {
   color: #5d6b63;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.65;
 }
 
@@ -521,19 +521,19 @@
 .legalRows strong,
 .legalRows a {
   color: #111714;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 650;
   text-decoration: none;
 }
 
 .legalRows span {
   color: #5d6b63;
-  font-size: 10px;
+  font-size: 11.5px;
 }
 
 .legalRows small {
   color: #87938d;
-  font-size: 9px;
+  font-size: 11px;
   text-align: right;
 }
 
@@ -549,13 +549,13 @@
 
 .authorityList strong {
   color: #111714;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 650;
 }
 
 .authorityList span {
   color: #5d6b63;
-  font-size: 10px;
+  font-size: 11.5px;
   line-height: 1.45;
 }
 
@@ -570,7 +570,7 @@
   padding: 4px 8px;
   border: 1px solid rgba(15, 159, 114, 0.32);
   color: #087452;
-  font-size: 10px;
+  font-size: 11.5px;
   text-decoration: none;
 }
 
@@ -581,7 +581,7 @@
   padding: 15px 32px 28px;
   border-top: 1px solid #dde5df;
   color: #87938d;
-  font-size: 10px;
+  font-size: 11.5px;
   line-height: 1.55;
 }
 
@@ -637,7 +637,7 @@
     border-color: #3a463f;
     background: #16211b;
     color: #fff;
-    font-size: 11px;
+    font-size: 12px;
   }
 
   .switcherCommands {
@@ -650,7 +650,7 @@
     border-color: #3a463f;
     background: #16211b;
     color: #fff;
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .titleBand {
@@ -667,7 +667,7 @@
   .titleMeta {
     margin-bottom: 6px;
     color: #87938d;
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .category {
@@ -689,7 +689,7 @@
     margin-top: 5px;
     overflow: hidden;
     color: #aebbb4;
-    font-size: 11px;
+    font-size: 12px;
     line-height: 1.5;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
@@ -715,7 +715,7 @@
     border-color: #3a463f;
     background: #16211b;
     color: #fff;
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .detailActions > a {
@@ -742,7 +742,7 @@
 
   .detailStats strong {
     color: #fff;
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .detailStats span {
@@ -820,7 +820,7 @@
   }
 
   .detailStats strong {
-    font-size: 12px;
+    font-size: 13px;
   }
 }
 
