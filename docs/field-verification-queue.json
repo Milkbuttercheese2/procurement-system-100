@@ -1,12 +1,13 @@
 {
   "sourceAsOfDate": "2026-07-12",
-  "total": 5,
-  "institutions": 1,
+  "total": 13,
+  "institutions": 3,
   "byDomain": {
-    "실무 관행": 2,
+    "문서·증빙": 1,
+    "실무 관행": 7,
     "재정·비용": 1,
     "정보시스템": 1,
-    "처리기간": 1
+    "처리기간": 3
   },
   "entries": [
     {
@@ -62,6 +63,94 @@
       "item": "등록 절차 관련 수수료 부과 여부와 근거(운영 확인)",
       "domain": "재정·비용",
       "suggestedEvidence": "예산서·수수료 고시 또는 결산자료",
+      "status": "open"
+    },
+    {
+      "id": "negotiated-contract-FV01",
+      "priority": 2,
+      "slug": "negotiated-contract",
+      "institutionName": "수의계약(소액수의·견적 제출)",
+      "category": "계약방법 결정과 입찰 절차",
+      "item": "소액수의 전자 견적(나라장터) 이용 화면 흐름과 안내공고 노출 위치(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "negotiated-contract-FV02",
+      "priority": 2,
+      "slug": "negotiated-contract",
+      "institutionName": "수의계약(소액수의·견적 제출)",
+      "category": "계약방법 결정과 입찰 절차",
+      "item": "1인 견적 허용 사유의 기록 서식과 보존 관행(운영 확인)",
+      "domain": "문서·증빙",
+      "suggestedEvidence": "현행 서식·업무편람 또는 공식 안내",
+      "status": "open"
+    },
+    {
+      "id": "negotiated-contract-FV03",
+      "priority": 2,
+      "slug": "negotiated-contract",
+      "institutionName": "수의계약(소액수의·견적 제출)",
+      "category": "계약방법 결정과 입찰 절차",
+      "item": "재견적 반복 횟수의 실무 운영 상한(운영 추정)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "negotiated-contract-FV04",
+      "priority": 2,
+      "slug": "negotiated-contract",
+      "institutionName": "수의계약(소액수의·견적 제출)",
+      "category": "계약방법 결정과 입찰 절차",
+      "item": "견적 제출 안내공고의 실제 공고 기간 운영(기획재정부 세부기준 위임 사항)(운영 확인)",
+      "domain": "처리기간",
+      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
+      "status": "open"
+    },
+    {
+      "id": "debarment-FV01",
+      "priority": 3,
+      "slug": "debarment",
+      "institutionName": "부정당업자 입찰참가자격 제한",
+      "category": "제재, 분쟁, 권리구제",
+      "item": "처분 전 계약심의회 등 내부 심의 기구의 실제 운영 방식(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "debarment-FV02",
+      "priority": 3,
+      "slug": "debarment",
+      "institutionName": "부정당업자 입찰참가자격 제한",
+      "category": "제재, 분쟁, 권리구제",
+      "item": "사전통지부터 처분까지의 평균 처리 기간(운영 추정)",
+      "domain": "처리기간",
+      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
+      "status": "open"
+    },
+    {
+      "id": "debarment-FV03",
+      "priority": 3,
+      "slug": "debarment",
+      "institutionName": "부정당업자 입찰참가자격 제한",
+      "category": "제재, 분쟁, 권리구제",
+      "item": "입찰참가자격 제한 대비 과징금 갈음 처분의 비율(운영 추정)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "debarment-FV04",
+      "priority": 3,
+      "slug": "debarment",
+      "institutionName": "부정당업자 입찰참가자격 제한",
+      "category": "제재, 분쟁, 권리구제",
+      "item": "집행정지 인용 시 나라장터 게재 반영까지 걸리는 실제 시간(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
       "status": "open"
     }
   ]

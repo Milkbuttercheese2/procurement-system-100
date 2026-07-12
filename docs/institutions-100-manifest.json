@@ -5,5 +5,19 @@
   "name": "조달업체 등록(입찰참가자격 등록)",
   "type": "등록·자격형",
   "category": "조달시장 진입과 참여 준비"
+ },
+ {
+  "priority": 2,
+  "slug": "negotiated-contract",
+  "name": "수의계약(소액수의·견적 제출)",
+  "type": "계약방법형",
+  "category": "계약방법 결정과 입찰 절차"
+ },
+ {
+  "priority": 3,
+  "slug": "debarment",
+  "name": "부정당업자 입찰참가자격 제한",
+  "type": "제재·불복형",
+  "category": "제재, 분쟁, 권리구제"
  }
 ]

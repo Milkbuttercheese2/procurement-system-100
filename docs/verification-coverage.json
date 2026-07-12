@@ -1,9 +1,9 @@
 {
   "generatedAt": "2026-07-12",
-  "institutions": 1,
-  "sourceLinked": 1,
+  "institutions": 3,
+  "sourceLinked": 3,
   "needsReview": 0,
-  "linkedSources": 3,
+  "linkedSources": 9,
   "unresolvedReferences": 0,
   "coverage": [
     {
@@ -13,6 +13,24 @@
       "status": "source-linked",
       "total": 3,
       "linked": 3,
+      "unresolved": 0
+    },
+    {
+      "priority": 2,
+      "slug": "negotiated-contract",
+      "name": "수의계약(소액수의·견적 제출)",
+      "status": "source-linked",
+      "total": 2,
+      "linked": 2,
+      "unresolved": 0
+    },
+    {
+      "priority": 3,
+      "slug": "debarment",
+      "name": "부정당업자 입찰참가자격 제한",
+      "status": "source-linked",
+      "total": 4,
+      "linked": 4,
       "unresolved": 0
     }
   ]

@@ -1,7 +1,7 @@
 {
   "generatedAt": "2026-07-12",
-  "total": 3,
-  "linked": 3,
+  "total": 5,
+  "linked": 5,
   "unresolved": 0,
   "entries": [
     {
@@ -29,6 +29,34 @@
         "promulgatedOn": "2026-05-19",
         "effectiveOn": "2026-06-03",
         "officialUrl": "https://law.go.kr/법령/국가를당사자로하는계약에관한법률시행령"
+      }
+    },
+    {
+      "key": "법률\u0000국가를 당사자로 하는 계약에 관한 법률",
+      "source": {
+        "law": "국가를 당사자로 하는 계약에 관한 법률",
+        "kind": "법률",
+        "sourceType": "statute",
+        "officialName": "국가를 당사자로 하는 계약에 관한 법률",
+        "lawId": "000695",
+        "mst": "283877",
+        "promulgatedOn": "2026-03-10",
+        "effectiveOn": "2026-06-11",
+        "officialUrl": "https://law.go.kr/법령/국가를당사자로하는계약에관한법률"
+      }
+    },
+    {
+      "key": "법률\u0000행정절차법",
+      "source": {
+        "law": "행정절차법",
+        "kind": "법률",
+        "sourceType": "statute",
+        "officialName": "행정절차법",
+        "lawId": "001362",
+        "mst": "239291",
+        "promulgatedOn": "2022-01-11",
+        "effectiveOn": "2023-03-24",
+        "officialUrl": "https://law.go.kr/법령/행정절차법"
       }
     },
     {

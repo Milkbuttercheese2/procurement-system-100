@@ -27,7 +27,9 @@
 
 ## 공개된 제도 목록
 
-- [조달업체 등록(입찰참가자격 등록)](/model/bidder-registration/) — 등록·자격형, 상태 인식형 업무구조도 포함
+- [조달업체 등록(입찰참가자격 등록)](/model/bidder-registration/) — 등록·자격형
+- [수의계약(소액수의·견적 제출)](/model/negotiated-contract/) — 계약방법형
+- [부정당업자 입찰참가자격 제한](/model/debarment/) — 제재·불복형
 
 ## 연락처
 
