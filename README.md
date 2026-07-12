@@ -70,6 +70,7 @@ LAW_OC=... npm run check:freshness
 - `docs/data-contract.md`: 콘텐츠와 화면 데이터 계약 (korea100 승계)
 - `docs/operations.md`: 배포·운영 (korea100 승계)
 - `sources/pilot-bidder-registration-2026-07-12/`: 파일럿 1호 원문 워크시트
+- `CHANGELOG.md`: X.Y.Z 버전별 변경 이력 (`web/package.json` version과 동기)
 
 ## 데이터 모델
 
