@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://hosungseo.github.io/korea100";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://milkbuttercheese2.github.io/How-Did-They-Do-All-That-Procurement-";
 
 export const metadata: Metadata = {
   title: "제도 분석 제안",

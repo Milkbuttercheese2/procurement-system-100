@@ -5,7 +5,7 @@ import { getInstitutionSummaries } from "@/lib/data";
 import "./globals.css";
 
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://hosungseo.github.io/korea100";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://milkbuttercheese2.github.io/How-Did-They-Do-All-That-Procurement-";
 const INSTITUTIONS = getInstitutionSummaries();
 const MODEL_COUNT = INSTITUTIONS.length;
 const LATEST_AS_OF_DATE = INSTITUTIONS.reduce(

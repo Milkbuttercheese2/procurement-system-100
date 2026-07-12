@@ -337,7 +337,7 @@ function renderHeader({ institution, process }) {
   const category = fitTextToWidth(institution.category ?? "기타", 160, 14);
   const priority = String(institution.priority).padStart(2, "0");
   return `
-    <text x="40" y="45" font-size="19" font-weight="800" fill="#ffffff">대한민국 제도 100</text>
+    <text x="40" y="45" font-size="19" font-weight="800" fill="#ffffff">조달제도 100</text>
     <text x="252" y="45" font-size="15" font-weight="650" fill="#8fa299">업무구조도 · 세로판</text>
     <text x="1760" y="45" text-anchor="end" font-size="15" fill="#8fa299">기준일 ${escapeXml(institution.asOfDate)}</text>
     <text x="40" y="82" font-size="14" font-weight="750" fill="#8fa299">NO ${priority}</text>
@@ -953,7 +953,7 @@ function renderFooter({ process, groups }) {
     <text x="38" y="2291" font-size="15.5" font-weight="650" fill="#56655d">단계는 위→아래, 행위자 묶음은 좌→우로 읽습니다.</text>
     <text x="38" y="2321" font-size="14.5" fill="#68776f">원래 ${process.lanes.length}개 행위자 레인을 ${groups.length}개 레이아웃 묶음으로 배치했으며, ${process.nodes.length}개 업무와 ${process.edges.length}개 연결 관계는 유지했습니다.</text>
     <text x="38" y="2361" font-size="13.5" fill="#7b8881">출처: 해당 제도의 법률·시행령·시행규칙 기반 모델 · 실제 사건의 진행 상태나 법률 자문을 의미하지 않습니다.</text>
-    <text x="1762" y="2361" text-anchor="end" font-size="17" font-weight="750" fill="#087452">korea100 · 대한민국 제도 100</text>
+    <text x="1762" y="2361" text-anchor="end" font-size="17" font-weight="750" fill="#087452">조달제도 100</text>
   `;
 }
 

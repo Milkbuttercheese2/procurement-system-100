@@ -12,8 +12,8 @@ export default function OgCardPage() {
         <span aria-hidden="true" />
         법령 기준 제도 모델
       </div>
-      <h1>대한민국 제도 100</h1>
-      <p>법령부터 실제 업무 흐름까지, 한 장으로 읽는 국가 운영 카탈로그</p>
+      <h1>조달제도 100</h1>
+      <p>법령부터 실제 업무 흐름까지, 한 장으로 읽는 공공조달 카탈로그</p>
 
       <section className="og-card-metrics">
         <div>
@@ -46,7 +46,7 @@ export default function OgCardPage() {
         <div><span>05</span><strong>병목과 개선</strong></div>
       </section>
 
-      <footer>hosungseo.github.io/korea100</footer>
+      <footer>milkbuttercheese2.github.io/How-Did-They-Do-All-That-Procurement-</footer>
     </main>
   );
 }

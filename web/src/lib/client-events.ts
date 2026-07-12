@@ -5,7 +5,7 @@ export type EventProperties = Record<
 
 const ANALYTICS_ENDPOINT =
   process.env.NEXT_PUBLIC_ANALYTICS_ENDPOINT?.trim() ?? "";
-const LOCAL_METRICS_KEY = "korea100_event_counts";
+const LOCAL_METRICS_KEY = "procurement100_event_counts";
 
 declare global {
   interface Window {
@@ -30,7 +30,7 @@ export function trackEvent(name: string, properties: EventProperties = {}) {
     occurredAt: new Date().toISOString(),
   };
 
-  window.dispatchEvent(new CustomEvent("korea100:analytics", { detail: payload }));
+  window.dispatchEvent(new CustomEvent("procurement100:analytics", { detail: payload }));
   window.gtag?.("event", name, cleanProperties);
   recordLocalCount(name);
 
