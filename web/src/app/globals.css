@@ -4307,7 +4307,7 @@ body:has(.og-card-page) > main {
 .desktop-process-v2-card > small {
   display: block;
   margin-top: 3px;
-  color: var(--color-warning);
+  color: #2563eb;
   font-size: 11px;
   font-weight: 650;
   line-height: 1.35;
