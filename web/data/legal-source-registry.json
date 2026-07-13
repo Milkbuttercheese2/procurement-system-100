@@ -1,8 +1,8 @@
 {
   "generatedAt": "2026-07-13",
-  "total": 45,
-  "linked": 44,
-  "unresolved": 1,
+  "total": 53,
+  "linked": 51,
+  "unresolved": 2,
   "entries": [
     {
       "key": "고시·지침\u0000(계약예규) 공동계약운용요령",
@@ -249,6 +249,19 @@
       }
     },
     {
+      "key": "고시·지침\u0000중소기업기술개발제품 우선구매제도 운영 등에 관한 시행세칙",
+      "source": {
+        "law": "중소기업기술개발제품 우선구매제도 운영 등에 관한 시행세칙",
+        "kind": "고시·지침",
+        "sourceType": "admin-rule",
+        "officialName": "중소기업기술개발제품 우선구매제도 운영 등에 관한 시행세칙",
+        "adminRuleId": "36221",
+        "adminRuleSerial": "2100000274062",
+        "promulgatedOn": "2026-01-30",
+        "officialUrl": "https://law.go.kr/행정규칙/중소기업기술개발제품우선구매제도운영등에관한시행세칙"
+      }
+    },
+    {
       "key": "고시·지침\u0000중소기업자간 경쟁제품 및 공사용자재 직접구매 대상품목 지정내역",
       "source": {
         "law": "중소기업자간 경쟁제품 및 공사용자재 직접구매 대상품목 지정내역",
@@ -259,6 +272,29 @@
         "adminRuleSerial": "2100000263518",
         "promulgatedOn": "2025-08-29",
         "officialUrl": "https://law.go.kr/행정규칙/중소기업자간경쟁제품및공사용자재직접구매대상품목지정내역"
+      }
+    },
+    {
+      "key": "고시·지침\u0000중소기업제품 직접생산 확인기준",
+      "unresolved": {
+        "law": "중소기업제품 직접생산 확인기준",
+        "kind": "고시·지침",
+        "reasonCode": "title-needs-confirmation",
+        "reason": "행정규칙·법령 정확 일치 없음",
+        "nextStep": "소관 기관의 공식 제명을 확인한 뒤 국가법령정보센터에서 다시 조회해야 한다."
+      }
+    },
+    {
+      "key": "고시·지침\u0000중증장애인생산품 구매목표 비율 및 생산시설 지정 등에 관한 기준",
+      "source": {
+        "law": "중증장애인생산품 구매목표 비율 및 생산시설 지정 등에 관한 기준",
+        "kind": "고시·지침",
+        "sourceType": "admin-rule",
+        "officialName": "중증장애인생산품 구매목표 비율 및 생산시설 지정 등에 관한 기준",
+        "adminRuleId": "40055",
+        "adminRuleSerial": "2100000272944",
+        "promulgatedOn": "2026-01-15",
+        "officialUrl": "https://law.go.kr/행정규칙/중증장애인생산품구매목표비율및생산시설지정등에관한기준"
       }
     },
     {
@@ -316,6 +352,20 @@
       }
     },
     {
+      "key": "대통령령\u0000녹색제품 구매촉진에 관한 법률 시행령",
+      "source": {
+        "law": "녹색제품 구매촉진에 관한 법률 시행령",
+        "kind": "대통령령",
+        "sourceType": "statute",
+        "officialName": "녹색제품 구매촉진에 관한 법률 시행령",
+        "lawId": "009978",
+        "mst": "278513",
+        "promulgatedOn": "2025-10-01",
+        "effectiveOn": "2025-10-01",
+        "officialUrl": "https://law.go.kr/법령/녹색제품구매촉진에관한법률시행령"
+      }
+    },
+    {
       "key": "대통령령\u0000전자조달의 이용 및 촉진에 관한 법률 시행령",
       "source": {
         "law": "전자조달의 이용 및 촉진에 관한 법률 시행령",
@@ -355,6 +405,20 @@
         "promulgatedOn": "2026-06-23",
         "effectiveOn": "2026-07-01",
         "officialUrl": "https://law.go.kr/법령/중소기업제품구매촉진및판로지원에관한법률시행령"
+      }
+    },
+    {
+      "key": "대통령령\u0000중증장애인생산품 우선구매 특별법 시행령",
+      "source": {
+        "law": "중증장애인생산품 우선구매 특별법 시행령",
+        "kind": "대통령령",
+        "sourceType": "statute",
+        "officialName": "중증장애인생산품 우선구매 특별법 시행령",
+        "lawId": "010844",
+        "mst": "284873",
+        "promulgatedOn": "2026-03-24",
+        "effectiveOn": "2026-03-24",
+        "officialUrl": "https://law.go.kr/법령/중증장애인생산품우선구매특별법시행령"
       }
     },
     {
@@ -414,6 +478,20 @@
       }
     },
     {
+      "key": "법률\u0000녹색제품 구매촉진에 관한 법률",
+      "source": {
+        "law": "녹색제품 구매촉진에 관한 법률",
+        "kind": "법률",
+        "sourceType": "statute",
+        "officialName": "녹색제품 구매촉진에 관한 법률",
+        "lawId": "009845",
+        "mst": "276711",
+        "promulgatedOn": "2025-10-01",
+        "effectiveOn": "2025-10-01",
+        "officialUrl": "https://law.go.kr/법령/녹색제품구매촉진에관한법률"
+      }
+    },
+    {
       "key": "법률\u0000전자조달의 이용 및 촉진에 관한 법률",
       "source": {
         "law": "전자조달의 이용 및 촉진에 관한 법률",
@@ -453,6 +531,20 @@
         "promulgatedOn": "2026-03-05",
         "effectiveOn": "2026-07-01",
         "officialUrl": "https://law.go.kr/법령/중소기업제품구매촉진및판로지원에관한법률"
+      }
+    },
+    {
+      "key": "법률\u0000중증장애인생산품 우선구매 특별법",
+      "source": {
+        "law": "중증장애인생산품 우선구매 특별법",
+        "kind": "법률",
+        "sourceType": "statute",
+        "officialName": "중증장애인생산품 우선구매 특별법",
+        "lawId": "010710",
+        "mst": "279741",
+        "promulgatedOn": "2025-11-11",
+        "effectiveOn": "2025-11-11",
+        "officialUrl": "https://law.go.kr/법령/중증장애인생산품우선구매특별법"
       }
     },
     {
@@ -509,6 +601,20 @@
         "promulgatedOn": "2026-01-02",
         "effectiveOn": "2026-01-02",
         "officialUrl": "https://law.go.kr/법령/조달사업에관한법률시행규칙"
+      }
+    },
+    {
+      "key": "부령\u0000중증장애인생산품 우선구매 특별법 시행규칙",
+      "source": {
+        "law": "중증장애인생산품 우선구매 특별법 시행규칙",
+        "kind": "부령",
+        "sourceType": "statute",
+        "officialName": "중증장애인생산품 우선구매 특별법 시행규칙",
+        "lawId": "012617",
+        "mst": "218455",
+        "promulgatedOn": "2020-05-27",
+        "effectiveOn": "2020-05-27",
+        "officialUrl": "https://law.go.kr/법령/중증장애인생산품우선구매특별법시행규칙"
       }
     },
     {

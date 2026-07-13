@@ -1,10 +1,10 @@
 {
   "generatedAt": "2026-07-13",
-  "institutions": 44,
-  "sourceLinked": 42,
-  "needsReview": 2,
-  "linkedSources": 190,
-  "unresolvedReferences": 2,
+  "institutions": 48,
+  "sourceLinked": 45,
+  "needsReview": 3,
+  "linkedSources": 206,
+  "unresolvedReferences": 3,
   "coverage": [
     {
       "priority": 1,
@@ -304,6 +304,24 @@
       "unresolved": 0
     },
     {
+      "priority": 60,
+      "slug": "green-product-purchase",
+      "name": "녹색제품 의무구매",
+      "status": "source-linked",
+      "total": 3,
+      "linked": 3,
+      "unresolved": 0
+    },
+    {
+      "priority": 61,
+      "slug": "severely-disabled-products",
+      "name": "중증장애인생산품 우선구매",
+      "status": "source-linked",
+      "total": 6,
+      "linked": 6,
+      "unresolved": 0
+    },
+    {
       "priority": 72,
       "slug": "facility-construction-procurement",
       "name": "시설공사 조달(수요기관 대행 발주)",
@@ -320,6 +338,24 @@
       "total": 4,
       "linked": 4,
       "unresolved": 0
+    },
+    {
+      "priority": 74,
+      "slug": "tech-development-priority-purchase",
+      "name": "기술개발제품 우선구매",
+      "status": "source-linked",
+      "total": 5,
+      "linked": 5,
+      "unresolved": 0
+    },
+    {
+      "priority": 75,
+      "slug": "sme-priority-purchase",
+      "name": "중소기업제품 우선구매(구매목표)",
+      "status": "needs-review",
+      "total": 3,
+      "linked": 2,
+      "unresolved": 1
     },
     {
       "priority": 79,
