@@ -5,3 +5,8 @@ out/
 .env*
 !web/.env.example
 .DS_Store
+
+# workflow internal state
+.omc/
+web/data/institutions/.omc/
+web/data/_pending/
