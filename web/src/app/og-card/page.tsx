@@ -53,15 +53,15 @@ export default function OgCardPage() {
       </section>
 
       <section className="og-card-flow" aria-label="구조도 구성">
-        <div><span>01</span><strong>법령 근거</strong></div>
+        <div><span>01</span><strong>절차</strong></div>
         <i aria-hidden="true" />
-        <div><span>02</span><strong>권한과 기관</strong></div>
+        <div><span>02</span><strong>법적 근거</strong></div>
         <i aria-hidden="true" />
-        <div><span>03</span><strong>업무 절차</strong></div>
+        <div><span>03</span><strong>적용 대상</strong></div>
         <i aria-hidden="true" />
-        <div><span>04</span><strong>문서·예산</strong></div>
+        <div><span>04</span><strong>제출서류</strong></div>
         <i aria-hidden="true" />
-        <div><span>05</span><strong>유의사항과 개선</strong></div>
+        <div><span>05</span><strong>유의사항</strong></div>
       </section>
 
       <footer>milkbuttercheese2.github.io/procurement-system-100</footer>
