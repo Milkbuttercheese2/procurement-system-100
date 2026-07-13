@@ -99,9 +99,9 @@
  ],
  "verification": {
   "status": "needs-review",
-  "verifiedAt": "2026-07-12",
-  "method": "공개 웹 검색(WebSearch) 교차 대조 — 국가법령정보센터 원문 기계 대조(LAW_OC) 미실시",
-  "scope": "법적 근거 3건 중 공식 원문 식별자 2건(법률·시행령)을 연결했다. 조문 번호의 존재는 law-cache 목차(TOC)와 대조했고, 조문 내용·기한·금액 수치는 WebSearch 교차 확인으로만 검증했다. 절차 노드의 조문 인용 17건 중 13건은 검색 교차 확인, 4건(시행령 제112·113·114조 본문)은 원문 미확인으로 분류했다. 항 번호(예: 제28조 재심 청구 조항의 항)는 원문 미대조로 조 수준까지만 확정했다. 인용 문구의 해석·적용 타당성은 검증 범위에 포함하지 않는다.",
+  "verifiedAt": "2026-07-14",
+  "method": "국가법령정보센터 Open API (Korean Law MCP CLI) 출처·조문 대조",
+  "scope": "법적 근거 3건 중 공식 원문 2건을 연결했다. 캔버스와 절차 노드의 명시 조문 29건 가운데 29건의 조문 번호 존재를 확인했고, 0건은 불일치, 0건은 자동 검증 불가로 분류했다. 인용 문구의 해석·적용 타당성은 검증 범위에 포함하지 않는다.",
   "notes": [
    "law-cache의 국가계약법·시행령 파일은 조문 목차만 포함하고 본문이 없어, 조문 내용·수치는 WebSearch 교차 확인에 의존했다.",
    "이의신청 및 조정 청구 기간을 20일에서 30일로 확대한 개정(2026-03-10 공포, 2026-06-11 시행)이 asOfDate 2026-07-12 기준 시행 중이어서 본문·절차·유의사항의 기한을 30일로 반영했다(kimchang·아주경제 등 WebSearch 교차 확인, LAW_OC 원문·항 번호 미대조).",
@@ -143,14 +143,14 @@
    }
   ],
   "articleVerification": {
-   "checkedAt": "2026-07-12",
-   "method": "law-cache 목차(TOC)로 조문 번호 존재 대조 + WebSearch 교차 확인(조문 내용·수치). 국가법령정보센터 원문 기계 대조(LAW_OC)는 미실시.",
-   "citationEntries": 17,
-   "explicitCitationEntries": 17,
-   "articleReferences": 17,
-   "verifiedReferences": 13,
+   "checkedAt": "2026-07-14",
+   "method": "현행 법령 조문 일괄조회 및 행정규칙 전문조회",
+   "citationEntries": 20,
+   "explicitCitationEntries": 19,
+   "articleReferences": 29,
+   "verifiedReferences": 29,
    "missingReferences": 0,
-   "uncheckableReferences": 4
+   "uncheckableReferences": 0
   }
  },
  "process": {

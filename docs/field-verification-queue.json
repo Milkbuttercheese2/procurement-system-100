@@ -1,13 +1,13 @@
 {
   "sourceAsOfDate": "2026-07-12",
-  "total": 184,
-  "institutions": 38,
+  "total": 227,
+  "institutions": 46,
   "byDomain": {
-    "문서·증빙": 18,
-    "실무 관행": 105,
-    "재정·비용": 25,
-    "정보시스템": 9,
-    "처리기간": 27
+    "문서·증빙": 17,
+    "실무 관행": 129,
+    "재정·비용": 26,
+    "정보시스템": 14,
+    "처리기간": 41
   },
   "entries": [
     {
@@ -176,8 +176,63 @@
       "status": "open"
     },
     {
-      "id": "excellent-product-designation-FV01",
+      "id": "tech-development-priority-purchase-FV01",
       "priority": 4,
+      "slug": "tech-development-priority-purchase",
+      "institutionName": "기술개발제품 우선구매",
+      "category": "지정·판로",
+      "item": "우선구매 대상 기술개발제품의 세부 종류·개수(시행세칙 지정 목록)와 현행 여부(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "tech-development-priority-purchase-FV02",
+      "priority": 4,
+      "slug": "tech-development-priority-purchase",
+      "institutionName": "기술개발제품 우선구매",
+      "category": "지정·판로",
+      "item": "성능인증(EPC) 유효기간·연장 기간의 현행 수치(법 제16조, 최근 개정 반영 여부)(운영 확인)",
+      "domain": "처리기간",
+      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
+      "status": "open"
+    },
+    {
+      "id": "tech-development-priority-purchase-FV03",
+      "priority": 4,
+      "slug": "tech-development-priority-purchase",
+      "institutionName": "기술개발제품 우선구매",
+      "category": "지정·판로",
+      "item": "공공구매종합정보망(SMPP) 우선구매 요청 시스템의 실제 신청 화면·처리 흐름(운영 확인)",
+      "domain": "정보시스템",
+      "suggestedEvidence": "공식 시스템 매뉴얼 또는 운영기관 확인",
+      "status": "open"
+    },
+    {
+      "id": "tech-development-priority-purchase-FV04",
+      "priority": 4,
+      "slug": "tech-development-priority-purchase",
+      "institutionName": "기술개발제품 우선구매",
+      "category": "지정·판로",
+      "item": "우선구매 지원기간(인증 유효기간 종료일까지 / 자격 취득일부터 3년) 운영 기준(시행세칙)(운영 추정)",
+      "domain": "처리기간",
+      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
+      "status": "open"
+    },
+    {
+      "id": "tech-development-priority-purchase-FV05",
+      "priority": 4,
+      "slug": "tech-development-priority-purchase",
+      "institutionName": "기술개발제품 우선구매",
+      "category": "지정·판로",
+      "item": "국가계약법 시행령 제26조제1항 중 기술개발제품 수의계약의 정확한 호·목(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "excellent-product-designation-FV01",
+      "priority": 5,
       "slug": "excellent-product-designation",
       "institutionName": "우수조달물품 지정",
       "category": "지정·판로",
@@ -188,7 +243,7 @@
     },
     {
       "id": "excellent-product-designation-FV02",
-      "priority": 4,
+      "priority": 5,
       "slug": "excellent-product-designation",
       "institutionName": "우수조달물품 지정",
       "category": "지정·판로",
@@ -199,7 +254,7 @@
     },
     {
       "id": "excellent-product-designation-FV03",
-      "priority": 4,
+      "priority": 5,
       "slug": "excellent-product-designation",
       "institutionName": "우수조달물품 지정",
       "category": "지정·판로",
@@ -210,7 +265,7 @@
     },
     {
       "id": "excellent-product-designation-FV04",
-      "priority": 4,
+      "priority": 5,
       "slug": "excellent-product-designation",
       "institutionName": "우수조달물품 지정",
       "category": "지정·판로",
@@ -221,7 +276,7 @@
     },
     {
       "id": "excellent-product-designation-FV05",
-      "priority": 4,
+      "priority": 5,
       "slug": "excellent-product-designation",
       "institutionName": "우수조달물품 지정",
       "category": "지정·판로",
@@ -231,8 +286,305 @@
       "status": "open"
     },
     {
+      "id": "innovation-product-designation-FV01",
+      "priority": 6,
+      "slug": "innovation-product-designation",
+      "institutionName": "혁신제품 지정(혁신조달)",
+      "category": "지정·판로",
+      "item": "혁신제품 유형별(연구개발 성과 기반 혁신제품, 혁신시제품) 지정 신청 창구와 제출서식(공공혁신조달플랫폼)(운영 확인)",
+      "domain": "문서·증빙",
+      "suggestedEvidence": "현행 서식·업무편람 또는 공식 안내",
+      "status": "open"
+    },
+    {
+      "id": "innovation-product-designation-FV02",
+      "priority": 6,
+      "slug": "innovation-product-designation",
+      "institutionName": "혁신제품 지정(혁신조달)",
+      "category": "지정·판로",
+      "item": "혁신제품 지정기간 3년과 연장 요건의 고시 규정(운영 확인)",
+      "domain": "처리기간",
+      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
+      "status": "open"
+    },
+    {
+      "id": "innovation-product-designation-FV03",
+      "priority": 6,
+      "slug": "innovation-product-designation",
+      "institutionName": "혁신제품 지정(혁신조달)",
+      "category": "지정·판로",
+      "item": "심의예정 공고기간과 이의신청 기한(평가결과 통보일 기준)의 고시 규정(운영 확인)",
+      "domain": "처리기간",
+      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
+      "status": "open"
+    },
+    {
+      "id": "innovation-product-designation-FV04",
+      "priority": 6,
+      "slug": "innovation-product-designation",
+      "institutionName": "혁신제품 지정(혁신조달)",
+      "category": "지정·판로",
+      "item": "조달정책심의위원회와 공공수요발굴위원회의 상정 구분·유형별 처리 절차(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "innovation-product-designation-FV05",
+      "priority": 6,
+      "slug": "innovation-product-designation",
+      "institutionName": "혁신제품 지정(혁신조달)",
+      "category": "지정·판로",
+      "item": "혁신제품 시범구매 결과평가 성공 판정과 후속 우수조달물품 심사 특례 연계(운영 추정)",
+      "domain": "정보시스템",
+      "suggestedEvidence": "공식 시스템 매뉴얼 또는 운영기관 확인",
+      "status": "open"
+    },
+    {
+      "id": "green-product-purchase-FV01",
+      "priority": 7,
+      "slug": "green-product-purchase",
+      "institutionName": "녹색제품 의무구매",
+      "category": "지정·판로",
+      "item": "구매이행계획 수립·공표 시기(매 회계연도 시작 후 2개월 이내, 법 제8조제1항)의 정확한 항 번호와 시행령 제10조 세부 규정 대조(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "green-product-purchase-FV02",
+      "priority": 7,
+      "slug": "green-product-purchase",
+      "institutionName": "녹색제품 의무구매",
+      "category": "지정·판로",
+      "item": "구매실적 집계·제출 시기(회계연도 종료 후 3개월 이내)의 정확한 항 번호와 운영(법 제9조·시행령 제11조)(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "green-product-purchase-FV03",
+      "priority": 7,
+      "slug": "green-product-purchase",
+      "institutionName": "녹색제품 의무구매",
+      "category": "지정·판로",
+      "item": "녹색제품 정의가 인용하는 타법 조문(환경표지 「환경기술 및 환경산업 지원법」 제17조, GR 「자원의 절약과 재활용촉진에 관한 법률」 제33조)의 현행 조문 대조(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "green-product-purchase-FV04",
+      "priority": 7,
+      "slug": "green-product-purchase",
+      "institutionName": "녹색제품 의무구매",
+      "category": "지정·판로",
+      "item": "구매실적 증감사유 확인 기준(전년 대비 50% 이상 증가·30% 이상 감소, 시행령 제11조의2)의 현행 수치 대조(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "green-product-purchase-FV05",
+      "priority": 7,
+      "slug": "green-product-purchase",
+      "institutionName": "녹색제품 의무구매",
+      "category": "지정·판로",
+      "item": "녹색제품 통합관리시스템 구매실적 전송·집계 화면 흐름과 예외 사유 기록 서식(운영 확인)",
+      "domain": "정보시스템",
+      "suggestedEvidence": "공식 시스템 매뉴얼 또는 운영기관 확인",
+      "status": "open"
+    },
+    {
+      "id": "green-product-purchase-FV06",
+      "priority": 7,
+      "slug": "green-product-purchase",
+      "institutionName": "녹색제품 의무구매",
+      "category": "지정·판로",
+      "item": "조달청 종합쇼핑몰 녹색정보 표기·최소녹색기준제품 반영의 실무 운영(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "green-product-purchase-FV07",
+      "priority": 7,
+      "slug": "green-product-purchase",
+      "institutionName": "녹색제품 의무구매",
+      "category": "지정·판로",
+      "item": "과태료(법 제20조·시행령 제16조)의 실제 부과 대상은 녹색제품 판매장소 설치·운영(법 제18조) 위반이며 공공기관 의무구매 미이행과 무관함을 재확인(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "severely-disabled-products-FV01",
+      "priority": 8,
+      "slug": "severely-disabled-products",
+      "institutionName": "중증장애인생산품 우선구매",
+      "category": "지정·판로",
+      "item": "연도별 고시 구매목표비율(예: 2024년 1%, 2025년 1.1%)은 회계연도마다 변동하므로 해당 연도 고시로 확인 필요(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "severely-disabled-products-FV02",
+      "priority": 8,
+      "slug": "severely-disabled-products",
+      "institutionName": "중증장애인생산품 우선구매",
+      "category": "지정·판로",
+      "item": "국가계약법 시행령 제26조제1항의 수의계약 해당 호·목 번호는 시행령 개정으로 재배열될 수 있어 원문 대조 필요(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "severely-disabled-products-FV03",
+      "priority": 8,
+      "slug": "severely-disabled-products",
+      "institutionName": "중증장애인생산품 우선구매",
+      "category": "지정·판로",
+      "item": "생산시설 참여 장애인 10명 이상·유효기간 3년 등 세부 지정기준의 최신 고시 반영 여부(운영 확인)",
+      "domain": "처리기간",
+      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
+      "status": "open"
+    },
+    {
+      "id": "severely-disabled-products-FV04",
+      "priority": 8,
+      "slug": "severely-disabled-products",
+      "institutionName": "중증장애인생산품 우선구매",
+      "category": "지정·판로",
+      "item": "우선구매관리시스템(goods.go.kr) 계획·실적 등록 화면 흐름과 마감 운영(운영 확인)",
+      "domain": "정보시스템",
+      "suggestedEvidence": "공식 시스템 매뉴얼 또는 운영기관 확인",
+      "status": "open"
+    },
+    {
+      "id": "severely-disabled-products-FV05",
+      "priority": 8,
+      "slug": "severely-disabled-products",
+      "institutionName": "중증장애인생산품 우선구매",
+      "category": "지정·판로",
+      "item": "업무수행기관(한국장애인개발원)의 수의계약 대행 이용 실무 절차(운영 추정)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "severely-disabled-products-FV06",
+      "priority": 8,
+      "slug": "severely-disabled-products",
+      "institutionName": "중증장애인생산품 우선구매",
+      "category": "지정·판로",
+      "item": "납품·검수·대금지급은 우선구매 특별법 고유 조문이 아니라 개별 계약의 국가계약법령 이행·대금지급 절차를 따르므로 조문 인용 없이 운영 절차로 처리한다(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "women-owned-business-purchase-FV01",
+      "priority": 9,
+      "slug": "women-owned-business-purchase",
+      "institutionName": "여성기업제품 구매촉진",
+      "category": "지정·판로",
+      "item": "여성기업 확인 신청 창구(공공구매종합정보망 SMPP) 화면 흐름과 확인기관(한국여성경제인협회 지회) 서면·현장조사 운영(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "women-owned-business-purchase-FV02",
+      "priority": 9,
+      "slug": "women-owned-business-purchase",
+      "institutionName": "여성기업제품 구매촉진",
+      "category": "지정·판로",
+      "item": "구매계획·전년도 구매실적의 실제 통보 기한(실무상 매년 1월 31일)과 통보 서식(판로지원법 준용 사항)(운영 확인)",
+      "domain": "처리기간",
+      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
+      "status": "open"
+    },
+    {
+      "id": "women-owned-business-purchase-FV03",
+      "priority": 9,
+      "slug": "women-owned-business-purchase",
+      "institutionName": "여성기업제품 구매촉진",
+      "category": "지정·판로",
+      "item": "여성기업제품의 나라장터 종합쇼핑몰·여성기업 전용몰 등록·구매 실무 흐름(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "women-owned-business-purchase-FV04",
+      "priority": 9,
+      "slug": "women-owned-business-purchase",
+      "institutionName": "여성기업제품 구매촉진",
+      "category": "지정·판로",
+      "item": "구매목표 미달 공공기관에 대한 경영평가·합동평가 반영 등 실효성 확보 수단의 운영(운영 추정)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "disabled-business-purchase-FV01",
+      "priority": 10,
+      "slug": "disabled-business-purchase",
+      "institutionName": "장애인기업제품 구매촉진",
+      "category": "지정·판로",
+      "item": "장애인기업 확인서 유효기간(발급일부터 2년)과 만료 전 재확인 실무 처리(운영 확인)",
+      "domain": "처리기간",
+      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
+      "status": "open"
+    },
+    {
+      "id": "disabled-business-purchase-FV02",
+      "priority": 10,
+      "slug": "disabled-business-purchase",
+      "institutionName": "장애인기업제품 구매촉진",
+      "category": "지정·판로",
+      "item": "국가계약법 시행령 제26조제1항제5호의 세부 목 번호와 대상 계약 범위(물품·용역 한정 여부)(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "disabled-business-purchase-FV03",
+      "priority": 10,
+      "slug": "disabled-business-purchase",
+      "institutionName": "장애인기업제품 구매촉진",
+      "category": "지정·판로",
+      "item": "구매계획·전년도 구매실적의 법정 제출 기한과 공공구매종합정보망(SMPP) 등록 흐름(운영 확인)",
+      "domain": "처리기간",
+      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
+      "status": "open"
+    },
+    {
+      "id": "disabled-business-purchase-FV04",
+      "priority": 10,
+      "slug": "disabled-business-purchase",
+      "institutionName": "장애인기업제품 구매촉진",
+      "category": "지정·판로",
+      "item": "장애인기업 확인의 위탁 구조(지방중소벤처기업청장 발급과 장애인기업종합지원센터 확인 업무 분담)(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "disabled-business-purchase-FV05",
+      "priority": 10,
+      "slug": "disabled-business-purchase",
+      "institutionName": "장애인기업제품 구매촉진",
+      "category": "지정·판로",
+      "item": "우선구매 목표 미달 시 개선 권고·개선조치 요구의 근거 항 번호와 후속 절차(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
       "id": "contract-method-decision-FV01",
-      "priority": 5,
+      "priority": 11,
       "slug": "contract-method-decision",
       "institutionName": "계약방법 결정",
       "category": "발주",
@@ -243,7 +595,7 @@
     },
     {
       "id": "contract-method-decision-FV02",
-      "priority": 5,
+      "priority": 11,
       "slug": "contract-method-decision",
       "institutionName": "계약방법 결정",
       "category": "발주",
@@ -254,7 +606,7 @@
     },
     {
       "id": "contract-method-decision-FV03",
-      "priority": 5,
+      "priority": 11,
       "slug": "contract-method-decision",
       "institutionName": "계약방법 결정",
       "category": "발주",
@@ -265,7 +617,7 @@
     },
     {
       "id": "contract-method-decision-FV04",
-      "priority": 5,
+      "priority": 11,
       "slug": "contract-method-decision",
       "institutionName": "계약방법 결정",
       "category": "발주",
@@ -276,7 +628,7 @@
     },
     {
       "id": "contract-method-decision-FV05",
-      "priority": 5,
+      "priority": 11,
       "slug": "contract-method-decision",
       "institutionName": "계약방법 결정",
       "category": "발주",
@@ -287,7 +639,7 @@
     },
     {
       "id": "procurement-request-FV01",
-      "priority": 6,
+      "priority": 12,
       "slug": "procurement-request",
       "institutionName": "조달요청(중앙조달)",
       "category": "발주",
@@ -298,7 +650,7 @@
     },
     {
       "id": "procurement-request-FV02",
-      "priority": 6,
+      "priority": 12,
       "slug": "procurement-request",
       "institutionName": "조달요청(중앙조달)",
       "category": "발주",
@@ -309,7 +661,7 @@
     },
     {
       "id": "procurement-request-FV03",
-      "priority": 6,
+      "priority": 12,
       "slug": "procurement-request",
       "institutionName": "조달요청(중앙조달)",
       "category": "발주",
@@ -320,7 +672,7 @@
     },
     {
       "id": "procurement-request-FV04",
-      "priority": 6,
+      "priority": 12,
       "slug": "procurement-request",
       "institutionName": "조달요청(중앙조달)",
       "category": "발주",
@@ -331,7 +683,7 @@
     },
     {
       "id": "procurement-request-FV05",
-      "priority": 6,
+      "priority": 12,
       "slug": "procurement-request",
       "institutionName": "조달요청(중앙조달)",
       "category": "발주",
@@ -342,7 +694,7 @@
     },
     {
       "id": "estimated-price-FV01",
-      "priority": 7,
+      "priority": 13,
       "slug": "estimated-price",
       "institutionName": "예정가격 작성",
       "category": "발주",
@@ -353,7 +705,7 @@
     },
     {
       "id": "estimated-price-FV02",
-      "priority": 7,
+      "priority": 13,
       "slug": "estimated-price",
       "institutionName": "예정가격 작성",
       "category": "발주",
@@ -364,7 +716,7 @@
     },
     {
       "id": "estimated-price-FV03",
-      "priority": 7,
+      "priority": 13,
       "slug": "estimated-price",
       "institutionName": "예정가격 작성",
       "category": "발주",
@@ -375,7 +727,7 @@
     },
     {
       "id": "estimated-price-FV04",
-      "priority": 7,
+      "priority": 13,
       "slug": "estimated-price",
       "institutionName": "예정가격 작성",
       "category": "발주",
@@ -386,7 +738,7 @@
     },
     {
       "id": "estimated-price-FV05",
-      "priority": 7,
+      "priority": 13,
       "slug": "estimated-price",
       "institutionName": "예정가격 작성",
       "category": "발주",
@@ -396,8 +748,63 @@
       "status": "open"
     },
     {
+      "id": "price-survey-and-cost-accounting-FV01",
+      "priority": 14,
+      "slug": "price-survey-and-cost-accounting",
+      "institutionName": "조달청 가격조사와 원가계산",
+      "category": "발주",
+      "item": "조달청 기술과의 예정가격 기초조사 실무 흐름과 담당 부서·처리 순서(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "price-survey-and-cost-accounting-FV02",
+      "priority": 14,
+      "slug": "price-survey-and-cost-accounting",
+      "institutionName": "조달청 가격조사와 원가계산",
+      "category": "발주",
+      "item": "전문가격조사기관 물가정보지의 실제 활용 범위와 조사가격 채택 관행(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "price-survey-and-cost-accounting-FV03",
+      "priority": 14,
+      "slug": "price-survey-and-cost-accounting",
+      "institutionName": "조달청 가격조사와 원가계산",
+      "category": "발주",
+      "item": "원가계산용역 의뢰 대상의 실무 금액·품목 판단 기준(운영 추정)",
+      "domain": "재정·비용",
+      "suggestedEvidence": "예산서·수수료 고시 또는 결산자료",
+      "status": "open"
+    },
+    {
+      "id": "price-survey-and-cost-accounting-FV04",
+      "priority": 14,
+      "slug": "price-survey-and-cost-accounting",
+      "institutionName": "조달청 가격조사와 원가계산",
+      "category": "발주",
+      "item": "나라장터 복수예비가격 15개 생성·4개 추첨의 시스템 처리 화면 흐름(운영 확인)",
+      "domain": "정보시스템",
+      "suggestedEvidence": "공식 시스템 매뉴얼 또는 운영기관 확인",
+      "status": "open"
+    },
+    {
+      "id": "price-survey-and-cost-accounting-FV05",
+      "priority": 14,
+      "slug": "price-survey-and-cost-accounting",
+      "institutionName": "조달청 가격조사와 원가계산",
+      "category": "발주",
+      "item": "거래실례가격과 원가계산 방법 선택 시 실무 판단 기준(운영 추정)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
       "id": "total-and-unit-price-contract-FV01",
-      "priority": 8,
+      "priority": 15,
       "slug": "total-and-unit-price-contract",
       "institutionName": "총액계약과 단가계약",
       "category": "발주",
@@ -408,7 +815,7 @@
     },
     {
       "id": "total-and-unit-price-contract-FV02",
-      "priority": 8,
+      "priority": 15,
       "slug": "total-and-unit-price-contract",
       "institutionName": "총액계약과 단가계약",
       "category": "발주",
@@ -419,7 +826,7 @@
     },
     {
       "id": "total-and-unit-price-contract-FV03",
-      "priority": 8,
+      "priority": 15,
       "slug": "total-and-unit-price-contract",
       "institutionName": "총액계약과 단가계약",
       "category": "발주",
@@ -430,7 +837,7 @@
     },
     {
       "id": "total-and-unit-price-contract-FV04",
-      "priority": 8,
+      "priority": 15,
       "slug": "total-and-unit-price-contract",
       "institutionName": "총액계약과 단가계약",
       "category": "발주",
@@ -441,7 +848,7 @@
     },
     {
       "id": "total-and-unit-price-contract-FV05",
-      "priority": 8,
+      "priority": 15,
       "slug": "total-and-unit-price-contract",
       "institutionName": "총액계약과 단가계약",
       "category": "발주",
@@ -452,7 +859,7 @@
     },
     {
       "id": "long-term-continuing-contract-FV01",
-      "priority": 9,
+      "priority": 16,
       "slug": "long-term-continuing-contract",
       "institutionName": "장기계속계약과 계속비계약",
       "category": "발주",
@@ -463,7 +870,7 @@
     },
     {
       "id": "long-term-continuing-contract-FV02",
-      "priority": 9,
+      "priority": 16,
       "slug": "long-term-continuing-contract",
       "institutionName": "장기계속계약과 계속비계약",
       "category": "발주",
@@ -474,7 +881,7 @@
     },
     {
       "id": "long-term-continuing-contract-FV03",
-      "priority": 9,
+      "priority": 16,
       "slug": "long-term-continuing-contract",
       "institutionName": "장기계속계약과 계속비계약",
       "category": "발주",
@@ -485,18 +892,73 @@
     },
     {
       "id": "long-term-continuing-contract-FV04",
-      "priority": 9,
+      "priority": 16,
       "slug": "long-term-continuing-contract",
       "institutionName": "장기계속계약과 계속비계약",
       "category": "발주",
-      "item": "계속비 지출 연한(원칙 5년, 예외 10년)의 사업별 적용 실무(국가재정법 원문 식별자 미연결)(운영 확인)",
+      "item": "계속비 지출 연한(원칙 5년, 예외 10년)의 사업별 적용 실무(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "facility-construction-procurement-FV01",
+      "priority": 17,
+      "slug": "facility-construction-procurement",
+      "institutionName": "시설공사 조달(수요기관 대행 발주)",
+      "category": "발주",
+      "item": "조달사업법 시행령 제11조의 공사 계약요청 의무 금액 구간(종합 30억·전문 등 3억)의 현행 세부 수치와 요청 예외 사유(운영 확인)",
+      "domain": "재정·비용",
+      "suggestedEvidence": "예산서·수수료 고시 또는 결산자료",
+      "status": "open"
+    },
+    {
+      "id": "facility-construction-procurement-FV02",
+      "priority": 17,
+      "slug": "facility-construction-procurement",
+      "institutionName": "시설공사 조달(수요기관 대행 발주)",
+      "category": "발주",
+      "item": "입찰참가자격 사전심사(PQ) 대상 공사유형과 추정가격 200억원 기준의 현행 세부 공종 목록(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "facility-construction-procurement-FV03",
+      "priority": 17,
+      "slug": "facility-construction-procurement",
+      "institutionName": "시설공사 조달(수요기관 대행 발주)",
+      "category": "발주",
+      "item": "조달청 시설공사 적격심사 세부기준 별표별 평가항목·배점과 종합심사낙찰제 적용 경계(300억원 일반/간이형)(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "facility-construction-procurement-FV04",
+      "priority": 17,
+      "slug": "facility-construction-procurement",
+      "institutionName": "시설공사 조달(수요기관 대행 발주)",
+      "category": "발주",
+      "item": "착공·공사감독·기성 및 준공검사·대가지급 등 현장 이행관리를 수요기관이 담당하는 대행 범위 경계(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "facility-construction-procurement-FV05",
+      "priority": 17,
+      "slug": "facility-construction-procurement",
+      "institutionName": "시설공사 조달(수요기관 대행 발주)",
+      "category": "발주",
+      "item": "나라장터 공사 전자입찰 접수·개찰 화면 흐름과 조달청 시설공사 계약업무 처리규정의 내부 처리 단계(운영 확인)",
       "domain": "실무 관행",
       "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
       "status": "open"
     },
     {
       "id": "bid-announcement-FV01",
-      "priority": 10,
+      "priority": 18,
       "slug": "bid-announcement",
       "institutionName": "입찰공고",
       "category": "공고",
@@ -507,7 +969,7 @@
     },
     {
       "id": "bid-announcement-FV02",
-      "priority": 10,
+      "priority": 18,
       "slug": "bid-announcement",
       "institutionName": "입찰공고",
       "category": "공고",
@@ -518,7 +980,7 @@
     },
     {
       "id": "bid-announcement-FV03",
-      "priority": 10,
+      "priority": 18,
       "slug": "bid-announcement",
       "institutionName": "입찰공고",
       "category": "공고",
@@ -529,7 +991,7 @@
     },
     {
       "id": "bid-announcement-FV04",
-      "priority": 10,
+      "priority": 18,
       "slug": "bid-announcement",
       "institutionName": "입찰공고",
       "category": "공고",
@@ -540,7 +1002,7 @@
     },
     {
       "id": "bid-announcement-FV05",
-      "priority": 10,
+      "priority": 18,
       "slug": "bid-announcement",
       "institutionName": "입찰공고",
       "category": "공고",
@@ -551,7 +1013,7 @@
     },
     {
       "id": "general-competitive-bidding-FV01",
-      "priority": 11,
+      "priority": 19,
       "slug": "general-competitive-bidding",
       "institutionName": "일반경쟁입찰",
       "category": "입찰",
@@ -562,7 +1024,7 @@
     },
     {
       "id": "general-competitive-bidding-FV02",
-      "priority": 11,
+      "priority": 19,
       "slug": "general-competitive-bidding",
       "institutionName": "일반경쟁입찰",
       "category": "입찰",
@@ -573,7 +1035,7 @@
     },
     {
       "id": "general-competitive-bidding-FV03",
-      "priority": 11,
+      "priority": 19,
       "slug": "general-competitive-bidding",
       "institutionName": "일반경쟁입찰",
       "category": "입찰",
@@ -584,7 +1046,7 @@
     },
     {
       "id": "general-competitive-bidding-FV04",
-      "priority": 11,
+      "priority": 19,
       "slug": "general-competitive-bidding",
       "institutionName": "일반경쟁입찰",
       "category": "입찰",
@@ -595,7 +1057,7 @@
     },
     {
       "id": "general-competitive-bidding-FV05",
-      "priority": 11,
+      "priority": 19,
       "slug": "general-competitive-bidding",
       "institutionName": "일반경쟁입찰",
       "category": "입찰",
@@ -606,7 +1068,7 @@
     },
     {
       "id": "restricted-competitive-bidding-FV01",
-      "priority": 12,
+      "priority": 20,
       "slug": "restricted-competitive-bidding",
       "institutionName": "제한경쟁입찰",
       "category": "입찰",
@@ -617,7 +1079,7 @@
     },
     {
       "id": "restricted-competitive-bidding-FV02",
-      "priority": 12,
+      "priority": 20,
       "slug": "restricted-competitive-bidding",
       "institutionName": "제한경쟁입찰",
       "category": "입찰",
@@ -628,7 +1090,7 @@
     },
     {
       "id": "restricted-competitive-bidding-FV03",
-      "priority": 12,
+      "priority": 20,
       "slug": "restricted-competitive-bidding",
       "institutionName": "제한경쟁입찰",
       "category": "입찰",
@@ -639,7 +1101,7 @@
     },
     {
       "id": "restricted-competitive-bidding-FV04",
-      "priority": 12,
+      "priority": 20,
       "slug": "restricted-competitive-bidding",
       "institutionName": "제한경쟁입찰",
       "category": "입찰",
@@ -650,7 +1112,7 @@
     },
     {
       "id": "restricted-competitive-bidding-FV05",
-      "priority": 12,
+      "priority": 20,
       "slug": "restricted-competitive-bidding",
       "institutionName": "제한경쟁입찰",
       "category": "입찰",
@@ -661,7 +1123,7 @@
     },
     {
       "id": "designated-competitive-bidding-FV01",
-      "priority": 13,
+      "priority": 21,
       "slug": "designated-competitive-bidding",
       "institutionName": "지명경쟁입찰",
       "category": "입찰",
@@ -672,7 +1134,7 @@
     },
     {
       "id": "designated-competitive-bidding-FV02",
-      "priority": 13,
+      "priority": 21,
       "slug": "designated-competitive-bidding",
       "institutionName": "지명경쟁입찰",
       "category": "입찰",
@@ -683,7 +1145,7 @@
     },
     {
       "id": "designated-competitive-bidding-FV03",
-      "priority": 13,
+      "priority": 21,
       "slug": "designated-competitive-bidding",
       "institutionName": "지명경쟁입찰",
       "category": "입찰",
@@ -694,7 +1156,7 @@
     },
     {
       "id": "designated-competitive-bidding-FV04",
-      "priority": 13,
+      "priority": 21,
       "slug": "designated-competitive-bidding",
       "institutionName": "지명경쟁입찰",
       "category": "입찰",
@@ -705,7 +1167,7 @@
     },
     {
       "id": "designated-competitive-bidding-FV05",
-      "priority": 13,
+      "priority": 21,
       "slug": "designated-competitive-bidding",
       "institutionName": "지명경쟁입찰",
       "category": "입찰",
@@ -716,7 +1178,7 @@
     },
     {
       "id": "negotiated-contract-FV01",
-      "priority": 14,
+      "priority": 22,
       "slug": "negotiated-contract",
       "institutionName": "수의계약(소액수의·견적 제출)",
       "category": "입찰",
@@ -727,7 +1189,7 @@
     },
     {
       "id": "negotiated-contract-FV02",
-      "priority": 14,
+      "priority": 22,
       "slug": "negotiated-contract",
       "institutionName": "수의계약(소액수의·견적 제출)",
       "category": "입찰",
@@ -738,7 +1200,7 @@
     },
     {
       "id": "negotiated-contract-FV03",
-      "priority": 14,
+      "priority": 22,
       "slug": "negotiated-contract",
       "institutionName": "수의계약(소액수의·견적 제출)",
       "category": "입찰",
@@ -749,7 +1211,7 @@
     },
     {
       "id": "negotiated-contract-FV04",
-      "priority": 14,
+      "priority": 22,
       "slug": "negotiated-contract",
       "institutionName": "수의계약(소액수의·견적 제출)",
       "category": "입찰",
@@ -760,7 +1222,7 @@
     },
     {
       "id": "bid-and-contract-bonds-FV01",
-      "priority": 15,
+      "priority": 23,
       "slug": "bid-and-contract-bonds",
       "institutionName": "입찰보증금과 계약보증금",
       "category": "입찰",
@@ -771,7 +1233,7 @@
     },
     {
       "id": "bid-and-contract-bonds-FV02",
-      "priority": 15,
+      "priority": 23,
       "slug": "bid-and-contract-bonds",
       "institutionName": "입찰보증금과 계약보증금",
       "category": "입찰",
@@ -782,7 +1244,7 @@
     },
     {
       "id": "bid-and-contract-bonds-FV03",
-      "priority": 15,
+      "priority": 23,
       "slug": "bid-and-contract-bonds",
       "institutionName": "입찰보증금과 계약보증금",
       "category": "입찰",
@@ -793,7 +1255,7 @@
     },
     {
       "id": "bid-and-contract-bonds-FV04",
-      "priority": 15,
+      "priority": 23,
       "slug": "bid-and-contract-bonds",
       "institutionName": "입찰보증금과 계약보증금",
       "category": "입찰",
@@ -804,7 +1266,7 @@
     },
     {
       "id": "bid-and-contract-bonds-FV05",
-      "priority": 15,
+      "priority": 23,
       "slug": "bid-and-contract-bonds",
       "institutionName": "입찰보증금과 계약보증금",
       "category": "입찰",
@@ -815,7 +1277,7 @@
     },
     {
       "id": "bid-and-contract-bonds-FV06",
-      "priority": 15,
+      "priority": 23,
       "slug": "bid-and-contract-bonds",
       "institutionName": "입찰보증금과 계약보증금",
       "category": "입찰",
@@ -826,7 +1288,7 @@
     },
     {
       "id": "joint-contracting-FV01",
-      "priority": 16,
+      "priority": 24,
       "slug": "joint-contracting",
       "institutionName": "공동수급체 구성(공동계약)",
       "category": "입찰",
@@ -837,7 +1299,7 @@
     },
     {
       "id": "joint-contracting-FV02",
-      "priority": 16,
+      "priority": 24,
       "slug": "joint-contracting",
       "institutionName": "공동수급체 구성(공동계약)",
       "category": "입찰",
@@ -848,7 +1310,7 @@
     },
     {
       "id": "joint-contracting-FV03",
-      "priority": 16,
+      "priority": 24,
       "slug": "joint-contracting",
       "institutionName": "공동수급체 구성(공동계약)",
       "category": "입찰",
@@ -859,7 +1321,7 @@
     },
     {
       "id": "joint-contracting-FV04",
-      "priority": 16,
+      "priority": 24,
       "slug": "joint-contracting",
       "institutionName": "공동수급체 구성(공동계약)",
       "category": "입찰",
@@ -870,7 +1332,7 @@
     },
     {
       "id": "rebidding-and-failed-bids-FV01",
-      "priority": 17,
+      "priority": 25,
       "slug": "rebidding-and-failed-bids",
       "institutionName": "재입찰·재공고와 유찰 처리",
       "category": "입찰",
@@ -881,7 +1343,7 @@
     },
     {
       "id": "rebidding-and-failed-bids-FV02",
-      "priority": 17,
+      "priority": 25,
       "slug": "rebidding-and-failed-bids",
       "institutionName": "재입찰·재공고와 유찰 처리",
       "category": "입찰",
@@ -892,7 +1354,7 @@
     },
     {
       "id": "rebidding-and-failed-bids-FV03",
-      "priority": 17,
+      "priority": 25,
       "slug": "rebidding-and-failed-bids",
       "institutionName": "재입찰·재공고와 유찰 처리",
       "category": "입찰",
@@ -903,7 +1365,7 @@
     },
     {
       "id": "rebidding-and-failed-bids-FV04",
-      "priority": 17,
+      "priority": 25,
       "slug": "rebidding-and-failed-bids",
       "institutionName": "재입찰·재공고와 유찰 처리",
       "category": "입찰",
@@ -913,8 +1375,52 @@
       "status": "open"
     },
     {
+      "id": "bid-opening-award-notice-FV01",
+      "priority": 26,
+      "slug": "bid-opening-award-notice",
+      "institutionName": "개찰과 낙찰자 결정 통보",
+      "category": "입찰",
+      "item": "나라장터 전자 개찰·복수예비가격 추첨·예정가격 산정 화면 흐름과 개찰 결과 공개 위치(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "bid-opening-award-notice-FV02",
+      "priority": 26,
+      "slug": "bid-opening-award-notice",
+      "institutionName": "개찰과 낙찰자 결정 통보",
+      "category": "입찰",
+      "item": "적격심사 대상자 통보 접수 후 서류 제출기한(통상 3일) 및 부적격 재심사(3일) 운영 서식(계약예규 적격심사기준 위임 사항)(운영 확인)",
+      "domain": "처리기간",
+      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
+      "status": "open"
+    },
+    {
+      "id": "bid-opening-award-notice-FV03",
+      "priority": 26,
+      "slug": "bid-opening-award-notice",
+      "institutionName": "개찰과 낙찰자 결정 통보",
+      "category": "입찰",
+      "item": "낙찰통지 후 계약체결 기한(통상 10일) 운영과 불가항력 사유 산입 제외 실무(공사입찰유의서·시행규칙 별지 서식 근거, 원문 식별자 미연결)(운영 확인)",
+      "domain": "처리기간",
+      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
+      "status": "open"
+    },
+    {
+      "id": "bid-opening-award-notice-FV04",
+      "priority": 26,
+      "slug": "bid-opening-award-notice",
+      "institutionName": "개찰과 낙찰자 결정 통보",
+      "category": "입찰",
+      "item": "차순위자 반복 적격심사의 실무 처리 횟수와 기간(운영 추정)",
+      "domain": "처리기간",
+      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
+      "status": "open"
+    },
+    {
       "id": "e-bidding-identity-FV01",
-      "priority": 18,
+      "priority": 27,
       "slug": "e-bidding-identity",
       "institutionName": "전자입찰과 본인확인(인증서·지문보안토큰)",
       "category": "입찰",
@@ -925,7 +1431,7 @@
     },
     {
       "id": "e-bidding-identity-FV02",
-      "priority": 18,
+      "priority": 27,
       "slug": "e-bidding-identity",
       "institutionName": "전자입찰과 본인확인(인증서·지문보안토큰)",
       "category": "입찰",
@@ -936,7 +1442,7 @@
     },
     {
       "id": "e-bidding-identity-FV03",
-      "priority": 18,
+      "priority": 27,
       "slug": "e-bidding-identity",
       "institutionName": "전자입찰과 본인확인(인증서·지문보안토큰)",
       "category": "입찰",
@@ -947,7 +1453,7 @@
     },
     {
       "id": "e-bidding-identity-FV04",
-      "priority": 18,
+      "priority": 27,
       "slug": "e-bidding-identity",
       "institutionName": "전자입찰과 본인확인(인증서·지문보안토큰)",
       "category": "입찰",
@@ -958,7 +1464,7 @@
     },
     {
       "id": "e-bidding-identity-FV05",
-      "priority": 18,
+      "priority": 27,
       "slug": "e-bidding-identity",
       "institutionName": "전자입찰과 본인확인(인증서·지문보안토큰)",
       "category": "입찰",
@@ -969,7 +1475,7 @@
     },
     {
       "id": "pre-qualification-FV01",
-      "priority": 19,
+      "priority": 28,
       "slug": "pre-qualification",
       "institutionName": "입찰참가자격 사전심사(PQ)",
       "category": "심사·평가",
@@ -980,7 +1486,7 @@
     },
     {
       "id": "pre-qualification-FV02",
-      "priority": 19,
+      "priority": 28,
       "slug": "pre-qualification",
       "institutionName": "입찰참가자격 사전심사(PQ)",
       "category": "심사·평가",
@@ -991,7 +1497,7 @@
     },
     {
       "id": "pre-qualification-FV03",
-      "priority": 19,
+      "priority": 28,
       "slug": "pre-qualification",
       "institutionName": "입찰참가자격 사전심사(PQ)",
       "category": "심사·평가",
@@ -1002,7 +1508,7 @@
     },
     {
       "id": "pre-qualification-FV04",
-      "priority": 19,
+      "priority": 28,
       "slug": "pre-qualification",
       "institutionName": "입찰참가자격 사전심사(PQ)",
       "category": "심사·평가",
@@ -1013,7 +1519,7 @@
     },
     {
       "id": "pre-qualification-FV05",
-      "priority": 19,
+      "priority": 28,
       "slug": "pre-qualification",
       "institutionName": "입찰참가자격 사전심사(PQ)",
       "category": "심사·평가",
@@ -1024,7 +1530,7 @@
     },
     {
       "id": "qualification-screening-FV01",
-      "priority": 20,
+      "priority": 29,
       "slug": "qualification-screening",
       "institutionName": "적격심사낙찰제",
       "category": "심사·평가",
@@ -1035,7 +1541,7 @@
     },
     {
       "id": "qualification-screening-FV02",
-      "priority": 20,
+      "priority": 29,
       "slug": "qualification-screening",
       "institutionName": "적격심사낙찰제",
       "category": "심사·평가",
@@ -1046,7 +1552,7 @@
     },
     {
       "id": "qualification-screening-FV03",
-      "priority": 20,
+      "priority": 29,
       "slug": "qualification-screening",
       "institutionName": "적격심사낙찰제",
       "category": "심사·평가",
@@ -1057,7 +1563,7 @@
     },
     {
       "id": "qualification-screening-FV04",
-      "priority": 20,
+      "priority": 29,
       "slug": "qualification-screening",
       "institutionName": "적격심사낙찰제",
       "category": "심사·평가",
@@ -1068,7 +1574,7 @@
     },
     {
       "id": "qualification-screening-FV05",
-      "priority": 20,
+      "priority": 29,
       "slug": "qualification-screening",
       "institutionName": "적격심사낙찰제",
       "category": "심사·평가",
@@ -1079,7 +1585,7 @@
     },
     {
       "id": "comprehensive-evaluation-award-FV01",
-      "priority": 21,
+      "priority": 30,
       "slug": "comprehensive-evaluation-award",
       "institutionName": "종합심사낙찰제",
       "category": "심사·평가",
@@ -1090,7 +1596,7 @@
     },
     {
       "id": "comprehensive-evaluation-award-FV02",
-      "priority": 21,
+      "priority": 30,
       "slug": "comprehensive-evaluation-award",
       "institutionName": "종합심사낙찰제",
       "category": "심사·평가",
@@ -1101,7 +1607,7 @@
     },
     {
       "id": "comprehensive-evaluation-award-FV03",
-      "priority": 21,
+      "priority": 30,
       "slug": "comprehensive-evaluation-award",
       "institutionName": "종합심사낙찰제",
       "category": "심사·평가",
@@ -1112,7 +1618,7 @@
     },
     {
       "id": "comprehensive-evaluation-award-FV04",
-      "priority": 21,
+      "priority": 30,
       "slug": "comprehensive-evaluation-award",
       "institutionName": "종합심사낙찰제",
       "category": "심사·평가",
@@ -1123,7 +1629,7 @@
     },
     {
       "id": "comprehensive-evaluation-award-FV05",
-      "priority": 21,
+      "priority": 30,
       "slug": "comprehensive-evaluation-award",
       "institutionName": "종합심사낙찰제",
       "category": "심사·평가",
@@ -1134,7 +1640,7 @@
     },
     {
       "id": "contract-by-negotiation-FV01",
-      "priority": 22,
+      "priority": 31,
       "slug": "contract-by-negotiation",
       "institutionName": "협상에 의한 계약",
       "category": "심사·평가",
@@ -1145,7 +1651,7 @@
     },
     {
       "id": "contract-by-negotiation-FV02",
-      "priority": 22,
+      "priority": 31,
       "slug": "contract-by-negotiation",
       "institutionName": "협상에 의한 계약",
       "category": "심사·평가",
@@ -1156,7 +1662,7 @@
     },
     {
       "id": "contract-by-negotiation-FV03",
-      "priority": 22,
+      "priority": 31,
       "slug": "contract-by-negotiation",
       "institutionName": "협상에 의한 계약",
       "category": "심사·평가",
@@ -1167,7 +1673,7 @@
     },
     {
       "id": "contract-by-negotiation-FV04",
-      "priority": 22,
+      "priority": 31,
       "slug": "contract-by-negotiation",
       "institutionName": "협상에 의한 계약",
       "category": "심사·평가",
@@ -1178,7 +1684,7 @@
     },
     {
       "id": "contract-by-negotiation-FV05",
-      "priority": 22,
+      "priority": 31,
       "slug": "contract-by-negotiation",
       "institutionName": "협상에 의한 계약",
       "category": "심사·평가",
@@ -1189,7 +1695,7 @@
     },
     {
       "id": "multiple-award-schedule-FV01",
-      "priority": 23,
+      "priority": 32,
       "slug": "multiple-award-schedule",
       "institutionName": "다수공급자계약(MAS)",
       "category": "계약 체결",
@@ -1200,7 +1706,7 @@
     },
     {
       "id": "multiple-award-schedule-FV02",
-      "priority": 23,
+      "priority": 32,
       "slug": "multiple-award-schedule",
       "institutionName": "다수공급자계약(MAS)",
       "category": "계약 체결",
@@ -1211,7 +1717,7 @@
     },
     {
       "id": "multiple-award-schedule-FV03",
-      "priority": 23,
+      "priority": 32,
       "slug": "multiple-award-schedule",
       "institutionName": "다수공급자계약(MAS)",
       "category": "계약 체결",
@@ -1222,7 +1728,7 @@
     },
     {
       "id": "multiple-award-schedule-FV04",
-      "priority": 23,
+      "priority": 32,
       "slug": "multiple-award-schedule",
       "institutionName": "다수공급자계약(MAS)",
       "category": "계약 체결",
@@ -1233,7 +1739,7 @@
     },
     {
       "id": "multiple-award-schedule-FV05",
-      "priority": 23,
+      "priority": 32,
       "slug": "multiple-award-schedule",
       "institutionName": "다수공급자계약(MAS)",
       "category": "계약 체결",
@@ -1244,7 +1750,7 @@
     },
     {
       "id": "multiple-award-schedule-FV06",
-      "priority": 23,
+      "priority": 32,
       "slug": "multiple-award-schedule",
       "institutionName": "다수공급자계약(MAS)",
       "category": "계약 체결",
@@ -1255,7 +1761,7 @@
     },
     {
       "id": "third-party-unit-price-contract-FV01",
-      "priority": 24,
+      "priority": 33,
       "slug": "third-party-unit-price-contract",
       "institutionName": "제3자를 위한 단가계약",
       "category": "계약 체결",
@@ -1266,7 +1772,7 @@
     },
     {
       "id": "third-party-unit-price-contract-FV02",
-      "priority": 24,
+      "priority": 33,
       "slug": "third-party-unit-price-contract",
       "institutionName": "제3자를 위한 단가계약",
       "category": "계약 체결",
@@ -1277,7 +1783,7 @@
     },
     {
       "id": "third-party-unit-price-contract-FV03",
-      "priority": 24,
+      "priority": 33,
       "slug": "third-party-unit-price-contract",
       "institutionName": "제3자를 위한 단가계약",
       "category": "계약 체결",
@@ -1288,7 +1794,7 @@
     },
     {
       "id": "third-party-unit-price-contract-FV04",
-      "priority": 24,
+      "priority": 33,
       "slug": "third-party-unit-price-contract",
       "institutionName": "제3자를 위한 단가계약",
       "category": "계약 체결",
@@ -1299,7 +1805,7 @@
     },
     {
       "id": "third-party-unit-price-contract-FV05",
-      "priority": 24,
+      "priority": 33,
       "slug": "third-party-unit-price-contract",
       "institutionName": "제3자를 위한 단가계약",
       "category": "계약 체결",
@@ -1309,8 +1815,129 @@
       "status": "open"
     },
     {
+      "id": "shopping-mall-purchase-FV01",
+      "priority": 34,
+      "slug": "shopping-mall-purchase",
+      "institutionName": "종합쇼핑몰 구매",
+      "category": "계약 체결",
+      "item": "2단계경쟁 대상금액(그 밖의 물품 5천만원·중소기업자간 경쟁제품 1억원)과 제안공고 전환 기준(일반 물품 5억원)의 현행 훈령 수치(운영 확인)",
+      "domain": "재정·비용",
+      "suggestedEvidence": "예산서·수수료 고시 또는 결산자료",
+      "status": "open"
+    },
+    {
+      "id": "shopping-mall-purchase-FV02",
+      "priority": 34,
+      "slug": "shopping-mall-purchase",
+      "institutionName": "종합쇼핑몰 구매",
+      "category": "계약 체결",
+      "item": "제안요청 대상자 자동선정(세부품명 계약상대자 15인 이상 시 무작위 10인 중 5인) 시스템 흐름(운영 확인)",
+      "domain": "정보시스템",
+      "suggestedEvidence": "공식 시스템 매뉴얼 또는 운영기관 확인",
+      "status": "open"
+    },
+    {
+      "id": "shopping-mall-purchase-FV03",
+      "priority": 34,
+      "slug": "shopping-mall-purchase",
+      "institutionName": "종합쇼핑몰 구매",
+      "category": "계약 체결",
+      "item": "바로구매(즉시구매) 화면 흐름과 납품요구서 발행·계약담당공무원 승인 처리 절차(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "shopping-mall-purchase-FV04",
+      "priority": 34,
+      "slug": "shopping-mall-purchase",
+      "institutionName": "종합쇼핑몰 구매",
+      "category": "계약 체결",
+      "item": "검사·검수 처리기한과 대가지급 기한(청구 후 일수)의 실제 운영(국가계약법령·예규 위임 사항)(운영 확인)",
+      "domain": "처리기간",
+      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
+      "status": "open"
+    },
+    {
+      "id": "shopping-mall-purchase-FV05",
+      "priority": 34,
+      "slug": "shopping-mall-purchase",
+      "institutionName": "종합쇼핑몰 구매",
+      "category": "계약 체결",
+      "item": "물품 다수공급자계약 업무처리규정 일반 물품본의 납품요구·2단계경쟁 조문 번호(레미콘 특정본만 원문 대조)(운영 추정)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "shopping-mall-purchase-FV06",
+      "priority": 34,
+      "slug": "shopping-mall-purchase",
+      "institutionName": "종합쇼핑몰 구매",
+      "category": "계약 체결",
+      "item": "국가종합전자조달시스템 종합쇼핑몰 운영규정 원문의 상품정보·거래정지 조문(원문 미대조)(운영 추정)",
+      "domain": "정보시스템",
+      "suggestedEvidence": "공식 시스템 매뉴얼 또는 운영기관 확인",
+      "status": "open"
+    },
+    {
+      "id": "innovation-trial-purchase-FV01",
+      "priority": 35,
+      "slug": "innovation-trial-purchase",
+      "institutionName": "혁신제품 시범구매",
+      "category": "계약 체결",
+      "item": "시범사용(테스트) 기간과 완료보고서 제출 기한의 구체 운영(조달청 고시·계약으로 정함)(운영 확인)",
+      "domain": "처리기간",
+      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
+      "status": "open"
+    },
+    {
+      "id": "innovation-trial-purchase-FV02",
+      "priority": 35,
+      "slug": "innovation-trial-purchase",
+      "institutionName": "혁신제품 시범구매",
+      "category": "계약 체결",
+      "item": "혁신성 평가 판정 등급(성공·보류·불량)과 성공 시 우수조달물품 지정 신청자격 특례의 세부기준(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "innovation-trial-purchase-FV03",
+      "priority": 35,
+      "slug": "innovation-trial-purchase",
+      "institutionName": "혁신제품 시범구매",
+      "category": "계약 체결",
+      "item": "혁신장터(공공혁신조달플랫폼 ppi.g2b.go.kr) 수요조사·시범사용 신청·매칭 화면 흐름(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "innovation-trial-purchase-FV04",
+      "priority": 35,
+      "slug": "innovation-trial-purchase",
+      "institutionName": "혁신제품 시범구매",
+      "category": "계약 체결",
+      "item": "구매책임자 면책의 근거 항 번호(조달사업법 제27조 면책 조항, 검색상 제4항)(운영 추정)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "innovation-trial-purchase-FV05",
+      "priority": 35,
+      "slug": "innovation-trial-purchase",
+      "institutionName": "혁신제품 시범구매",
+      "category": "계약 체결",
+      "item": "혁신제품 유형 구분(유형1·유형2)과 유형별 추천·지정 경로(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
       "id": "advance-payment-and-settlement-FV01",
-      "priority": 25,
+      "priority": 36,
       "slug": "advance-payment-and-settlement",
       "institutionName": "선금과 대가 지급",
       "category": "이행·대금",
@@ -1321,7 +1948,7 @@
     },
     {
       "id": "advance-payment-and-settlement-FV02",
-      "priority": 25,
+      "priority": 36,
       "slug": "advance-payment-and-settlement",
       "institutionName": "선금과 대가 지급",
       "category": "이행·대금",
@@ -1332,7 +1959,7 @@
     },
     {
       "id": "advance-payment-and-settlement-FV03",
-      "priority": 25,
+      "priority": 36,
       "slug": "advance-payment-and-settlement",
       "institutionName": "선금과 대가 지급",
       "category": "이행·대금",
@@ -1343,7 +1970,7 @@
     },
     {
       "id": "advance-payment-and-settlement-FV04",
-      "priority": 25,
+      "priority": 36,
       "slug": "advance-payment-and-settlement",
       "institutionName": "선금과 대가 지급",
       "category": "이행·대금",
@@ -1354,7 +1981,7 @@
     },
     {
       "id": "advance-payment-and-settlement-FV05",
-      "priority": 25,
+      "priority": 36,
       "slug": "advance-payment-and-settlement",
       "institutionName": "선금과 대가 지급",
       "category": "이행·대금",
@@ -1365,7 +1992,7 @@
     },
     {
       "id": "inspection-and-acceptance-FV01",
-      "priority": 26,
+      "priority": 37,
       "slug": "inspection-and-acceptance",
       "institutionName": "검사와 검수",
       "category": "이행·대금",
@@ -1376,7 +2003,7 @@
     },
     {
       "id": "inspection-and-acceptance-FV02",
-      "priority": 26,
+      "priority": 37,
       "slug": "inspection-and-acceptance",
       "institutionName": "검사와 검수",
       "category": "이행·대금",
@@ -1387,7 +2014,7 @@
     },
     {
       "id": "inspection-and-acceptance-FV03",
-      "priority": 26,
+      "priority": 37,
       "slug": "inspection-and-acceptance",
       "institutionName": "검사와 검수",
       "category": "이행·대금",
@@ -1398,7 +2025,7 @@
     },
     {
       "id": "inspection-and-acceptance-FV04",
-      "priority": 26,
+      "priority": 37,
       "slug": "inspection-and-acceptance",
       "institutionName": "검사와 검수",
       "category": "이행·대금",
@@ -1409,7 +2036,7 @@
     },
     {
       "id": "price-fluctuation-adjustment-FV01",
-      "priority": 27,
+      "priority": 38,
       "slug": "price-fluctuation-adjustment",
       "institutionName": "물가변동으로 인한 계약금액 조정",
       "category": "이행·대금",
@@ -1420,7 +2047,7 @@
     },
     {
       "id": "price-fluctuation-adjustment-FV02",
-      "priority": 27,
+      "priority": 38,
       "slug": "price-fluctuation-adjustment",
       "institutionName": "물가변동으로 인한 계약금액 조정",
       "category": "이행·대금",
@@ -1431,7 +2058,7 @@
     },
     {
       "id": "price-fluctuation-adjustment-FV03",
-      "priority": 27,
+      "priority": 38,
       "slug": "price-fluctuation-adjustment",
       "institutionName": "물가변동으로 인한 계약금액 조정",
       "category": "이행·대금",
@@ -1442,7 +2069,7 @@
     },
     {
       "id": "price-fluctuation-adjustment-FV04",
-      "priority": 27,
+      "priority": 38,
       "slug": "price-fluctuation-adjustment",
       "institutionName": "물가변동으로 인한 계약금액 조정",
       "category": "이행·대금",
@@ -1453,7 +2080,7 @@
     },
     {
       "id": "price-fluctuation-adjustment-FV05",
-      "priority": 27,
+      "priority": 38,
       "slug": "price-fluctuation-adjustment",
       "institutionName": "물가변동으로 인한 계약금액 조정",
       "category": "이행·대금",
@@ -1464,7 +2091,7 @@
     },
     {
       "id": "design-change-adjustment-FV01",
-      "priority": 28,
+      "priority": 39,
       "slug": "design-change-adjustment",
       "institutionName": "설계변경으로 인한 계약금액 조정",
       "category": "이행·대금",
@@ -1475,7 +2102,7 @@
     },
     {
       "id": "design-change-adjustment-FV02",
-      "priority": 28,
+      "priority": 39,
       "slug": "design-change-adjustment",
       "institutionName": "설계변경으로 인한 계약금액 조정",
       "category": "이행·대금",
@@ -1486,7 +2113,7 @@
     },
     {
       "id": "design-change-adjustment-FV03",
-      "priority": 28,
+      "priority": 39,
       "slug": "design-change-adjustment",
       "institutionName": "설계변경으로 인한 계약금액 조정",
       "category": "이행·대금",
@@ -1497,7 +2124,7 @@
     },
     {
       "id": "design-change-adjustment-FV04",
-      "priority": 28,
+      "priority": 39,
       "slug": "design-change-adjustment",
       "institutionName": "설계변경으로 인한 계약금액 조정",
       "category": "이행·대금",
@@ -1508,7 +2135,7 @@
     },
     {
       "id": "design-change-adjustment-FV05",
-      "priority": 28,
+      "priority": 39,
       "slug": "design-change-adjustment",
       "institutionName": "설계변경으로 인한 계약금액 조정",
       "category": "이행·대금",
@@ -1518,8 +2145,19 @@
       "status": "open"
     },
     {
+      "id": "design-change-adjustment-FV06",
+      "priority": 39,
+      "slug": "design-change-adjustment",
+      "institutionName": "설계변경으로 인한 계약금액 조정",
+      "category": "이행·대금",
+      "item": "현장상태 확인·설계서 보완의 법적 주체는 계약담당공무원이나 실무상 공사감독관이 현장확인을 대행하는 발주기관별 위임·수행 관행(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
       "id": "liquidated-damages-FV01",
-      "priority": 29,
+      "priority": 40,
       "slug": "liquidated-damages",
       "institutionName": "지체상금",
       "category": "이행·대금",
@@ -1530,7 +2168,7 @@
     },
     {
       "id": "liquidated-damages-FV02",
-      "priority": 29,
+      "priority": 40,
       "slug": "liquidated-damages",
       "institutionName": "지체상금",
       "category": "이행·대금",
@@ -1541,7 +2179,7 @@
     },
     {
       "id": "liquidated-damages-FV03",
-      "priority": 29,
+      "priority": 40,
       "slug": "liquidated-damages",
       "institutionName": "지체상금",
       "category": "이행·대금",
@@ -1552,7 +2190,7 @@
     },
     {
       "id": "liquidated-damages-FV04",
-      "priority": 29,
+      "priority": 40,
       "slug": "liquidated-damages",
       "institutionName": "지체상금",
       "category": "이행·대금",
@@ -1563,7 +2201,7 @@
     },
     {
       "id": "liquidated-damages-FV05",
-      "priority": 29,
+      "priority": 40,
       "slug": "liquidated-damages",
       "institutionName": "지체상금",
       "category": "이행·대금",
@@ -1574,7 +2212,7 @@
     },
     {
       "id": "defect-warranty-FV01",
-      "priority": 30,
+      "priority": 41,
       "slug": "defect-warranty",
       "institutionName": "하자보수와 하자담보책임",
       "category": "이행·대금",
@@ -1585,7 +2223,7 @@
     },
     {
       "id": "defect-warranty-FV02",
-      "priority": 30,
+      "priority": 41,
       "slug": "defect-warranty",
       "institutionName": "하자보수와 하자담보책임",
       "category": "이행·대금",
@@ -1596,7 +2234,7 @@
     },
     {
       "id": "defect-warranty-FV03",
-      "priority": 30,
+      "priority": 41,
       "slug": "defect-warranty",
       "institutionName": "하자보수와 하자담보책임",
       "category": "이행·대금",
@@ -1607,7 +2245,7 @@
     },
     {
       "id": "defect-warranty-FV04",
-      "priority": 30,
+      "priority": 41,
       "slug": "defect-warranty",
       "institutionName": "하자보수와 하자담보책임",
       "category": "이행·대금",
@@ -1618,7 +2256,7 @@
     },
     {
       "id": "contract-termination-FV01",
-      "priority": 31,
+      "priority": 42,
       "slug": "contract-termination",
       "institutionName": "계약의 해제·해지",
       "category": "이행·대금",
@@ -1629,7 +2267,7 @@
     },
     {
       "id": "contract-termination-FV02",
-      "priority": 31,
+      "priority": 42,
       "slug": "contract-termination",
       "institutionName": "계약의 해제·해지",
       "category": "이행·대금",
@@ -1640,7 +2278,7 @@
     },
     {
       "id": "contract-termination-FV03",
-      "priority": 31,
+      "priority": 42,
       "slug": "contract-termination",
       "institutionName": "계약의 해제·해지",
       "category": "이행·대금",
@@ -1651,7 +2289,7 @@
     },
     {
       "id": "contract-termination-FV04",
-      "priority": 31,
+      "priority": 42,
       "slug": "contract-termination",
       "institutionName": "계약의 해제·해지",
       "category": "이행·대금",
@@ -1662,7 +2300,7 @@
     },
     {
       "id": "subcontract-payment-protection-FV01",
-      "priority": 32,
+      "priority": 43,
       "slug": "subcontract-payment-protection",
       "institutionName": "하도급 관리와 하도급대금 직접지급",
       "category": "이행·대금",
@@ -1673,7 +2311,7 @@
     },
     {
       "id": "subcontract-payment-protection-FV02",
-      "priority": 32,
+      "priority": 43,
       "slug": "subcontract-payment-protection",
       "institutionName": "하도급 관리와 하도급대금 직접지급",
       "category": "이행·대금",
@@ -1684,7 +2322,7 @@
     },
     {
       "id": "subcontract-payment-protection-FV03",
-      "priority": 32,
+      "priority": 43,
       "slug": "subcontract-payment-protection",
       "institutionName": "하도급 관리와 하도급대금 직접지급",
       "category": "이행·대금",
@@ -1695,7 +2333,7 @@
     },
     {
       "id": "subcontract-payment-protection-FV04",
-      "priority": 32,
+      "priority": 43,
       "slug": "subcontract-payment-protection",
       "institutionName": "하도급 관리와 하도급대금 직접지급",
       "category": "이행·대금",
@@ -1706,7 +2344,7 @@
     },
     {
       "id": "subcontract-payment-protection-FV05",
-      "priority": 32,
+      "priority": 43,
       "slug": "subcontract-payment-protection",
       "institutionName": "하도급 관리와 하도급대금 직접지급",
       "category": "이행·대금",
@@ -1716,8 +2354,118 @@
       "status": "open"
     },
     {
+      "id": "quality-inspection-management-FV01",
+      "priority": 44,
+      "slug": "quality-inspection-management",
+      "institutionName": "조달물자 품질관리(품질점검·전문기관검사)",
+      "category": "사후관리·제재",
+      "item": "전문검사기관(국가공인검사기관) 지정 목록과 검사 의뢰·배정 실무 흐름(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "quality-inspection-management-FV02",
+      "priority": 44,
+      "slug": "quality-inspection-management",
+      "institutionName": "조달물자 품질관리(품질점검·전문기관검사)",
+      "category": "사후관리·제재",
+      "item": "품질보증조달물품 등급별(S·A·B·예비) 납품검사 면제 유효기간과 점수 기준 등 조달청 규정 세부값(운영 확인)",
+      "domain": "처리기간",
+      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
+      "status": "open"
+    },
+    {
+      "id": "quality-inspection-management-FV03",
+      "priority": 44,
+      "slug": "quality-inspection-management",
+      "institutionName": "조달물자 품질관리(품질점검·전문기관검사)",
+      "category": "사후관리·제재",
+      "item": "나라장터 종합쇼핑몰 품질결함 거래정지 기간 가중(일반물자 대비 1.5~2배) 산정과 해제 요건 실무(운영 확인)",
+      "domain": "처리기간",
+      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
+      "status": "open"
+    },
+    {
+      "id": "quality-inspection-management-FV04",
+      "priority": 44,
+      "slug": "quality-inspection-management",
+      "institutionName": "조달물자 품질관리(품질점검·전문기관검사)",
+      "category": "사후관리·제재",
+      "item": "품질점검 재점검 시 시험·분석 비용 전부 업체 부담 처리의 서식·고지 절차(운영 확인)",
+      "domain": "문서·증빙",
+      "suggestedEvidence": "현행 서식·업무편람 또는 공식 안내",
+      "status": "open"
+    },
+    {
+      "id": "quality-inspection-management-FV05",
+      "priority": 44,
+      "slug": "quality-inspection-management",
+      "institutionName": "조달물자 품질관리(품질점검·전문기관검사)",
+      "category": "사후관리·제재",
+      "item": "안전관리물자 전수검사 대상 품목의 지정 범위와 국민안전 조달물자 품질관리 업무규정 운영(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "penalty-surcharge-FV01",
+      "priority": 45,
+      "slug": "penalty-surcharge",
+      "institutionName": "제재를 갈음하는 과징금",
+      "category": "사후관리·제재",
+      "item": "과징금부과심의위원회의 실제 개최 주기·심의 소요 기간과 위원 구성(운영 확인)",
+      "domain": "처리기간",
+      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
+      "status": "open"
+    },
+    {
+      "id": "penalty-surcharge-FV02",
+      "priority": 45,
+      "slug": "penalty-surcharge",
+      "institutionName": "제재를 갈음하는 과징금",
+      "category": "사후관리·제재",
+      "item": "시행령 제76조의3의 구체적 납부기한 일수와 서면 통지 서식(운영 확인)",
+      "domain": "처리기간",
+      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
+      "status": "open"
+    },
+    {
+      "id": "penalty-surcharge-FV03",
+      "priority": 45,
+      "slug": "penalty-surcharge",
+      "institutionName": "제재를 갈음하는 과징금",
+      "category": "사후관리·제재",
+      "item": "시행령 제76조의4 납부기한 연장·분할납부의 실제 인용 요건과 담보 관행(운영 확인)",
+      "domain": "처리기간",
+      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
+      "status": "open"
+    },
+    {
+      "id": "penalty-surcharge-FV04",
+      "priority": 45,
+      "slug": "penalty-surcharge",
+      "institutionName": "제재를 갈음하는 과징금",
+      "category": "사후관리·제재",
+      "item": "자격 제한 대비 과징금 갈음 처분이 실제로 선택되는 비율(운영 추정)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "penalty-surcharge-FV05",
+      "priority": 45,
+      "slug": "penalty-surcharge",
+      "institutionName": "제재를 갈음하는 과징금",
+      "category": "사후관리·제재",
+      "item": "과징금부과 세부기준 고시의 현행 제명·발령번호와 비율 산정 세부기준(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
       "id": "debarment-FV01",
-      "priority": 33,
+      "priority": 46,
       "slug": "debarment",
       "institutionName": "부정당업자 입찰참가자격 제한",
       "category": "사후관리·제재",
@@ -1728,7 +2476,7 @@
     },
     {
       "id": "debarment-FV02",
-      "priority": 33,
+      "priority": 46,
       "slug": "debarment",
       "institutionName": "부정당업자 입찰참가자격 제한",
       "category": "사후관리·제재",
@@ -1739,7 +2487,7 @@
     },
     {
       "id": "debarment-FV03",
-      "priority": 33,
+      "priority": 46,
       "slug": "debarment",
       "institutionName": "부정당업자 입찰참가자격 제한",
       "category": "사후관리·제재",
@@ -1750,288 +2498,13 @@
     },
     {
       "id": "debarment-FV04",
-      "priority": 33,
+      "priority": 46,
       "slug": "debarment",
       "institutionName": "부정당업자 입찰참가자격 제한",
       "category": "사후관리·제재",
       "item": "집행정지 인용 시 나라장터 게재 반영까지 걸리는 실제 시간(운영 확인)",
       "domain": "실무 관행",
       "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
-      "status": "open"
-    },
-    {
-      "id": "facility-construction-procurement-FV01",
-      "priority": 72,
-      "slug": "facility-construction-procurement",
-      "institutionName": "시설공사 조달(수요기관 대행 발주)",
-      "category": "기타",
-      "item": "조달사업법 시행령 제11조의 공사 계약요청 의무 금액 구간(종합 30억·전문 등 3억)의 현행 세부 수치와 요청 예외 사유(운영 확인)",
-      "domain": "재정·비용",
-      "suggestedEvidence": "예산서·수수료 고시 또는 결산자료",
-      "status": "open"
-    },
-    {
-      "id": "facility-construction-procurement-FV02",
-      "priority": 72,
-      "slug": "facility-construction-procurement",
-      "institutionName": "시설공사 조달(수요기관 대행 발주)",
-      "category": "기타",
-      "item": "입찰참가자격 사전심사(PQ) 대상 공사유형과 추정가격 200억원 기준의 현행 세부 공종 목록(운영 확인)",
-      "domain": "실무 관행",
-      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
-      "status": "open"
-    },
-    {
-      "id": "facility-construction-procurement-FV03",
-      "priority": 72,
-      "slug": "facility-construction-procurement",
-      "institutionName": "시설공사 조달(수요기관 대행 발주)",
-      "category": "기타",
-      "item": "조달청 시설공사 적격심사 세부기준 별표별 평가항목·배점과 종합심사낙찰제 적용 경계(300억원 일반/간이형)(운영 확인)",
-      "domain": "실무 관행",
-      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
-      "status": "open"
-    },
-    {
-      "id": "facility-construction-procurement-FV04",
-      "priority": 72,
-      "slug": "facility-construction-procurement",
-      "institutionName": "시설공사 조달(수요기관 대행 발주)",
-      "category": "기타",
-      "item": "착공·공사감독·기성 및 준공검사·대가지급 등 현장 이행관리를 수요기관이 담당하는 대행 범위 경계(운영 확인)",
-      "domain": "실무 관행",
-      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
-      "status": "open"
-    },
-    {
-      "id": "facility-construction-procurement-FV05",
-      "priority": 72,
-      "slug": "facility-construction-procurement",
-      "institutionName": "시설공사 조달(수요기관 대행 발주)",
-      "category": "기타",
-      "item": "나라장터 공사 전자입찰 접수·개찰 화면 흐름과 조달청 시설공사 계약업무 처리규정의 내부 처리 단계(운영 확인)",
-      "domain": "실무 관행",
-      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
-      "status": "open"
-    },
-    {
-      "id": "price-survey-and-cost-accounting-FV01",
-      "priority": 73,
-      "slug": "price-survey-and-cost-accounting",
-      "institutionName": "조달청 가격조사와 원가계산",
-      "category": "기타",
-      "item": "조달사업법 시행령 제11조 중앙조달 대상 기준액(물품·공사 추정가격 구간)의 현행 수치(운영 확인)",
-      "domain": "실무 관행",
-      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
-      "status": "open"
-    },
-    {
-      "id": "price-survey-and-cost-accounting-FV02",
-      "priority": 73,
-      "slug": "price-survey-and-cost-accounting",
-      "institutionName": "조달청 가격조사와 원가계산",
-      "category": "기타",
-      "item": "조달청 물품·공사 원가계산 제비율 적용 세부기준과 표준품셈 최신본 적용 관행(운영 확인)",
-      "domain": "실무 관행",
-      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
-      "status": "open"
-    },
-    {
-      "id": "price-survey-and-cost-accounting-FV03",
-      "priority": 73,
-      "slug": "price-survey-and-cost-accounting",
-      "institutionName": "조달청 가격조사와 원가계산",
-      "category": "기타",
-      "item": "나라장터 전자입찰에서 복수예비가격 작성·추첨 화면 흐름과 기관별 예정가격 결정 기준(운영 확인)",
-      "domain": "실무 관행",
-      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
-      "status": "open"
-    },
-    {
-      "id": "price-survey-and-cost-accounting-FV04",
-      "priority": 73,
-      "slug": "price-survey-and-cost-accounting",
-      "institutionName": "조달청 가격조사와 원가계산",
-      "category": "기타",
-      "item": "원가계산용역기관 자격요건 심사와 최종원가계산서 검토·서명 확인 실무(운영 확인)",
-      "domain": "실무 관행",
-      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
-      "status": "open"
-    },
-    {
-      "id": "price-survey-and-cost-accounting-FV05",
-      "priority": 73,
-      "slug": "price-survey-and-cost-accounting",
-      "institutionName": "조달청 가격조사와 원가계산",
-      "category": "기타",
-      "item": "거래실례가격 직접조사 시 2 이상 사업자 확인 기록의 보존 관행(운영 추정)",
-      "domain": "실무 관행",
-      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
-      "status": "open"
-    },
-    {
-      "id": "quality-inspection-management-FV01",
-      "priority": 79,
-      "slug": "quality-inspection-management",
-      "institutionName": "조달물자 품질관리(품질점검·전문기관검사)",
-      "category": "기타",
-      "item": "전문검사기관(국가공인검사기관) 지정 목록과 검사 의뢰·배정 실무 흐름(운영 확인)",
-      "domain": "실무 관행",
-      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
-      "status": "open"
-    },
-    {
-      "id": "quality-inspection-management-FV02",
-      "priority": 79,
-      "slug": "quality-inspection-management",
-      "institutionName": "조달물자 품질관리(품질점검·전문기관검사)",
-      "category": "기타",
-      "item": "품질보증조달물품 등급별(S·A·B·예비) 납품검사 면제 유효기간과 점수 기준 등 조달청 규정 세부값(운영 확인)",
-      "domain": "처리기간",
-      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
-      "status": "open"
-    },
-    {
-      "id": "quality-inspection-management-FV03",
-      "priority": 79,
-      "slug": "quality-inspection-management",
-      "institutionName": "조달물자 품질관리(품질점검·전문기관검사)",
-      "category": "기타",
-      "item": "나라장터 종합쇼핑몰 품질결함 거래정지 기간 가중(일반물자 대비 1.5~2배) 산정과 해제 요건 실무(운영 확인)",
-      "domain": "처리기간",
-      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
-      "status": "open"
-    },
-    {
-      "id": "quality-inspection-management-FV04",
-      "priority": 79,
-      "slug": "quality-inspection-management",
-      "institutionName": "조달물자 품질관리(품질점검·전문기관검사)",
-      "category": "기타",
-      "item": "품질점검 재점검 시 시험·분석 비용 전부 업체 부담 처리의 서식·고지 절차(운영 확인)",
-      "domain": "문서·증빙",
-      "suggestedEvidence": "현행 서식·업무편람 또는 공식 안내",
-      "status": "open"
-    },
-    {
-      "id": "quality-inspection-management-FV05",
-      "priority": 79,
-      "slug": "quality-inspection-management",
-      "institutionName": "조달물자 품질관리(품질점검·전문기관검사)",
-      "category": "기타",
-      "item": "안전관리물자 전수검사 대상 품목의 지정 범위와 국민안전 조달물자 품질관리 업무규정 운영(운영 확인)",
-      "domain": "실무 관행",
-      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
-      "status": "open"
-    },
-    {
-      "id": "shopping-mall-purchase-FV01",
-      "priority": 83,
-      "slug": "shopping-mall-purchase",
-      "institutionName": "종합쇼핑몰 구매",
-      "category": "기타",
-      "item": "2단계경쟁 대상금액 5천만원(중소기업자간 경쟁제품 1억원)과 제안공고 전환 기준(10억원)의 현행 훈령 수치(운영 확인)",
-      "domain": "재정·비용",
-      "suggestedEvidence": "예산서·수수료 고시 또는 결산자료",
-      "status": "open"
-    },
-    {
-      "id": "shopping-mall-purchase-FV02",
-      "priority": 83,
-      "slug": "shopping-mall-purchase",
-      "institutionName": "종합쇼핑몰 구매",
-      "category": "기타",
-      "item": "제안요청 대상자 자동선정(세부품명 계약상대자 15인 이상 시 무작위 10인 중 5인) 시스템 흐름(운영 확인)",
-      "domain": "정보시스템",
-      "suggestedEvidence": "공식 시스템 매뉴얼 또는 운영기관 확인",
-      "status": "open"
-    },
-    {
-      "id": "shopping-mall-purchase-FV03",
-      "priority": 83,
-      "slug": "shopping-mall-purchase",
-      "institutionName": "종합쇼핑몰 구매",
-      "category": "기타",
-      "item": "바로구매(즉시구매) 화면 흐름과 납품요구서 발행·계약담당공무원 승인 처리 절차(운영 확인)",
-      "domain": "실무 관행",
-      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
-      "status": "open"
-    },
-    {
-      "id": "shopping-mall-purchase-FV04",
-      "priority": 83,
-      "slug": "shopping-mall-purchase",
-      "institutionName": "종합쇼핑몰 구매",
-      "category": "기타",
-      "item": "검사·검수 처리기한과 대가지급 기한(청구 후 일수)의 실제 운영(국가계약법령·예규 위임 사항)(운영 확인)",
-      "domain": "처리기간",
-      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
-      "status": "open"
-    },
-    {
-      "id": "shopping-mall-purchase-FV05",
-      "priority": 83,
-      "slug": "shopping-mall-purchase",
-      "institutionName": "종합쇼핑몰 구매",
-      "category": "기타",
-      "item": "물품 다수공급자계약 업무처리규정 일반 물품본의 납품요구·2단계경쟁 조문 번호(레미콘 특정본만 원문 대조)(운영 추정)",
-      "domain": "실무 관행",
-      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
-      "status": "open"
-    },
-    {
-      "id": "shopping-mall-purchase-FV06",
-      "priority": 83,
-      "slug": "shopping-mall-purchase",
-      "institutionName": "종합쇼핑몰 구매",
-      "category": "기타",
-      "item": "국가종합전자조달시스템 종합쇼핑몰 운영규정 원문의 상품정보·거래정지 조문(원문 미대조)(운영 추정)",
-      "domain": "정보시스템",
-      "suggestedEvidence": "공식 시스템 매뉴얼 또는 운영기관 확인",
-      "status": "open"
-    },
-    {
-      "id": "contract-signing-FV01",
-      "priority": 90,
-      "slug": "contract-signing",
-      "institutionName": "계약서 작성과 계약 체결",
-      "category": "기타",
-      "item": "나라장터 전자계약 화면 흐름(전자계약서 송신-동의-확정)과 공동인증·전자서명 절차(운영 확인)",
-      "domain": "실무 관행",
-      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
-      "status": "open"
-    },
-    {
-      "id": "contract-signing-FV02",
-      "priority": 90,
-      "slug": "contract-signing",
-      "institutionName": "계약서 작성과 계약 체결",
-      "category": "기타",
-      "item": "계약서 작성 시 인지세(전자문서 포함) 부과 대상과 납부 방식(운영 확인)",
-      "domain": "문서·증빙",
-      "suggestedEvidence": "현행 서식·업무편람 또는 공식 안내",
-      "status": "open"
-    },
-    {
-      "id": "contract-signing-FV03",
-      "priority": 90,
-      "slug": "contract-signing",
-      "institutionName": "계약서 작성과 계약 체결",
-      "category": "기타",
-      "item": "계약보증금 면제 대상과 지급각서 서식·보존 관행(운영 확인)",
-      "domain": "문서·증빙",
-      "suggestedEvidence": "현행 서식·업무편람 또는 공식 안내",
-      "status": "open"
-    },
-    {
-      "id": "contract-signing-FV04",
-      "priority": 90,
-      "slug": "contract-signing",
-      "institutionName": "계약서 작성과 계약 체결",
-      "category": "기타",
-      "item": "낙찰통지 후 계약체결 기한(10일)의 물품·용역 계약별 실제 운영과 기한 연장 관행(공사입찰유의서 제19조 근거, 예규 원문 식별자 미확보)(운영 확인)",
-      "domain": "처리기간",
-      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
       "status": "open"
     }
   ]

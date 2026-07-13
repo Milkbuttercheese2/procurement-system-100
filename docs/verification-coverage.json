@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-13",
+  "generatedAt": "2026-07-14",
   "institutions": 50,
   "sourceLinked": 47,
   "needsReview": 3,
-  "linkedSources": 213,
+  "linkedSources": 214,
   "unresolvedReferences": 3,
   "coverage": [
     {
@@ -218,8 +218,8 @@
       "slug": "third-party-unit-price-contract",
       "name": "제3자를 위한 단가계약",
       "status": "source-linked",
-      "total": 5,
-      "linked": 5,
+      "total": 6,
+      "linked": 6,
       "unresolved": 0
     },
     {
