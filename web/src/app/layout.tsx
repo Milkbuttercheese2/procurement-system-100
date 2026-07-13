@@ -91,7 +91,7 @@ function Header() {
       <div className="site-header-inner">
         <Link href="/" className="site-brand">
           <strong>조달제도 100</strong>
-          <span>How Did They Do All That Procurement</span>
+          <span>그 많던 조달을 어떻게 했을까</span>
         </Link>
 
         <nav className="site-nav" aria-label="주요 메뉴">
