@@ -3,7 +3,7 @@
   "institutions": 48,
   "sourceLinked": 45,
   "needsReview": 3,
-  "linkedSources": 206,
+  "linkedSources": 204,
   "unresolvedReferences": 3,
   "coverage": [
     {
@@ -308,8 +308,8 @@
       "slug": "green-product-purchase",
       "name": "녹색제품 의무구매",
       "status": "source-linked",
-      "total": 3,
-      "linked": 3,
+      "total": 2,
+      "linked": 2,
       "unresolved": 0
     },
     {
@@ -317,8 +317,8 @@
       "slug": "severely-disabled-products",
       "name": "중증장애인생산품 우선구매",
       "status": "source-linked",
-      "total": 6,
-      "linked": 6,
+      "total": 5,
+      "linked": 5,
       "unresolved": 0
     },
     {
