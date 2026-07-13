@@ -2,7 +2,8 @@ name: Check legal source freshness
 
 on:
   schedule:
-    - cron: "17 21 * * 0"
+    # 매주 월요일 03:00 KST (일요일 18:00 UTC) — 일 12시~월 6시 KST 저트래픽 창 안
+    - cron: "0 18 * * 0"
   workflow_dispatch:
 
 permissions:
@@ -16,7 +17,8 @@ jobs:
       run:
         working-directory: web
     env:
-      LAW_OC: ${{ secrets.LAW_OC }}
+      # 저장소 시크릿 LAW_OC가 있으면 그것을, 없으면 공용 기본 OC를 사용해 주간 감시가 끊기지 않게 한다.
+      LAW_OC: ${{ secrets.LAW_OC || 'wooseongkyun' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -26,11 +28,12 @@ jobs:
           cache-dependency-path: web/package-lock.json
       - run: npm ci
       - run: npm install --global korean-law-mcp@4.7.1
-      - name: Verify secret configuration
+      - name: Report OC source
         run: |
-          if [ -z "$LAW_OC" ]; then
-            echo "LAW_OC repository secret is required." >&2
-            exit 1
+          if [ -n "${{ secrets.LAW_OC }}" ]; then
+            echo "Using repository secret LAW_OC."
+          else
+            echo "::warning::LAW_OC repository secret가 없어 공용 기본 OC로 실행합니다. 안정적 운영을 위해 Settings > Secrets and variables > Actions에 LAW_OC를 등록하세요."
           fi
       - id: freshness
         run: npm run check:freshness
