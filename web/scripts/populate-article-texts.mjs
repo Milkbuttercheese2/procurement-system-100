@@ -23,6 +23,28 @@ function baseArticle(article) {
   return `제${m[1]}조${m[2] ? `의${m[2]}` : ""}`;
 }
 
+// 인용에 지정된 항 번호("제3항") 추출. 없으면 null.
+function hangNumber(article) {
+  const m = String(article).match(/제\s*(\d+)\s*항/);
+  return m ? Number(m[1]) : null;
+}
+
+const CIRCLED = "①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳㉑㉒㉓㉔㉕㉖㉗㉘㉙㉚";
+// 조문 본문에서 n번째 항(원숫자 마커)만 추출. 마커가 없으면(단항 조문 등) 본문 전체를 반환.
+function extractHang(body, n) {
+  const marker = CIRCLED[n - 1];
+  if (!marker) return body;
+  const start = body.indexOf(marker);
+  if (start === -1) return body; // 해당 항 마커 없음 → 조문 전체로 폴백
+  const next = CIRCLED[n];
+  let end = body.length;
+  if (next) {
+    const ni = body.indexOf(next, start + 1);
+    if (ni !== -1) end = ni;
+  }
+  return body.slice(start, end).trim();
+}
+
 function stripToolNoise(s) {
   return (s || "")
     .split("\n")
@@ -153,10 +175,13 @@ async function processFile(file) {
       const base = baseArticle(article);
       const hit = bodies.get(base);
       if (hit) {
+        // 인용이 특정 항(제N항)을 지정하면 그 항만, 아니면 조문 전체를 담는다.
+        const n = hangNumber(article);
+        const text = n ? extractHang(hit.body, n) : hit.body;
         articleTexts[key] = {
           article: base,
           title: hit.title,
-          text: hit.body.slice(0, 1400),
+          text: text.slice(0, 1400),
           effectiveOn: src.effectiveOn ?? src.promulgatedOn ?? null,
         };
       }
