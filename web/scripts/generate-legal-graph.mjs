@@ -430,6 +430,46 @@ function main() {
     for (const u of unresolved) unresolvedAll.push({ source: key, raw: u.raw, snippet: u.snippet });
   }
 
+  // ── 3차 패스: 법제처 3단비교(thdCmp) 공식 위임관계 병합 ──
+  // sources/law-cache/delegation-map.json (fetch-delegation-map.mjs가 수집한
+  // 공식 메타데이터)을 오프라인으로 소비한다. 룰 추론이 아닌 법제처 관리
+  // 데이터이므로 위임 엣지의 정본으로 삼고, 룰 기반 역참조(하위법의 "법
+  // 제N조")와의 일치율을 교차검증 지표로 보고한다.
+  let delegationEdges = 0;
+  let delegationCrossChecked = 0;
+  const delegationPath = path.join(REPO_DIR, "..", "sources", "law-cache", "delegation-map.json");
+  if (fs.existsSync(delegationPath)) {
+    const dmap = JSON.parse(fs.readFileSync(delegationPath, "utf8")).delegations ?? {};
+    for (const [srcKey, targets] of Object.entries(dmap)) {
+      const law = srcKey.slice(0, srcKey.indexOf("::"));
+      const base = srcKey.slice(law.length + 2);
+      const srcArt = ensureArticle(srcKey, law, base, null);
+      const seen = new Set(srcArt.refsTo.map((e) => e.target));
+      for (const t of targets) {
+        const tKey = `${t.law}::${t.article}`;
+        if (tKey === srcKey || seen.has(tKey)) continue;
+        seen.add(tKey);
+        srcArt.refsTo.push({ target: tKey, raw: `3단비교 ${t.tier}`, context: "delegation-official" });
+        delegationEdges += 1;
+        // 교차검증: 하위법 조문(어느 항이든)이 룰 추출로 이 법률 조문
+        // (어느 항이든)을 역참조하는가 — 조 단위로 정규화해 비교
+        const baseOf = (k) => {
+          const i = k.indexOf("::");
+          const m2 = k.slice(i + 2).match(/^제\d+조(?:의\d+)?/);
+          return m2 ? k.slice(0, i + 2) + m2[0] : k;
+        };
+        const srcBase = baseOf(srcKey);
+        const tBasePrefix = baseOf(tKey);
+        let matched = false;
+        for (const [ak, av] of articles) {
+          if (!ak.startsWith(tBasePrefix)) continue;
+          if (av.refsTo.some((e) => e.context !== "delegation-official" && baseOf(e.target) === srcBase)) { matched = true; break; }
+        }
+        if (matched) delegationCrossChecked += 1;
+      }
+    }
+  }
+
   // ── 역방향 인덱스: referencedBy ──
   for (const [key, art] of articles) {
     for (const e of art.refsTo) {
@@ -486,6 +526,8 @@ function main() {
       referenceOnlyArticles: sortedArticleKeys.length - citedArticles,
       institutionCiteEdges,
       articleRefEdges,
+      delegationEdges,
+      delegationCrossChecked,
       unresolvedRefs: unresolvedOut.length,
     },
     articles: articlesOut,
