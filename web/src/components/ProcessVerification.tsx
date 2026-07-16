@@ -49,16 +49,28 @@ export function VerificationMark({
   result,
   inverse = false,
   compact = false,
+  onActivate,
 }: {
   result: NodeVerificationResult;
   inverse?: boolean;
   compact?: boolean;
+  onActivate?: () => void;
 }) {
   const visual = STATE_STYLE[result.state];
   return (
     <span
       data-verification-state={result.state}
-      title={result.detail}
+      title={onActivate ? `${result.detail} (누르면 법적 근거로 이동)` : result.detail}
+      role={onActivate ? "button" : undefined}
+      tabIndex={onActivate ? 0 : undefined}
+      onClick={
+        onActivate
+          ? (event) => {
+              event.stopPropagation();
+              onActivate();
+            }
+          : undefined
+      }
       style={{
         display: "inline-flex",
         alignItems: "center",
@@ -74,6 +86,7 @@ export function VerificationMark({
         fontWeight: 700,
         lineHeight: 1.2,
         whiteSpace: "nowrap",
+        cursor: onActivate ? "pointer" : undefined,
       }}
     >
       <span aria-hidden="true" style={{ flexShrink: 0 }}>

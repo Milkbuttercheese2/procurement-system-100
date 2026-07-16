@@ -389,7 +389,20 @@ export function SwimlaneNodeCard({
           minWidth: 0,
         }}
       >
-        <VerificationMark result={verificationResult} inverse={isCurrent} compact />
+        <VerificationMark
+          result={verificationResult}
+          inverse={isCurrent}
+          compact
+          onActivate={() => {
+            onClick(node);
+            // 선택 반영 후 노드 상세의 법적 근거 영역으로 스크롤(모바일 열람 동선)
+            window.setTimeout(() => {
+              document
+                .querySelector(".process-node-inspector-laws")
+                ?.scrollIntoView({ behavior: "smooth", block: "start" });
+            }, 80);
+          }}
+        />
         {verificationResult.lowConfidence && (
           <span
             title={`법령 근거 확신도 ${Math.round((node.confidence ?? 0) * 100)}%`}
