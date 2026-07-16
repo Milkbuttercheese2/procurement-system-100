@@ -1,13 +1,13 @@
 {
   "sourceAsOfDate": "2026-07-12",
-  "total": 262,
+  "total": 263,
   "institutions": 53,
   "byDomain": {
-    "문서·증빙": 21,
-    "실무 관행": 145,
+    "문서·증빙": 23,
+    "실무 관행": 143,
     "재정·비용": 30,
-    "정보시스템": 15,
-    "처리기간": 51
+    "정보시스템": 17,
+    "처리기간": 50
   },
   "entries": [
     {
@@ -489,7 +489,7 @@
       "slug": "severely-disabled-products",
       "institutionName": "중증장애인생산품 우선구매",
       "category": "지정·판로",
-      "item": "국가계약법 시행령 제26조제1항의 수의계약 해당 호·목 번호는 시행령 개정으로 재배열될 수 있어 원문 대조 필요(운영 확인)",
+      "item": "국가계약법 시행령 제26조제1항의 중증장애인생산품 생산시설 수의계약 근거는 제4호다목으로 원문 대조 확인했으며, 호·목 번호는 시행령 개정으로 재배열될 수 있어 개정 시 재확인 필요(운영 확인)",
       "domain": "실무 관행",
       "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
       "status": "open"
@@ -500,13 +500,24 @@
       "slug": "severely-disabled-products",
       "institutionName": "중증장애인생산품 우선구매",
       "category": "지정·판로",
+      "item": "지정·재지정 심사 시 서류심사와 현장심사의 실시 여부 및 재지정 시 서류심사 생략 등 세부 심사방법은 시행령 제17조가 아니라 보건복지부 고시·업무수행기관 운영기준으로 확인 필요(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "severely-disabled-products-FV04",
+      "priority": 9,
+      "slug": "severely-disabled-products",
+      "institutionName": "중증장애인생산품 우선구매",
+      "category": "지정·판로",
       "item": "생산시설 참여 장애인 10명 이상·유효기간 3년 등 세부 지정기준의 최신 고시 반영 여부(운영 확인)",
       "domain": "처리기간",
       "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
       "status": "open"
     },
     {
-      "id": "severely-disabled-products-FV04",
+      "id": "severely-disabled-products-FV05",
       "priority": 9,
       "slug": "severely-disabled-products",
       "institutionName": "중증장애인생산품 우선구매",
@@ -517,7 +528,7 @@
       "status": "open"
     },
     {
-      "id": "severely-disabled-products-FV05",
+      "id": "severely-disabled-products-FV06",
       "priority": 9,
       "slug": "severely-disabled-products",
       "institutionName": "중증장애인생산품 우선구매",
@@ -528,7 +539,7 @@
       "status": "open"
     },
     {
-      "id": "severely-disabled-products-FV06",
+      "id": "severely-disabled-products-FV07",
       "priority": 9,
       "slug": "severely-disabled-products",
       "institutionName": "중증장애인생산품 우선구매",
@@ -789,6 +800,17 @@
       "item": "원가계산 용역기관 의뢰 요건과 표준시장단가 적용 대상 공사 구분(운영 추정)",
       "domain": "실무 관행",
       "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "estimated-price-FV05",
+      "priority": 14,
+      "slug": "estimated-price",
+      "institutionName": "예정가격 작성",
+      "category": "발주",
+      "item": "복수예비가격의 전자조달시스템 등록과 개찰 전 비공개 관리에서 지정정보처리장치 입력 절차의 화면 흐름(운영 확인)",
+      "domain": "정보시스템",
+      "suggestedEvidence": "공식 시스템 매뉴얼 또는 운영기관 확인",
       "status": "open"
     },
     {
@@ -1061,9 +1083,9 @@
       "slug": "facility-construction-procurement",
       "institutionName": "시설공사 조달(수요기관 대행 발주)",
       "category": "발주",
-      "item": "공사계약요청서 첨부서류의 근거가 되는 조달청 시설공사 계약업무 처리규정의 구체 조번호는 원문으로 확정하지 못해 서술형으로 두었다(운영 확인)",
-      "domain": "실무 관행",
-      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "item": "공사계약요청서 첨부서류(공사개요·내역서·설계도면·공사시방서)의 근거는 조달청 시설공사 계약업무 처리규정 제5조(계약요청서 접수)로 확인되며, 첨부서류 세부 목록과 서식은 개정될 수 있다(운영 확인)",
+      "domain": "문서·증빙",
+      "suggestedEvidence": "현행 서식·업무편람 또는 공식 안내",
       "status": "open"
     },
     {
@@ -1749,6 +1771,17 @@
       "status": "open"
     },
     {
+      "id": "comprehensive-evaluation-award-FV06",
+      "priority": 32,
+      "slug": "comprehensive-evaluation-award",
+      "institutionName": "종합심사낙찰제",
+      "category": "심사·평가",
+      "item": "심사결과 통보일부터 3일 이내 재심사 요청 등 이의·재심사 절차의 기한은 공사계약 종합심사낙찰제 심사기준(계약예규) 소관 사항으로, 해당 예규 원문 대조가 필요하다(운영 확인)",
+      "domain": "처리기간",
+      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
+      "status": "open"
+    },
+    {
       "id": "contract-by-negotiation-FV01",
       "priority": 33,
       "slug": "contract-by-negotiation",
@@ -1969,17 +2002,6 @@
       "status": "open"
     },
     {
-      "id": "multiple-award-schedule-FV06",
-      "priority": 36,
-      "slug": "multiple-award-schedule",
-      "institutionName": "다수공급자계약(MAS)",
-      "category": "계약 체결",
-      "item": "조달사업법 시행령상 다수공급자계약 조문의 정확한 항·호(원문 미대조)(운영 추정)",
-      "domain": "실무 관행",
-      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
-      "status": "open"
-    },
-    {
       "id": "third-party-unit-price-contract-FV01",
       "priority": 37,
       "slug": "third-party-unit-price-contract",
@@ -2084,9 +2106,9 @@
       "slug": "shopping-mall-purchase",
       "institutionName": "종합쇼핑몰 구매",
       "category": "계약 체결",
-      "item": "물품 다수공급자계약 업무처리규정 일반 물품본의 납품요구·2단계경쟁 조문 번호(레미콘 특정본만 원문 대조)(운영 추정)",
-      "domain": "실무 관행",
-      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "item": "물품 다수공급자계약 업무처리규정 일반 물품본의 2단계경쟁 조문(제49조~제54조의2)은 원문 대조로 확인했으며, 종합쇼핑몰 바로구매 납품요구는 별도 조문 없이 조달사업법 제12조와 나라장터 시스템 절차에 따르는 실무 흐름(운영 확인)",
+      "domain": "정보시스템",
+      "suggestedEvidence": "공식 시스템 매뉴얼 또는 운영기관 확인",
       "status": "open"
     },
     {
@@ -2095,7 +2117,7 @@
       "slug": "shopping-mall-purchase",
       "institutionName": "종합쇼핑몰 구매",
       "category": "계약 체결",
-      "item": "국가종합전자조달시스템 종합쇼핑몰 운영규정 원문의 상품정보·거래정지 조문(원문 미대조)(운영 추정)",
+      "item": "국가종합전자조달시스템 종합쇼핑몰 운영규정의 상품정보 제공의무(제6조)·거래정지(제7조) 조문을 원문 대조로 확인(운영 확인)",
       "domain": "정보시스템",
       "suggestedEvidence": "공식 시스템 매뉴얼 또는 운영기관 확인",
       "status": "open"
@@ -2480,7 +2502,7 @@
       "slug": "liquidated-damages",
       "institutionName": "지체상금",
       "category": "이행·대금",
-      "item": "법 제26조제3항이 준용하는 조항 범위와 예산 부족 시 지체상금 직접 사용의 실무 적용(운영 추정)",
+      "item": "법 제26조제3항이 준용하는 제18조제3항 단서(예산이 없거나 부족한 경우 보증금을 해당 목적에 직접 사용)를 지체상금에 적용할 때의 실무 처리(운영 추정)",
       "domain": "재정·비용",
       "suggestedEvidence": "예산서·수수료 고시 또는 결산자료",
       "status": "open"
@@ -2799,24 +2821,13 @@
       "slug": "penalty-surcharge",
       "institutionName": "제재를 갈음하는 과징금",
       "category": "사후관리·제재",
-      "item": "과징금부과심의위원회의 실제 개최 주기·심의 소요 기간과 위원 구성(운영 확인)",
-      "domain": "처리기간",
-      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
+      "item": "시행령 제76조의3에 따른 서면 통지 서식과 수납기관 지정 등 부과·납부 절차의 실무 운영(운영 확인)",
+      "domain": "문서·증빙",
+      "suggestedEvidence": "현행 서식·업무편람 또는 공식 안내",
       "status": "open"
     },
     {
       "id": "penalty-surcharge-FV02",
-      "priority": 52,
-      "slug": "penalty-surcharge",
-      "institutionName": "제재를 갈음하는 과징금",
-      "category": "사후관리·제재",
-      "item": "시행령 제76조의3의 구체적 납부기한 일수와 서면 통지 서식(운영 확인)",
-      "domain": "처리기간",
-      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
-      "status": "open"
-    },
-    {
-      "id": "penalty-surcharge-FV03",
       "priority": 52,
       "slug": "penalty-surcharge",
       "institutionName": "제재를 갈음하는 과징금",
@@ -2827,7 +2838,7 @@
       "status": "open"
     },
     {
-      "id": "penalty-surcharge-FV04",
+      "id": "penalty-surcharge-FV03",
       "priority": 52,
       "slug": "penalty-surcharge",
       "institutionName": "제재를 갈음하는 과징금",
@@ -2838,7 +2849,7 @@
       "status": "open"
     },
     {
-      "id": "penalty-surcharge-FV05",
+      "id": "penalty-surcharge-FV04",
       "priority": 52,
       "slug": "penalty-surcharge",
       "institutionName": "제재를 갈음하는 과징금",
