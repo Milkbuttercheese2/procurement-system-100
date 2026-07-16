@@ -117,6 +117,15 @@ export function VerificationMark({
   );
 }
 
+// 근거법령 바로가기를 인용 조문 위치로 딥링크한다.
+// law.go.kr 국문 주소는 /법령|행정규칙/<법령명>/<제N조(의M)> 꼴을 받으면
+// 해당 조문(joNo)으로 화면을 이동시킨다. 패턴을 못 읽으면 법령 첫 화면 폴백.
+function articleDeepUrl(officialUrl: string, article: string): string {
+  const m = String(article).match(/제\s*(\d+)\s*조(?:\s*의\s*(\d+))?/);
+  if (!m || !/law\.go\.kr\/(법령|행정규칙)\//.test(officialUrl)) return officialUrl;
+  return `${officialUrl.replace(/\/+$/, "")}/제${m[1]}조${m[2] ? `의${m[2]}` : ""}`;
+}
+
 function ArticlePopover({
   result,
   onClose,
@@ -182,7 +191,7 @@ function ArticlePopover({
               {sources[0]?.officialUrl && (
                 <a
                   className="article-popover-cta"
-                  href={sources[0].officialUrl}
+                  href={articleDeepUrl(sources[0].officialUrl, basis.article)}
                   target="_blank"
                   rel="noreferrer"
                 >
