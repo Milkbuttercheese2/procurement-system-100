@@ -1,14 +1,15 @@
 {
   "sourceAsOfDate": "2026-07-12",
-  "total": 324,
+  "total": 348,
   "institutions": 61,
   "byDomain": {
-    "문서·증빙": 26,
-    "실무 관행": 179,
-    "운영 사실": 3,
-    "재정·비용": 34,
-    "정보시스템": 18,
-    "처리기간": 64
+    "기관·권한": 4,
+    "문서·증빙": 28,
+    "실무 관행": 187,
+    "운영 사실": 12,
+    "재정·비용": 36,
+    "정보시스템": 19,
+    "처리기간": 62
   },
   "entries": [
     {
@@ -127,9 +128,9 @@
       "slug": "sme-priority-purchase",
       "institutionName": "중소기업제품 우선구매(구매목표)",
       "category": "지정·판로",
-      "item": "중소기업제품 구매목표비율의 정확한 수치(구매액의 50퍼센트 이상)와 연도별 공고 기준(운영 확인)",
-      "domain": "실무 관행",
-      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "item": "P01의 법 제2조(정의상 공공기관)와 시행령 제3조(구매계획 통보 대상 공공기관)는 통보 대상 판정의 근거로 귀속은 타당하나 조문 전문 기계 대조가 미완료 — 원문 대조 필요",
+      "domain": "기관·권한",
+      "suggestedEvidence": "직제·사무분장 또는 담당기관 확인",
       "status": "open"
     },
     {
@@ -138,7 +139,7 @@
       "slug": "sme-priority-purchase",
       "institutionName": "중소기업제품 우선구매(구매목표)",
       "category": "지정·판로",
-      "item": "기술개발제품 우선구매 목표비율(중소기업물품 구매액의 15퍼센트 이상)과 별도 협의 기관의 범위(운영 확인)",
+      "item": "중소기업제품 구매목표비율의 정확한 수치(구매액의 50퍼센트 이상)와 연도별 공고 기준(운영 확인)",
       "domain": "실무 관행",
       "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
       "status": "open"
@@ -149,13 +150,24 @@
       "slug": "sme-priority-purchase",
       "institutionName": "중소기업제품 우선구매(구매목표)",
       "category": "지정·판로",
+      "item": "기술개발제품 우선구매 목표비율(중소기업물품 구매액의 15퍼센트 이상)과 별도 협의 기관의 범위(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "sme-priority-purchase-FV04",
+      "priority": 3,
+      "slug": "sme-priority-purchase",
+      "institutionName": "중소기업제품 우선구매(구매목표)",
+      "category": "지정·판로",
       "item": "우선조달계약 소기업·소상공인 제한경쟁 대상의 현행 금액기준(추정가격 1억원 미만)의 최신 시행령 반영 여부(운영 확인)",
       "domain": "재정·비용",
       "suggestedEvidence": "예산서·수수료 고시 또는 결산자료",
       "status": "open"
     },
     {
-      "id": "sme-priority-purchase-FV04",
+      "id": "sme-priority-purchase-FV05",
       "priority": 3,
       "slug": "sme-priority-purchase",
       "institutionName": "중소기업제품 우선구매(구매목표)",
@@ -166,7 +178,7 @@
       "status": "open"
     },
     {
-      "id": "sme-priority-purchase-FV05",
+      "id": "sme-priority-purchase-FV06",
       "priority": 3,
       "slug": "sme-priority-purchase",
       "institutionName": "중소기업제품 우선구매(구매목표)",
@@ -441,6 +453,17 @@
       "status": "open"
     },
     {
+      "id": "excellent-product-designation-FV06",
+      "priority": 7,
+      "slug": "excellent-product-designation",
+      "institutionName": "우수조달물품 지정",
+      "category": "지정·판로",
+      "item": "심사 부적합 제품의 요건 보완 후 재신청 절차의 근거(시행령 제30조제8항 위임에 따른 조달청 고시 소재) 확인 필요",
+      "domain": "운영 사실",
+      "suggestedEvidence": "소관기관 공식 문서 또는 담당자 확인",
+      "status": "open"
+    },
+    {
       "id": "innovation-product-designation-FV01",
       "priority": 8,
       "slug": "innovation-product-designation",
@@ -493,6 +516,28 @@
       "item": "혁신제품 시범구매 결과평가 성공 판정과 후속 우수조달물품 심사 특례 연계(운영 추정)",
       "domain": "정보시스템",
       "suggestedEvidence": "공식 시스템 매뉴얼 또는 운영기관 확인",
+      "status": "open"
+    },
+    {
+      "id": "innovation-product-designation-FV06",
+      "priority": 8,
+      "slug": "innovation-product-designation",
+      "institutionName": "혁신제품 지정(혁신조달)",
+      "category": "지정·판로",
+      "item": "혁신시제품 지정 신청(제안서·별표 서식 제출) 절차의 혁신제품 구매 운영 규정 조문 번호 원문 확인 필요(노드 P02 법적 근거 확인 필요)",
+      "domain": "문서·증빙",
+      "suggestedEvidence": "현행 서식·업무편람 또는 공식 안내",
+      "status": "open"
+    },
+    {
+      "id": "innovation-product-designation-FV07",
+      "priority": 8,
+      "slug": "innovation-product-designation",
+      "institutionName": "혁신제품 지정(혁신조달)",
+      "category": "지정·판로",
+      "item": "혁신제품 수의계약의 국가계약법 시행령 제26조제1항제4호 목 위치는 시행령 개정으로 재배열될 수 있어 원문 대조 필요(노드 P07 법적 근거 확인 필요)",
+      "domain": "운영 사실",
+      "suggestedEvidence": "소관기관 공식 문서 또는 담당자 확인",
       "status": "open"
     },
     {
@@ -721,7 +766,7 @@
       "slug": "disabled-business-purchase",
       "institutionName": "장애인기업제품 구매촉진",
       "category": "지정·판로",
-      "item": "장애인기업 확인서 유효기간(발급일부터 2년)과 만료 전 재확인 실무 처리(운영 확인)",
+      "item": "장애인기업 확인서 유효기간(발급일부터 3년)과 만료 전 재확인 실무 처리(운영 확인)",
       "domain": "처리기간",
       "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
       "status": "open"
@@ -787,7 +832,7 @@
       "slug": "social-enterprise-preference",
       "institutionName": "사회적기업제품 우대구매",
       "category": "지정·판로",
-      "item": "국가계약법 시행령 제26조제1항 내 사회적기업 등 수의계약의 정확한 호·목 번호는 시행령 개정으로 재배열될 수 있어 원문 대조 필요(운영 확인)",
+      "item": "국가계약법 시행령 제26조제1항제5호 내 사회적기업 수의계약의 정확한 목 번호는 시행령 개정으로 재배열될 수 있어 원문 대조 필요(운영 확인)",
       "domain": "실무 관행",
       "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
       "status": "open"
@@ -831,7 +876,7 @@
       "slug": "social-enterprise-preference",
       "institutionName": "사회적기업제품 우대구매",
       "category": "지정·판로",
-      "item": "납품·검수·대금지급은 사회적기업 육성법 고유 조문이 아니라 개별 계약의 국가계약법령 이행·대금지급 절차를 따르므로 조문 인용 없이 운영 절차로 처리한다(운영 확인)",
+      "item": "납품·검수·대금지급은 사회적기업 육성법 고유 조문이 아니라 개별 계약의 국가계약법 제14조(검사)·제15조(대가의 지급) 등 일반 이행·대금지급 절차를 따른다(운영 확인)",
       "domain": "실무 관행",
       "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
       "status": "open"
@@ -1068,6 +1113,28 @@
       "status": "open"
     },
     {
+      "id": "price-survey-and-cost-accounting-FV06",
+      "priority": 17,
+      "slug": "price-survey-and-cost-accounting",
+      "institutionName": "조달청 가격조사와 원가계산",
+      "category": "발주",
+      "item": "P02 조달사업법 제24조(수요기관 조달업무의 지원 및 대행) 원문 표현·인용 적정성 확인 필요(예정가격조서 작성은 국가계약법 시행규칙 제4조로 근거 유지)",
+      "domain": "기관·권한",
+      "suggestedEvidence": "직제·사무분장 또는 담당기관 확인",
+      "status": "open"
+    },
+    {
+      "id": "price-survey-and-cost-accounting-FV07",
+      "priority": 17,
+      "slug": "price-survey-and-cost-accounting",
+      "institutionName": "조달청 가격조사와 원가계산",
+      "category": "발주",
+      "item": "P02·P08이 인용한 국가계약법 시행규칙 제4조(예정가격조서의 작성)는 현행 원문 캐시가 목차(제명)만 담고 있어 조문 실존·제명까지만 확인했고, 요지 문언은 법제처 현행 원문과의 대조가 필요하다(원문 대조 필요)",
+      "domain": "운영 사실",
+      "suggestedEvidence": "소관기관 공식 문서 또는 담당자 확인",
+      "status": "open"
+    },
+    {
       "id": "total-and-unit-price-contract-FV01",
       "priority": 18,
       "slug": "total-and-unit-price-contract",
@@ -1120,6 +1187,17 @@
       "item": "대가 지급기한(청구일 기준) 등 수치는 시행령 제58조가 정하는 기한으로 서술(운영 확인)",
       "domain": "처리기간",
       "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
+      "status": "open"
+    },
+    {
+      "id": "total-and-unit-price-contract-FV06",
+      "priority": 18,
+      "slug": "total-and-unit-price-contract",
+      "institutionName": "총액계약과 단가계약",
+      "category": "발주",
+      "item": "국가계약법 제22조(단가계약) 인용 요지는 조문 실존·제목까지 확인 — 원문 전문 사본 미보관으로 문면 대조는 추후 수행 필요(원문 확인)",
+      "domain": "운영 사실",
+      "suggestedEvidence": "소관기관 공식 문서 또는 담당자 확인",
       "status": "open"
     },
     {
@@ -1249,7 +1327,7 @@
       "slug": "long-term-continuing-contract",
       "institutionName": "장기계속계약과 계속비계약",
       "category": "발주",
-      "item": "장기계속계약 계약보증금을 부기 총공사금액 기준으로 이행보증하는 근거 조·항과 반환 실무(운영 확인)",
+      "item": "장기계속계약 계약보증금(부기 총공사금액의 100분의 10 이상, 영 제50조제3항)의 연차별계약 완료분 반환·정산 실무(운영 확인)",
       "domain": "재정·비용",
       "suggestedEvidence": "예산서·수수료 고시 또는 결산자료",
       "status": "open"
@@ -1283,6 +1361,28 @@
       "institutionName": "장기계속계약과 계속비계약",
       "category": "발주",
       "item": "계속비 지출 연한(원칙 5년, 예외 10년)의 사업별 적용 실무(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "long-term-continuing-contract-FV05",
+      "priority": 21,
+      "slug": "long-term-continuing-contract",
+      "institutionName": "장기계속계약과 계속비계약",
+      "category": "발주",
+      "item": "계약보증금 납부 의무(법 제12조제1항)와 장기계속계약 계약보증금(부기 총공사금액의 100분의 10 이상, 영 제50조제3항) 요지의 항 단위 원문 대조(운영 확인)",
+      "domain": "재정·비용",
+      "suggestedEvidence": "예산서·수수료 고시 또는 결산자료",
+      "status": "open"
+    },
+    {
+      "id": "long-term-continuing-contract-FV06",
+      "priority": 21,
+      "slug": "long-term-continuing-contract",
+      "institutionName": "장기계속계약과 계속비계약",
+      "category": "발주",
+      "item": "노드 S01 나라장터 총괄·차수계약 등록 절차의 법적 근거 조·항 확인 필요(운영 확인)",
       "domain": "실무 관행",
       "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
       "status": "open"
@@ -1365,6 +1465,17 @@
       "status": "open"
     },
     {
+      "id": "facility-construction-procurement-FV08",
+      "priority": 22,
+      "slug": "facility-construction-procurement",
+      "institutionName": "시설공사 조달(수요기관 대행 발주)",
+      "category": "발주",
+      "item": "P03(요청 접수·기술검토)의 조달사업법 제24조(수요기관 조달업무의 지원 및 대행)·같은 법 시행령 제27조(조달업무의 지원 및 대행)는 국가법령정보센터에서 조문 존재·제목·서두를 확인했으나, 조회 장애로 원문 전문을 연결하지 못했다. 특히 시행령 제27조의 공사 관련 세부 업무 열거(심의·평가, 설계용역 관리, 시공관리, 사후관리, 공사원가 검토 등)는 원문 전문 대조가 필요하다(원문 연결 보류)",
+      "domain": "기관·권한",
+      "suggestedEvidence": "직제·사무분장 또는 담당기관 확인",
+      "status": "open"
+    },
+    {
       "id": "bid-announcement-FV01",
       "priority": 23,
       "slug": "bid-announcement",
@@ -1403,13 +1514,35 @@
       "slug": "bid-announcement",
       "institutionName": "입찰공고",
       "category": "공고",
+      "item": "보안유지 시 입찰참가 통지(영 제34조)와 입찰공고 명시사항(영 제36조) 요지는 조 번호·제목만 현행 목차로 확인했고 본문 요지의 원문 대조가 남아 있다(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "bid-announcement-FV05",
+      "priority": 23,
+      "slug": "bid-announcement",
+      "institutionName": "입찰공고",
+      "category": "공고",
+      "item": "노드 P09(업체 공고 열람·입찰 준비)는 공고 열람·준비라는 운영 절차로 직접 근거 조·항이 확인되지 않아 인용을 두지 않았다(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "bid-announcement-FV06",
+      "priority": 23,
+      "slug": "bid-announcement",
+      "institutionName": "입찰공고",
+      "category": "공고",
       "item": "정정공고 발령 실무 기준과 남은 기간 + 5일 산정 관행(운영 확인)",
       "domain": "처리기간",
       "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
       "status": "open"
     },
     {
-      "id": "bid-announcement-FV05",
+      "id": "bid-announcement-FV07",
       "priority": 23,
       "slug": "bid-announcement",
       "institutionName": "입찰공고",
@@ -1461,6 +1594,17 @@
       "item": "공사입찰 공고기간 구간별 기준과 PQ 대상 공사 금액 기준(운영 확인)",
       "domain": "처리기간",
       "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
+      "status": "open"
+    },
+    {
+      "id": "general-competitive-bidding-FV05",
+      "priority": 24,
+      "slug": "general-competitive-bidding",
+      "institutionName": "일반경쟁입찰",
+      "category": "입찰",
+      "item": "P07(입찰 성립 확인)의 국가계약법 시행령 제11조(경쟁입찰의 성립)는 조문 존재와 제목을 확인했으나, 조회 장애로 원문 전문을 연결하지 못해 '2인 이상의 유효한 입찰로 성립' 요지의 원문 대조가 필요하다(원문 연결 보류)",
+      "domain": "운영 사실",
+      "suggestedEvidence": "소관기관 공식 문서 또는 담당자 확인",
       "status": "open"
     },
     {
@@ -1585,6 +1729,17 @@
       "status": "open"
     },
     {
+      "id": "designated-competitive-bidding-FV06",
+      "priority": 26,
+      "slug": "designated-competitive-bidding",
+      "institutionName": "지명경쟁입찰",
+      "category": "입찰",
+      "item": "시행령 제36조(입찰공고의 내용) 각 호 명시사항 요지와 지명경쟁입찰 통지 준용, 시행규칙 제27조(지명경쟁입찰의 지명기준) 요지는 확보된 원문이 조문 제명까지여서 현행 전문 대조 필요(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
       "id": "international-bidding-FV01",
       "priority": 27,
       "slug": "international-bidding",
@@ -1637,6 +1792,28 @@
       "item": "재판매용·중소기업제품·농수축산물 등 국제입찰 제외 대상의 실무 판정 기준(운영 확인)",
       "domain": "실무 관행",
       "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "international-bidding-FV06",
+      "priority": 27,
+      "slug": "international-bidding",
+      "institutionName": "국제입찰(WTO 정부조달협정)",
+      "category": "입찰",
+      "item": "노드 P01(조달 수요 확정·추정가격 산정) 법적 근거 확인 필요 — 추정가격 산정 근거 조문의 원문 확인 후 반영",
+      "domain": "운영 사실",
+      "suggestedEvidence": "소관기관 공식 문서 또는 담당자 확인",
+      "status": "open"
+    },
+    {
+      "id": "international-bidding-FV07",
+      "priority": 27,
+      "slug": "international-bidding",
+      "institutionName": "국제입찰(WTO 정부조달협정)",
+      "category": "입찰",
+      "item": "노드 P03(국제입찰 공고) 법적 근거 확인 필요 — 국제입찰 공고기간(40일) 특례 조문의 원문 식별자 확인 후 반영",
+      "domain": "처리기간",
+      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
       "status": "open"
     },
     {
@@ -2124,6 +2301,17 @@
       "status": "open"
     },
     {
+      "id": "qualification-screening-FV06",
+      "priority": 36,
+      "slug": "qualification-screening",
+      "institutionName": "적격심사낙찰제",
+      "category": "심사·평가",
+      "item": "시행령 제36조제6호(낙찰자결정에 필요한 서류의 제출일·낙찰자통보예정일 명시)의 호 번호와 요지는 확보된 원문이 조문 제명까지여서 현행 전문 대조 필요(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
       "id": "comprehensive-evaluation-award-FV01",
       "priority": 37,
       "slug": "comprehensive-evaluation-award",
@@ -2316,7 +2504,7 @@
       "slug": "construction-performance-guarantee",
       "institutionName": "공사계약 이행보증",
       "category": "계약 체결",
-      "item": "추정가격 300억원 이상 최저가·턴키·대안·기술제안입찰 등 공사이행보증서 의무 제출 대상의 정확한 위임 조문(운영 확인)",
+      "item": "정부 입찰·계약 집행기준 제42조제1항과 공사계약일반조건 제48조제1항이 인용하는 '시행령 제52조제1항제3호'는 현행 시행령의 호 체계(제52조제1항제1호·제2호)와 어긋나므로 예규 개정 반영 여부 확인 필요(운영 확인)",
       "domain": "실무 관행",
       "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
       "status": "open"
@@ -2327,13 +2515,24 @@
       "slug": "construction-performance-guarantee",
       "institutionName": "공사계약 이행보증",
       "category": "계약 체결",
+      "item": "추정가격 300억원 이상 최저가·턴키·대안·기술제안입찰 등 공사이행보증서 의무 제출 대상의 정확한 위임 조문(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "construction-performance-guarantee-FV03",
+      "priority": 40,
+      "slug": "construction-performance-guarantee",
+      "institutionName": "공사계약 이행보증",
+      "category": "계약 체결",
       "item": "계약보증금 면제 대상(국가·지방자치단체·정부투자기관 등)의 세부 항 번호와 지급각서 서식(운영 확인)",
       "domain": "문서·증빙",
       "suggestedEvidence": "현행 서식·업무편람 또는 공식 안내",
       "status": "open"
     },
     {
-      "id": "construction-performance-guarantee-FV03",
+      "id": "construction-performance-guarantee-FV04",
       "priority": 40,
       "slug": "construction-performance-guarantee",
       "institutionName": "공사계약 이행보증",
@@ -2344,7 +2543,7 @@
       "status": "open"
     },
     {
-      "id": "construction-performance-guarantee-FV04",
+      "id": "construction-performance-guarantee-FV05",
       "priority": 40,
       "slug": "construction-performance-guarantee",
       "institutionName": "공사계약 이행보증",
@@ -2355,7 +2554,7 @@
       "status": "open"
     },
     {
-      "id": "construction-performance-guarantee-FV05",
+      "id": "construction-performance-guarantee-FV06",
       "priority": 40,
       "slug": "construction-performance-guarantee",
       "institutionName": "공사계약 이행보증",
@@ -2525,7 +2724,7 @@
       "slug": "third-party-unit-price-contract",
       "institutionName": "제3자를 위한 단가계약",
       "category": "계약 체결",
-      "item": "조달사업법 시행령 제12조 각 항(참가자격 준용·납품요구 통보·계약해지 사유)의 원문 항 번호와 세부(운영 추정)",
+      "item": "제3자단가계약의 납품요구·대금지급 통보 절차는 조달사업법 시행규칙 제2조(제2항·제3항)에 근거하며, 시행령 제12조는 참가자격 준용·계약해지 사유를 규정한다 — 수요기관의 대금 직접지급 경로의 세부(운영 확인)",
       "domain": "실무 관행",
       "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
       "status": "open"
@@ -2539,6 +2738,17 @@
       "item": "우수조달물품 수의계약 근거인 국가계약법 시행령 제26조제1항제3호의 세부 목 번호와 인용 문언의 현행 원문 대조(운영 확인)",
       "domain": "실무 관행",
       "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "third-party-unit-price-contract-FV07",
+      "priority": 43,
+      "slug": "third-party-unit-price-contract",
+      "institutionName": "제3자를 위한 단가계약",
+      "category": "계약 체결",
+      "item": "종합쇼핑몰 물품 등록(S01) 노드의 법적 근거 확인 필요 — 계약상품의 국가종합전자조달시스템 등록은 조달사업법 시행령 제12조에 부수적으로 언급되나 등록 자체를 규정하는 직접 근거 조문 대조 필요(운영 확인)",
+      "domain": "정보시스템",
+      "suggestedEvidence": "공식 시스템 매뉴얼 또는 운영기관 확인",
       "status": "open"
     },
     {
@@ -2602,7 +2812,7 @@
       "slug": "shopping-mall-purchase",
       "institutionName": "종합쇼핑몰 구매",
       "category": "계약 체결",
-      "item": "국가종합전자조달시스템 종합쇼핑몰 운영규정의 상품정보 제공의무(제6조)·거래정지(제7조) 조문을 원문 대조로 확인(운영 확인)",
+      "item": "국가종합전자조달시스템 쇼핑몰 운영규정(2026-07-16 시행 개정으로 종전 제명 「국가종합전자조달시스템 종합쇼핑몰 운영규정」에서 변경)의 상품정보 제공의무(제6조)·거래정지(제7조) 조문을 원문 대조로 확인(운영 확인)",
       "domain": "정보시스템",
       "suggestedEvidence": "공식 시스템 매뉴얼 또는 운영기관 확인",
       "status": "open"
@@ -2658,6 +2868,17 @@
       "institutionName": "혁신제품 시범구매",
       "category": "계약 체결",
       "item": "혁신제품 유형 구분(유형1·유형2)과 유형별 추천·지정 경로(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "innovation-trial-purchase-FV06",
+      "priority": 45,
+      "slug": "innovation-trial-purchase",
+      "institutionName": "혁신제품 시범구매",
+      "category": "계약 체결",
+      "item": "혁신제품 수의계약의 국가계약법 시행령 제26조제1항제4호 호 번호·요지는 확보된 원문이 제26조제1항 앞부분에 한정되어 현행 전문 대조 필요(운영 확인)",
       "domain": "실무 관행",
       "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
       "status": "open"
@@ -2762,6 +2983,17 @@
       "status": "open"
     },
     {
+      "id": "inspection-and-acceptance-FV05",
+      "priority": 47,
+      "slug": "inspection-and-acceptance",
+      "institutionName": "검사와 검수",
+      "category": "이행·대금",
+      "item": "시행령 제56조(검사조서 작성생략)·제56조의2(검사 면제 물품)·제57조(감독·검사 겸직 제한) 요지의 세부 요건·금액 기준은 확보된 원문이 조문 제명까지여서 현행 전문 대조 필요(운영 확인)",
+      "domain": "재정·비용",
+      "suggestedEvidence": "예산서·수수료 고시 또는 결산자료",
+      "status": "open"
+    },
+    {
       "id": "government-furnished-materials-FV01",
       "priority": 48,
       "slug": "government-furnished-materials",
@@ -2814,6 +3046,17 @@
       "item": "국가계약법 시행규칙 제83조·제84조 및 조달사업법 제11조·제24조 조문 본문의 최신 개정 여부(운영 확인)",
       "domain": "실무 관행",
       "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "government-furnished-materials-FV06",
+      "priority": 48,
+      "slug": "government-furnished-materials",
+      "institutionName": "관급자재",
+      "category": "이행·대금",
+      "item": "P03 조달사업법 제24조(수요기관 조달업무의 지원 및 대행) 원문 표현·인용 적정성 확인 필요(계약체결 요청은 제11조로 근거 유지)",
+      "domain": "기관·권한",
+      "suggestedEvidence": "직제·사무분장 또는 담당기관 확인",
       "status": "open"
     },
     {
@@ -2878,6 +3121,17 @@
       "institutionName": "물가변동으로 인한 계약금액 조정",
       "category": "이행·대금",
       "item": "지수조정률을 비목군과 한국은행 생산자물가기본분류지수·수입물가지수 변동률로 산출하는 방법, 물가변동적용대가에 품목·지수조정률을 곱한 조정금액 산식, 물가변동당시가격을 입찰당시가격과 동일한 기준·방법으로 산정하는 규정은 국가계약법 시행규칙 제74조 각 항의 현행 원문 대조가 필요하다(원문 대조 필요)",
+      "domain": "재정·비용",
+      "suggestedEvidence": "예산서·수수료 고시 또는 결산자료",
+      "status": "open"
+    },
+    {
+      "id": "price-fluctuation-adjustment-FV07",
+      "priority": 49,
+      "slug": "price-fluctuation-adjustment",
+      "institutionName": "물가변동으로 인한 계약금액 조정",
+      "category": "이행·대금",
+      "item": "P01·P08·S02가 인용한 국가계약법 제19조(물가변동 등에 따른 계약금액 조정)는 현행 원문 캐시가 목차(제명)만 담고 있어 조문 실존·제명까지만 확인했고, 요지 문언은 법제처 현행 원문과의 대조가 필요하다(원문 대조 필요)",
       "domain": "재정·비용",
       "suggestedEvidence": "예산서·수수료 고시 또는 결산자료",
       "status": "open"
@@ -2998,13 +3252,24 @@
       "slug": "liquidated-damages",
       "institutionName": "지체상금",
       "category": "이행·대금",
+      "item": "P08의 시행규칙 제75조(지체상금률) 귀속은 타당하나 조문 전문 기계 대조가 미완료 — 공사 0.5/1000·물품 제조·구매 0.75/1000·수리·가공·대여·용역 및 기타 1.25/1000 등 현행 세부율 원문 대조 필요",
+      "domain": "운영 사실",
+      "suggestedEvidence": "소관기관 공식 문서 또는 담당자 확인",
+      "status": "open"
+    },
+    {
+      "id": "liquidated-damages-FV06",
+      "priority": 51,
+      "slug": "liquidated-damages",
+      "institutionName": "지체상금",
+      "category": "이행·대금",
       "item": "이행기한·검사기준 관리(P02)의 법적 근거 확인 필요 — 발주기관의 이행 점검은 순수 운영 성격으로 별도 명시 조문 대조 필요(운영 확인)",
       "domain": "처리기간",
       "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
       "status": "open"
     },
     {
-      "id": "liquidated-damages-FV06",
+      "id": "liquidated-damages-FV07",
       "priority": 51,
       "slug": "liquidated-damages",
       "institutionName": "지체상금",
@@ -3229,9 +3494,9 @@
       "slug": "contract-dispute-mediation",
       "institutionName": "국가계약분쟁조정위원회 조정",
       "category": "분쟁·권리구제",
-      "item": "이의신청과 조정신청의 기간이 2026-06-11 시행 개정으로 각 30일로 확대된 것으로 파악되나, 항 번호 단위 원문 확인이 필요하다(운영 확인)",
-      "domain": "처리기간",
-      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
+      "item": "조정 중지 사유와 소송 관련 사실의 통지 절차(영 제114조·제114조의2)는 조 번호·제목만 확인했고 항 단위 원문 대조가 남아 있다(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
       "status": "open"
     },
     {
@@ -3240,42 +3505,9 @@
       "slug": "contract-dispute-mediation",
       "institutionName": "국가계약분쟁조정위원회 조정",
       "category": "분쟁·권리구제",
-      "item": "국가계약분쟁조정위원회의 위원 정수(위원장 포함 15명 이내)와 위촉위원 임기(2년·연임)의 원문 대조(운영 확인)",
-      "domain": "실무 관행",
-      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
-      "status": "open"
-    },
-    {
-      "id": "contract-dispute-mediation-FV03",
-      "priority": 56,
-      "slug": "contract-dispute-mediation",
-      "institutionName": "국가계약분쟁조정위원회 조정",
-      "category": "분쟁·권리구제",
-      "item": "위원회의 심사·조정 완료 기간(청구받은 날부터 50일 이내, 연장 가능)의 원문 항 확인(운영 확인)",
-      "domain": "처리기간",
-      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
-      "status": "open"
-    },
-    {
-      "id": "contract-dispute-mediation-FV04",
-      "priority": 56,
-      "slug": "contract-dispute-mediation",
-      "institutionName": "국가계약분쟁조정위원회 조정",
-      "category": "분쟁·권리구제",
-      "item": "조정안에 대해 이의를 제기하지 않는 기간(15일)과 재판상 화해 효력의 원문 대조(운영 확인)",
-      "domain": "처리기간",
-      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
-      "status": "open"
-    },
-    {
-      "id": "contract-dispute-mediation-FV05",
-      "priority": 56,
-      "slug": "contract-dispute-mediation",
-      "institutionName": "국가계약분쟁조정위원회 조정",
-      "category": "분쟁·권리구제",
-      "item": "이의신청·조정 대상이 되는 정부조달계약의 구체적 최소 금액 기준(영 제110조)의 현행 수치(운영 확인)",
-      "domain": "재정·비용",
-      "suggestedEvidence": "예산서·수수료 고시 또는 결산자료",
+      "item": "이의신청서·조정신청서(재심 청구서)의 서식과 접수 창구의 실무 운영(운영 확인)",
+      "domain": "문서·증빙",
+      "suggestedEvidence": "현행 서식·업무편람 또는 공식 안내",
       "status": "open"
     },
     {
@@ -3331,6 +3563,17 @@
       "item": "안전관리물자 전수검사 대상 품목의 지정 범위와 국민안전 조달물자 품질관리 업무규정 운영(운영 확인)",
       "domain": "실무 관행",
       "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "quality-inspection-management-FV06",
+      "priority": 57,
+      "slug": "quality-inspection-management",
+      "institutionName": "조달물자 품질관리(품질점검·전문기관검사)",
+      "category": "사후관리·제재",
+      "item": "P02가 인용한 국가계약법 시행령 제56조의2(검사를 면제할 수 있는 물품)는 현행 원문 캐시가 목차(제명)만 담고 있어 조문 실존·제명까지만 확인했고, 산업표준화법 인증 제품·품질관리능력 평가기준 적합 제조물품 등 요지 문언은 법제처 현행 원문과의 대조가 필요하다(원문 대조 필요)",
+      "domain": "운영 사실",
+      "suggestedEvidence": "소관기관 공식 문서 또는 담당자 확인",
       "status": "open"
     },
     {
@@ -3430,6 +3673,17 @@
       "item": "집행정지 인용 시 나라장터 게재 반영까지 걸리는 실제 시간(운영 확인)",
       "domain": "실무 관행",
       "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "debarment-FV05",
+      "priority": 59,
+      "slug": "debarment",
+      "institutionName": "부정당업자 입찰참가자격 제한",
+      "category": "사후관리·제재",
+      "item": "국가계약법 시행규칙 제76조(부정당업자의 입찰참가자격 제한기준 등) 인용 요지는 조문 실존·제목까지 확인 — 별표 2를 포함한 원문 전문 사본 미보관으로 문면 대조는 추후 수행 필요(원문 확인)",
+      "domain": "운영 사실",
+      "suggestedEvidence": "소관기관 공식 문서 또는 담당자 확인",
       "status": "open"
     },
     {
@@ -3571,6 +3825,17 @@
       "institutionName": "비축물자",
       "category": "공공물자·비축",
       "item": "비축물자의 정의(법 제2조)와 범위(영 제3조)는 조문 번호·제목만 확인했고 본문 요지의 원문 대조가 남아 있다(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "stockpile-goods-FV07",
+      "priority": 61,
+      "slug": "stockpile-goods",
+      "institutionName": "비축물자",
+      "category": "공공물자·비축",
+      "item": "노드 P05(방출·구매 신청)·P06(실수요·판매한도 확인)은 판매절차(시행규칙 제12조)가 배정 단계부터 규정되어 신청·한도량 산정의 직접 근거 조·항이 확인되지 않는 운영 절차 — 법적 근거 확인 필요(운영 확인)",
       "domain": "실무 관행",
       "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
       "status": "open"

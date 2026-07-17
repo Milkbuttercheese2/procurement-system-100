@@ -1,13 +1,13 @@
 {
  "checkedAt": "2026-07-17",
- "citations": 1130,
+ "citations": 1068,
  "summary": {
   "deletedArticle": 0,
   "contentMismatch": 1,
-  "noSourceText": 126,
+  "noSourceText": 48,
   "descriptiveCitation": 0,
   "legalBasisOrder": 0,
-  "emptyBasis": 11
+  "emptyBasis": 10
  },
  "findings": {
   "deletedArticle": [],
@@ -59,78 +59,6 @@
     "article": "제45조"
    },
    {
-    "slug": "contract-deliberation-committee",
-    "node": "P01",
-    "law": "국가를 당사자로 하는 계약에 관한 법률 시행령",
-    "article": "제94조"
-   },
-   {
-    "slug": "contract-deliberation-committee",
-    "node": "P02",
-    "law": "국가를 당사자로 하는 계약에 관한 법률 시행령",
-    "article": "제94조"
-   },
-   {
-    "slug": "contract-deliberation-committee",
-    "node": "P03",
-    "law": "국가를 당사자로 하는 계약에 관한 법률 시행령",
-    "article": "제94조"
-   },
-   {
-    "slug": "contract-deliberation-committee",
-    "node": "P04",
-    "law": "(계약예규) 정부 입찰·계약 집행기준",
-    "article": "제5조의2제2항"
-   },
-   {
-    "slug": "contract-deliberation-committee",
-    "node": "P04",
-    "law": "(계약예규) 공사계약일반조건",
-    "article": "제36조제2항"
-   },
-   {
-    "slug": "contract-deliberation-committee",
-    "node": "P04",
-    "law": "(계약예규) 입찰참가자격사전심사요령",
-    "article": "제8조제5항"
-   },
-   {
-    "slug": "contract-deliberation-committee",
-    "node": "P05",
-    "law": "국가를 당사자로 하는 계약에 관한 법률 시행령",
-    "article": "제94조"
-   },
-   {
-    "slug": "contract-deliberation-committee",
-    "node": "P06",
-    "law": "국가를 당사자로 하는 계약에 관한 법률 시행령",
-    "article": "제94조"
-   },
-   {
-    "slug": "contract-deliberation-committee",
-    "node": "P07",
-    "law": "국가를 당사자로 하는 계약에 관한 법률 시행령",
-    "article": "제94조"
-   },
-   {
-    "slug": "contract-deliberation-committee",
-    "node": "P08",
-    "law": "국가를 당사자로 하는 계약에 관한 법률 시행령",
-    "article": "제94조"
-   },
-   {
-    "slug": "contract-deliberation-committee",
-    "node": "P09",
-    "law": "국가를 당사자로 하는 계약에 관한 법률",
-    "article": "제7조제1항"
-   },
-   {
-    "slug": "contract-deliberation-committee",
-    "node": "P09",
-    "law": "(계약예규) 정부 입찰·계약 집행기준",
-    "article": "제5조의2제2항"
-   },
-   {
     "slug": "contract-dispute-mediation",
     "node": "P12",
     "law": "국가를 당사자로 하는 계약에 관한 법률 시행령",
@@ -173,18 +101,6 @@
     "article": "제36조"
    },
    {
-    "slug": "disabled-business-purchase",
-    "node": "S01",
-    "law": "장애인기업활동 촉진법",
-    "article": "제2조"
-   },
-   {
-    "slug": "disabled-business-purchase",
-    "node": "P03",
-    "law": "장애인기업활동 촉진법 시행령",
-    "article": "제7조의2"
-   },
-   {
     "slug": "e-bidding-identity",
     "node": "P06",
     "law": "전자조달의 이용 및 촉진에 관한 법률",
@@ -207,66 +123,6 @@
     "node": "P07",
     "law": "국가를 당사자로 하는 계약에 관한 법률 시행령",
     "article": "제11조"
-   },
-   {
-    "slug": "green-product-purchase",
-    "node": "P02",
-    "law": "녹색제품 구매촉진에 관한 법률",
-    "article": "제7조"
-   },
-   {
-    "slug": "green-product-purchase",
-    "node": "P02",
-    "law": "녹색제품 구매촉진에 관한 법률 시행령",
-    "article": "제9조"
-   },
-   {
-    "slug": "green-product-purchase",
-    "node": "P04",
-    "law": "녹색제품 구매촉진에 관한 법률 시행령",
-    "article": "제10조"
-   },
-   {
-    "slug": "green-product-purchase",
-    "node": "P05",
-    "law": "녹색제품 구매촉진에 관한 법률",
-    "article": "제6조"
-   },
-   {
-    "slug": "green-product-purchase",
-    "node": "P05",
-    "law": "녹색제품 구매촉진에 관한 법률",
-    "article": "제2조의2"
-   },
-   {
-    "slug": "green-product-purchase",
-    "node": "P06",
-    "law": "녹색제품 구매촉진에 관한 법률",
-    "article": "제6조"
-   },
-   {
-    "slug": "green-product-purchase",
-    "node": "P07",
-    "law": "녹색제품 구매촉진에 관한 법률",
-    "article": "제6조"
-   },
-   {
-    "slug": "green-product-purchase",
-    "node": "P07",
-    "law": "녹색제품 구매촉진에 관한 법률 시행령",
-    "article": "제8조"
-   },
-   {
-    "slug": "green-product-purchase",
-    "node": "P08",
-    "law": "녹색제품 구매촉진에 관한 법률 시행령",
-    "article": "제11조"
-   },
-   {
-    "slug": "green-product-purchase",
-    "node": "P10",
-    "law": "녹색제품 구매촉진에 관한 법률 시행령",
-    "article": "제10조"
    },
    {
     "slug": "inspection-and-acceptance",
@@ -311,228 +167,6 @@
     "article": "제50조제3항"
    },
    {
-    "slug": "other-contract-change-adjustment",
-    "node": "P01",
-    "law": "국가를 당사자로 하는 계약에 관한 법률",
-    "article": "제19조"
-   },
-   {
-    "slug": "other-contract-change-adjustment",
-    "node": "P01",
-    "law": "국가를 당사자로 하는 계약에 관한 법률 시행령",
-    "article": "제66조"
-   },
-   {
-    "slug": "other-contract-change-adjustment",
-    "node": "P02",
-    "law": "국가를 당사자로 하는 계약에 관한 법률 시행령",
-    "article": "제66조"
-   },
-   {
-    "slug": "other-contract-change-adjustment",
-    "node": "P02",
-    "law": "(계약예규) 공사계약일반조건",
-    "article": "제23조제1항"
-   },
-   {
-    "slug": "other-contract-change-adjustment",
-    "node": "P03",
-    "law": "(계약예규) 공사계약일반조건",
-    "article": "제26조제1항"
-   },
-   {
-    "slug": "other-contract-change-adjustment",
-    "node": "P04",
-    "law": "(계약예규) 공사계약일반조건",
-    "article": "제26조제1항"
-   },
-   {
-    "slug": "other-contract-change-adjustment",
-    "node": "P05",
-    "law": "국가를 당사자로 하는 계약에 관한 법률 시행규칙",
-    "article": "제74조의3"
-   },
-   {
-    "slug": "other-contract-change-adjustment",
-    "node": "P05",
-    "law": "(계약예규) 공사계약일반조건",
-    "article": "제23조제2항"
-   },
-   {
-    "slug": "other-contract-change-adjustment",
-    "node": "P06",
-    "law": "(계약예규) 용역계약일반조건",
-    "article": "제17조제1항"
-   },
-   {
-    "slug": "other-contract-change-adjustment",
-    "node": "P06",
-    "law": "(계약예규) 물품구매(제조)계약일반조건",
-    "article": "제11조의2제1항"
-   },
-   {
-    "slug": "other-contract-change-adjustment",
-    "node": "P07",
-    "law": "(계약예규) 공사계약일반조건",
-    "article": "제23조제4항"
-   },
-   {
-    "slug": "other-contract-change-adjustment",
-    "node": "P07",
-    "law": "(계약예규) 공사계약일반조건",
-    "article": "제26조제5항"
-   },
-   {
-    "slug": "other-contract-change-adjustment",
-    "node": "P07",
-    "law": "(계약예규) 용역계약일반조건",
-    "article": "제16조제7항"
-   },
-   {
-    "slug": "other-contract-change-adjustment",
-    "node": "P07",
-    "law": "(계약예규) 물품구매(제조)계약일반조건",
-    "article": "제11조의2제5항"
-   },
-   {
-    "slug": "other-contract-change-adjustment",
-    "node": "P08",
-    "law": "국가를 당사자로 하는 계약에 관한 법률 시행령",
-    "article": "제66조"
-   },
-   {
-    "slug": "other-contract-change-adjustment",
-    "node": "P08",
-    "law": "(계약예규) 공사계약일반조건",
-    "article": "제23조제1항"
-   },
-   {
-    "slug": "other-contract-change-adjustment",
-    "node": "P09",
-    "law": "(계약예규) 공사계약일반조건",
-    "article": "제23조제1항"
-   },
-   {
-    "slug": "other-contract-change-adjustment",
-    "node": "P09",
-    "law": "국가를 당사자로 하는 계약에 관한 법률 시행규칙",
-    "article": "제74조의3"
-   },
-   {
-    "slug": "other-contract-change-adjustment",
-    "node": "P10",
-    "law": "(계약예규) 공사계약일반조건",
-    "article": "제23조제1항"
-   },
-   {
-    "slug": "other-contract-change-adjustment",
-    "node": "P11",
-    "law": "(계약예규) 공사계약일반조건",
-    "article": "제23조제5항"
-   },
-   {
-    "slug": "other-contract-change-adjustment",
-    "node": "P11",
-    "law": "(계약예규) 공사계약일반조건",
-    "article": "제20조제8항"
-   },
-   {
-    "slug": "other-contract-change-adjustment",
-    "node": "P11",
-    "law": "국가를 당사자로 하는 계약에 관한 법률 시행규칙",
-    "article": "제74조의3"
-   },
-   {
-    "slug": "other-contract-change-adjustment",
-    "node": "P12",
-    "law": "(계약예규) 공사계약일반조건",
-    "article": "제23조제5항"
-   },
-   {
-    "slug": "other-contract-change-adjustment",
-    "node": "P12",
-    "law": "(계약예규) 공사계약일반조건",
-    "article": "제20조제8항"
-   },
-   {
-    "slug": "pre-fiscal-year-contract",
-    "node": "P01",
-    "law": "국가를 당사자로 하는 계약에 관한 법률",
-    "article": "제20조"
-   },
-   {
-    "slug": "pre-fiscal-year-contract",
-    "node": "P02",
-    "law": "국고금 관리법",
-    "article": "제20조"
-   },
-   {
-    "slug": "pre-fiscal-year-contract",
-    "node": "P02",
-    "law": "국가를 당사자로 하는 계약에 관한 법률",
-    "article": "제20조"
-   },
-   {
-    "slug": "pre-fiscal-year-contract",
-    "node": "P03",
-    "law": "국가를 당사자로 하는 계약에 관한 법률",
-    "article": "제20조"
-   },
-   {
-    "slug": "pre-fiscal-year-contract",
-    "node": "P04",
-    "law": "국가를 당사자로 하는 계약에 관한 법률",
-    "article": "제7조제1항"
-   },
-   {
-    "slug": "pre-fiscal-year-contract",
-    "node": "P05",
-    "law": "국가를 당사자로 하는 계약에 관한 법률",
-    "article": "제20조"
-   },
-   {
-    "slug": "pre-fiscal-year-contract",
-    "node": "P06",
-    "law": "국가를 당사자로 하는 계약에 관한 법률 시행령",
-    "article": "제67조"
-   },
-   {
-    "slug": "pre-fiscal-year-contract",
-    "node": "P07",
-    "law": "국가를 당사자로 하는 계약에 관한 법률",
-    "article": "제20조"
-   },
-   {
-    "slug": "pre-fiscal-year-contract",
-    "node": "P07",
-    "law": "국가를 당사자로 하는 계약에 관한 법률 시행령",
-    "article": "제67조"
-   },
-   {
-    "slug": "pre-fiscal-year-contract",
-    "node": "P08",
-    "law": "국고금 관리법",
-    "article": "제20조"
-   },
-   {
-    "slug": "pre-fiscal-year-contract",
-    "node": "P09",
-    "law": "국가를 당사자로 하는 계약에 관한 법률 시행령",
-    "article": "제67조"
-   },
-   {
-    "slug": "pre-fiscal-year-contract",
-    "node": "P10",
-    "law": "국고금 관리법",
-    "article": "제22조"
-   },
-   {
-    "slug": "pre-fiscal-year-contract",
-    "node": "P11",
-    "law": "국가를 당사자로 하는 계약에 관한 법률",
-    "article": "제20조"
-   },
-   {
     "slug": "price-fluctuation-adjustment",
     "node": "P01",
     "law": "국가를 당사자로 하는 계약에 관한 법률",
@@ -561,96 +195,6 @@
     "node": "P08",
     "law": "국가를 당사자로 하는 계약에 관한 법률 시행규칙",
     "article": "제4조"
-   },
-   {
-    "slug": "provisional-price-contract",
-    "node": "P01",
-    "law": "국가를 당사자로 하는 계약에 관한 법률",
-    "article": "제23조"
-   },
-   {
-    "slug": "provisional-price-contract",
-    "node": "P01",
-    "law": "국가를 당사자로 하는 계약에 관한 법률 시행령",
-    "article": "제73조"
-   },
-   {
-    "slug": "provisional-price-contract",
-    "node": "P02",
-    "law": "국가를 당사자로 하는 계약에 관한 법률 시행령",
-    "article": "제70조제1항"
-   },
-   {
-    "slug": "provisional-price-contract",
-    "node": "P02",
-    "law": "국가를 당사자로 하는 계약에 관한 법률 시행령",
-    "article": "제70조제2항"
-   },
-   {
-    "slug": "provisional-price-contract",
-    "node": "P03",
-    "law": "국가를 당사자로 하는 계약에 관한 법률 시행령",
-    "article": "제73조제2항"
-   },
-   {
-    "slug": "provisional-price-contract",
-    "node": "P04",
-    "law": "국가를 당사자로 하는 계약에 관한 법률 시행령",
-    "article": "제70조"
-   },
-   {
-    "slug": "provisional-price-contract",
-    "node": "P05",
-    "law": "국가를 당사자로 하는 계약에 관한 법률 시행령",
-    "article": "제73조"
-   },
-   {
-    "slug": "provisional-price-contract",
-    "node": "P06",
-    "law": "국가를 당사자로 하는 계약에 관한 법률 시행령",
-    "article": "제70조제3항"
-   },
-   {
-    "slug": "provisional-price-contract",
-    "node": "P06",
-    "law": "(계약예규) 정부 입찰·계약 집행기준",
-    "article": "제12조"
-   },
-   {
-    "slug": "provisional-price-contract",
-    "node": "P07",
-    "law": "국가를 당사자로 하는 계약에 관한 법률",
-    "article": "제14조"
-   },
-   {
-    "slug": "provisional-price-contract",
-    "node": "P08",
-    "law": "국가를 당사자로 하는 계약에 관한 법률 시행령",
-    "article": "제73조제2항"
-   },
-   {
-    "slug": "provisional-price-contract",
-    "node": "P09",
-    "law": "국가를 당사자로 하는 계약에 관한 법률 시행령",
-    "article": "제70조제3항"
-   },
-   {
-    "slug": "provisional-price-contract",
-    "node": "P09",
-    "law": "국가를 당사자로 하는 계약에 관한 법률 시행령",
-    "article": "제9조"
-   },
-   {
-    "slug": "provisional-price-contract",
-    "node": "P10",
-    "law": "국가를 당사자로 하는 계약에 관한 법률 시행령",
-    "article": "제70조제3항"
-   },
-   {
-    "slug": "provisional-price-contract",
-    "node": "P11",
-    "law": "국가를 당사자로 하는 계약에 관한 법률 시행령",
-    "article": "제70조"
    },
    {
     "slug": "qualification-screening",
@@ -743,12 +287,6 @@
     "article": "제13조"
    },
    {
-    "slug": "third-party-unit-price-contract",
-    "node": "P06",
-    "law": "조달사업에 관한 법률 시행령",
-    "article": "제13조의2"
-   },
-   {
     "slug": "total-and-unit-price-contract",
     "node": "P01",
     "law": "국가를 당사자로 하는 계약에 관한 법률",
@@ -771,12 +309,6 @@
     "node": "P09",
     "law": "국가를 당사자로 하는 계약에 관한 법률",
     "article": "제22조"
-   },
-   {
-    "slug": "women-owned-business-purchase",
-    "node": "P11",
-    "law": "여성기업지원에 관한 법률 시행령",
-    "article": "제17조"
    }
   ],
   "descriptiveCitation": [],
@@ -787,12 +319,6 @@
     "node": "P09",
     "name": "업체 공고 열람·입찰 준비",
     "type": "task"
-   },
-   {
-    "slug": "contract-deliberation-committee",
-    "node": "P10",
-    "name": "심의 관련 기록 보존·사후관리",
-    "type": "notice"
    },
    {
     "slug": "contract-method-decision",
