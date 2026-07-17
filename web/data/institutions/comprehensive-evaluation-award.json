@@ -431,7 +431,7 @@
     "name": "균형가격 산정",
     "lane": "계약담당공무원(발주기관)·조달청",
     "stage": "G3 종합심사",
-    "type": "gateway",
+    "type": "task",
     "status": "done",
     "progress": 100,
     "actor": "계약담당공무원",
@@ -653,7 +653,7 @@
     "source": "P05",
     "target": "P06",
     "type": "sequence",
-    "label": "저가 배제 후"
+    "label": "균형가격 확정"
    },
    {
     "id": "E08",
@@ -667,14 +667,14 @@
     "source": "P06",
     "target": "P08",
     "type": "message",
-    "label": "점수 통보"
+    "label": "서류 불명확·미비 시"
    },
    {
     "id": "L01",
     "source": "P08",
     "target": "P06",
     "type": "loop",
-    "label": "재심사 반영"
+    "label": "보완서류 반영"
    },
    {
     "id": "E10",
