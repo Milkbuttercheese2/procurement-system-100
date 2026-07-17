@@ -1,15 +1,15 @@
 {
   "sourceAsOfDate": "2026-07-12",
-  "total": 353,
-  "institutions": 62,
+  "total": 367,
+  "institutions": 65,
   "byDomain": {
     "기관·권한": 4,
-    "문서·증빙": 28,
-    "실무 관행": 190,
+    "문서·증빙": 31,
+    "실무 관행": 197,
     "운영 사실": 12,
-    "재정·비용": 36,
-    "정보시스템": 20,
-    "처리기간": 63
+    "재정·비용": 37,
+    "정보시스템": 21,
+    "처리기간": 65
   },
   "entries": [
     {
@@ -3893,6 +3893,160 @@
       "item": "나라장터(전자조달시스템)에서 대형공사 일괄·대안입찰 공고·전자입찰이 처리되는 화면 흐름(운영 확인)",
       "domain": "정보시스템",
       "suggestedEvidence": "공식 시스템 매뉴얼 또는 운영기관 확인",
+      "status": "open"
+    },
+    {
+      "id": "contract-deliberation-committee-FV01",
+      "priority": 63,
+      "slug": "contract-deliberation-committee",
+      "institutionName": "계약심의위원회",
+      "category": "발주",
+      "item": "국가계약법 시행령 제94조 각 항·호의 계약심의위원회 심의 대상 범위와 위원 구성 문언, 그리고 이 위원회가 심의 외에 자문 기능도 갖는지 여부 — 현재 조번호·제명(계약심의위원회의 설치)만 확정했고, 설치가 의무인지 재량인지, 입찰참가자격·부정당업자 제재·이의제기 등 개별 호의 세부 문언은 원문으로 추가 확인이 필요하다(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "contract-deliberation-committee-FV02",
+      "priority": 63,
+      "slug": "contract-deliberation-committee",
+      "institutionName": "계약심의위원회",
+      "category": "발주",
+      "item": "위원회 위원장·위원 수·임기·제척·회피·의결정족수 등 구성·운영 세부 기준(각 중앙관서의 장이 정하는 사항으로 기관별 상이)(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "contract-deliberation-committee-FV03",
+      "priority": 63,
+      "slug": "contract-deliberation-committee",
+      "institutionName": "계약심의위원회",
+      "category": "발주",
+      "item": "심의결과의 구속력과 계약담당공무원의 반영 의무 범위(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "contract-deliberation-committee-FV04",
+      "priority": 63,
+      "slug": "contract-deliberation-committee",
+      "institutionName": "계약심의위원회",
+      "category": "발주",
+      "item": "심의안건 상정 서식·회의록 보존 기간 등 실무 문서 관행(운영 추정)",
+      "domain": "처리기간",
+      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
+      "status": "open"
+    },
+    {
+      "id": "provisional-price-contract-FV01",
+      "priority": 64,
+      "slug": "provisional-price-contract",
+      "institutionName": "개산계약·사후원가검토조건부 계약",
+      "category": "발주",
+      "item": "사후원가검토조건부 계약의 지급유보 비율(계약금액의 100분의 10 범위 내로 알려짐)의 근거 규정과 실무 적용 — 시행령이 아닌 조달청 내부 구매처리규정 계열로 확인 필요(운영 확인)",
+      "domain": "재정·비용",
+      "suggestedEvidence": "예산서·수수료 고시 또는 결산자료",
+      "status": "open"
+    },
+    {
+      "id": "provisional-price-contract-FV02",
+      "priority": 64,
+      "slug": "provisional-price-contract",
+      "institutionName": "개산계약·사후원가검토조건부 계약",
+      "category": "발주",
+      "item": "정산금액에 이견이 있을 때 증빙 보완·원가검토 재실시 절차의 법령상 명시 근거 — 시행령·예규에 별도 절차 규정이 없어 실무 운영으로 처리하는 범위(운영 추정)",
+      "domain": "문서·증빙",
+      "suggestedEvidence": "현행 서식·업무편람 또는 공식 안내",
+      "status": "open"
+    },
+    {
+      "id": "provisional-price-contract-FV03",
+      "priority": 64,
+      "slug": "provisional-price-contract",
+      "institutionName": "개산계약·사후원가검토조건부 계약",
+      "category": "발주",
+      "item": "정산 시 예가율 적용 여부와 감액·증액 한도 등 정산 세부기준의 실무 운영(운영 추정)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "provisional-price-contract-FV04",
+      "priority": 64,
+      "slug": "provisional-price-contract",
+      "institutionName": "개산계약·사후원가검토조건부 계약",
+      "category": "발주",
+      "item": "개발시제품·시험·조사·연구 용역 외에 개산계약을 적용하는 특수조달 유형의 실무 범위(운영 추정)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "provisional-price-contract-FV05",
+      "priority": 64,
+      "slug": "provisional-price-contract",
+      "institutionName": "개산계약·사후원가검토조건부 계약",
+      "category": "발주",
+      "item": "예정가격 작성기준상 원가계산 적용 세부조항과 정산 원가검토의 연계(운영 확인)",
+      "domain": "정보시스템",
+      "suggestedEvidence": "공식 시스템 매뉴얼 또는 운영기관 확인",
+      "status": "open"
+    },
+    {
+      "id": "other-contract-change-adjustment-FV01",
+      "priority": 65,
+      "slug": "other-contract-change-adjustment",
+      "institutionName": "기타 계약내용의 변경(과업·공기 조정)",
+      "category": "이행·대금",
+      "item": "실비 입증자료(계약서·청구서·영수증)의 실무 서식과 인정 범위 운영 기준(운영 확인)",
+      "domain": "문서·증빙",
+      "suggestedEvidence": "현행 서식·업무편람 또는 공식 안내",
+      "status": "open"
+    },
+    {
+      "id": "other-contract-change-adjustment-FV02",
+      "priority": 65,
+      "slug": "other-contract-change-adjustment",
+      "institutionName": "기타 계약내용의 변경(과업·공기 조정)",
+      "category": "이행·대금",
+      "item": "공사기간 연장 간접비 산정 시 상당인과관계·중복 배제의 실무 판단 기준(운영 추정)",
+      "domain": "처리기간",
+      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
+      "status": "open"
+    },
+    {
+      "id": "other-contract-change-adjustment-FV03",
+      "priority": 65,
+      "slug": "other-contract-change-adjustment",
+      "institutionName": "기타 계약내용의 변경(과업·공기 조정)",
+      "category": "이행·대금",
+      "item": "긴급 선이행 후 계약내용 변경을 사후 확정하는 문서·시기 관리 관행(운영 확인)",
+      "domain": "문서·증빙",
+      "suggestedEvidence": "현행 서식·업무편람 또는 공식 안내",
+      "status": "open"
+    },
+    {
+      "id": "other-contract-change-adjustment-FV04",
+      "priority": 65,
+      "slug": "other-contract-change-adjustment",
+      "institutionName": "기타 계약내용의 변경(과업·공기 조정)",
+      "category": "이행·대금",
+      "item": "공사감독관의 현장 사실 확인 지원 범위와 계약담당공무원의 조사·확인·필요조치로 이어지는 실무 절차(운영 추정)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "other-contract-change-adjustment-FV05",
+      "priority": 65,
+      "slug": "other-contract-change-adjustment",
+      "institutionName": "기타 계약내용의 변경(과업·공기 조정)",
+      "category": "이행·대금",
+      "item": "나라장터 변경계약 등록 화면 흐름과 계약 정보 공개 처리(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
       "status": "open"
     }
   ]

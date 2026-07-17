@@ -138,7 +138,14 @@ async function fetchAdminRuleFullText(serial) {
       else if (Array.isArray(node)) node.forEach(collect);
       else if (node && typeof node === "object") Object.values(node).forEach(collect);
     })(data);
-    return lines.length ? lines.join("\n") : null;
+    const text = lines.length ? lines.join("\n") : null;
+    // admrul 전문 API는 호출 서버 IP가 계정에 등록돼 있지 않으면 조문 대신
+    // "사용자 정보 검증에 실패하였습니다 …" 같은 오류 문구를 200으로 돌려준다.
+    // 그 문구를 그대로 반환하면 호출부에서 (잘렸어도 조문이 담긴) CLI 본문을
+    // 덮어써 모든 조문이 missing으로 오판된다. 조문 헤더가 없는 응답은 폴백을
+    // 포기하고 null을 반환해 CLI 본문을 유지한다.
+    if (!text || !/제\s*\d+\s*조/.test(text)) return null;
+    return text;
   } catch {
     return null;
   }
