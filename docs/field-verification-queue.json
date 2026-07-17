@@ -1,15 +1,15 @@
 {
   "sourceAsOfDate": "2026-07-12",
-  "total": 348,
-  "institutions": 61,
+  "total": 353,
+  "institutions": 62,
   "byDomain": {
     "기관·권한": 4,
     "문서·증빙": 28,
-    "실무 관행": 187,
+    "실무 관행": 190,
     "운영 사실": 12,
     "재정·비용": 36,
-    "정보시스템": 19,
-    "처리기간": 62
+    "정보시스템": 20,
+    "처리기간": 63
   },
   "entries": [
     {
@@ -3838,6 +3838,61 @@
       "item": "노드 P05(방출·구매 신청)·P06(실수요·판매한도 확인)은 판매절차(시행규칙 제12조)가 배정 단계부터 규정되어 신청·한도량 산정의 직접 근거 조·항이 확인되지 않는 운영 절차 — 법적 근거 확인 필요(운영 확인)",
       "domain": "실무 관행",
       "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "design-build-bidding-FV01",
+      "priority": 62,
+      "slug": "design-build-bidding",
+      "institutionName": "대형공사 일괄·대안입찰(턴키)",
+      "category": "입찰",
+      "item": "일괄입찰 낙찰자 결정 기한(실시설계서 제출일부터 60일 이내)과 대안입찰 낙찰자 결정 기한(입찰일부터 80일 이내)의 최신 조문·항 표기(운영 확인)",
+      "domain": "처리기간",
+      "suggestedEvidence": "처리대장·통계 또는 담당자 인터뷰",
+      "status": "open"
+    },
+    {
+      "id": "design-build-bidding-FV02",
+      "priority": 62,
+      "slug": "design-build-bidding",
+      "institutionName": "대형공사 일괄·대안입찰(턴키)",
+      "category": "입찰",
+      "item": "실시설계적격자·대안 선정 인원(설계점수 순 최대 6인)과 설계적합최저가·확정가격최상설계 등 결정방법의 세부기준 적용(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "design-build-bidding-FV03",
+      "priority": 62,
+      "slug": "design-build-bidding",
+      "institutionName": "대형공사 일괄·대안입찰(턴키)",
+      "category": "입찰",
+      "item": "설계비 보상(설계보상비)의 산정식과 1인당·전체 지급 상한 등 세부 산정기준(운영 추정)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "design-build-bidding-FV04",
+      "priority": 62,
+      "slug": "design-build-bidding",
+      "institutionName": "대형공사 일괄·대안입찰(턴키)",
+      "category": "입찰",
+      "item": "중앙건설기술심의위원회 심의를 기술자문위원회 심의로 갈음하는 실무 운영과 그 근거(건설기술 진흥법)(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "design-build-bidding-FV05",
+      "priority": 62,
+      "slug": "design-build-bidding",
+      "institutionName": "대형공사 일괄·대안입찰(턴키)",
+      "category": "입찰",
+      "item": "나라장터(전자조달시스템)에서 대형공사 일괄·대안입찰 공고·전자입찰이 처리되는 화면 흐름(운영 확인)",
+      "domain": "정보시스템",
+      "suggestedEvidence": "공식 시스템 매뉴얼 또는 운영기관 확인",
       "status": "open"
     }
   ]

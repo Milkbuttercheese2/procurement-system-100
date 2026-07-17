@@ -427,7 +427,7 @@
     "category": "공공물자·비축"
   },
   {
-    "priority": 64,
+    "priority": 62,
     "slug": "design-build-bidding",
     "name": "대형공사 일괄·대안입찰(턴키)",
     "type": "입찰",
