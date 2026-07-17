@@ -1,5 +1,6 @@
 "use client";
 
+import { EDGE_DASH, EDGE_LINE_COLORS, EDGE_TYPE_COLORS } from "@/lib/edge-style.mjs";
 import {
   Fragment,
   useState,
@@ -274,7 +275,6 @@ export function SwimlaneNodeCard({
       >
         <span className="swimlane-node-card--grid-top">
           <span className="mono" style={{ color: c.sub }}>{node.id}</span>
-          {isGateway && <span style={{ color: c.sub, fontSize: 10 }}>◇</span>}
           {statusBadge && (
             <em style={{ color: isCurrent ? "#dff5eb" : c.sub }}>{statusBadge}</em>
           )}
@@ -953,10 +953,11 @@ export function Legend() {
     { status: "waiting", label: "일반 단계" },
   ] as const;
 
+  // 실제 보드 표기와 동일한 공유 스펙(edge-style)으로 그린다 — 범례가 화면과 어긋나면 안 된다
   const edgeItems = [
-    { color: "#55685e", dash: "", label: "순서 흐름" },
-    { color: "#0d8a63", dash: "6 4", label: "정보 전달" },
-    { color: "#2563eb", dash: "4 3", label: "회귀 루프" },
+    { line: EDGE_LINE_COLORS.sequence, head: EDGE_TYPE_COLORS.sequence, dash: EDGE_DASH.sequence, label: "순차 진행" },
+    { line: EDGE_LINE_COLORS.message, head: EDGE_TYPE_COLORS.message, dash: EDGE_DASH.message, label: "전달" },
+    { line: EDGE_LINE_COLORS.loop, head: EDGE_TYPE_COLORS.loop, dash: EDGE_DASH.loop, label: "회귀" },
   ];
 
   return (
@@ -984,19 +985,19 @@ export function Legend() {
       <div className="process-legend-group">
         <strong>연결</strong>
         <div className="process-legend-items">
-          {edgeItems.map(({ color, dash, label }) => (
+          {edgeItems.map(({ line, head, dash, label }) => (
             <span key={label}>
               <svg width={28} height={10} style={{ flexShrink: 0 }} aria-hidden="true">
                 <line
                   x1={2}
                   y1={5}
-                  x2={26}
+                  x2={24}
                   y2={5}
-                  stroke={color}
+                  stroke={line}
                   strokeWidth={1.5}
                   strokeDasharray={dash || undefined}
                 />
-                <polygon points="26,5 21,2.5 21,7.5" fill={color} />
+                <polygon points="27,5 21,2.2 21,7.8" fill={head} stroke="#ffffff" strokeWidth={0.8} strokeLinejoin="round" />
               </svg>
               {label}
             </span>

@@ -24,7 +24,7 @@ import {
   SwimlaneNodeCard,
   stageStatus,
 } from "./SwimlaneBoard";
-import { ARROW_HEAD, EDGE_TYPE_COLORS, EDGE_LINE_COLORS, EDGE_DASH } from "@/lib/edge-style.mjs";
+import { ARROW_HEAD, EDGE_TYPE_COLORS, EDGE_LINE_COLORS, EDGE_DASH, EDGE_END_INSET } from "@/lib/edge-style.mjs";
 
 interface PortraitEdgePath {
   edge: ProcessEdge;
@@ -36,7 +36,8 @@ interface PortraitEdgePath {
 const STAGE_LABEL_WIDTH = 132;
 const MIN_GROUP_WIDTH = 218;
 const EMBEDDED_STAGE_LABEL_WIDTH = 64;
-const ARROW_CLEARANCE = 7;
+// 경로 끝-카드 경계 간격. 촉끝이 경계에 닿아야 한다(edge-style 규칙 3).
+const ARROW_CLEARANCE = EDGE_END_INSET;
 const EDGE_PORT_GAP = 14;
 const EDGE_CHANNEL_GAP = 12;
 const EDGE_RAIL_GAP = 6;

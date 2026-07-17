@@ -59,7 +59,7 @@ export default function InstitutionDetailView({
             </div>
             <h1>{institution.name}</h1>
             <p>{institution.oneLiner}</p>
-            <p className={styles.purposeLede}>{institution.canvas.purpose}</p>
+            {/* canvas.purpose 요약 박스는 oneLiner와 중복이라 표시하지 않는다 (2026-07-17) */}
           </div>
 
           <div className={styles.detailActions}>
