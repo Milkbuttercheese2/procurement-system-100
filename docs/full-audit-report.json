@@ -1,10 +1,10 @@
 {
  "checkedAt": "2026-07-17",
- "citations": 1123,
+ "citations": 1124,
  "summary": {
   "deletedArticle": 0,
-  "contentMismatch": 8,
-  "noSourceText": 130,
+  "contentMismatch": 7,
+  "noSourceText": 138,
   "descriptiveCitation": 0,
   "legalBasisOrder": 0,
   "emptyBasis": 11
@@ -12,14 +12,6 @@
  "findings": {
   "deletedArticle": [],
   "contentMismatch": [
-   {
-    "slug": "innovation-product-designation",
-    "node": "P02",
-    "law": "혁신제품 구매 운영 규정",
-    "article": "제11조제1항·제2항",
-    "score": 0,
-    "claim": "혁신시제품 지정 신청을 하려는 자는 제9조에 따른 공고에서 정한 서식에 따라 작성한 제안서 및 관련서류를 조달청에 제출하여야 하며, 혁신시제품 지정 신청서류는 별표 2와 같다."
-   },
    {
     "slug": "multiple-award-schedule",
     "node": "P02",
@@ -277,12 +269,6 @@
     "article": "제11조"
    },
    {
-    "slug": "government-furnished-materials",
-    "node": "P03",
-    "law": "조달사업에 관한 법률",
-    "article": "제24조"
-   },
-   {
     "slug": "green-product-purchase",
     "node": "P02",
     "law": "녹색제품 구매촉진에 관한 법률",
@@ -341,6 +327,12 @@
     "node": "P10",
     "law": "녹색제품 구매촉진에 관한 법률 시행령",
     "article": "제10조"
+   },
+   {
+    "slug": "innovation-product-designation",
+    "node": "P07",
+    "law": "국가를 당사자로 하는 계약에 관한 법률 시행령",
+    "article": "제26조제1항"
    },
    {
     "slug": "inspection-and-acceptance",
@@ -449,6 +441,18 @@
     "node": "P07",
     "law": "(계약예규) 공사계약일반조건",
     "article": "제26조제5항"
+   },
+   {
+    "slug": "other-contract-change-adjustment",
+    "node": "P07",
+    "law": "(계약예규) 용역계약일반조건",
+    "article": "제16조제7항"
+   },
+   {
+    "slug": "other-contract-change-adjustment",
+    "node": "P07",
+    "law": "(계약예규) 물품구매(제조)계약일반조건",
+    "article": "제11조의2제5항"
    },
    {
     "slug": "other-contract-change-adjustment",
@@ -632,12 +636,6 @@
    },
    {
     "slug": "price-survey-and-cost-accounting",
-    "node": "P02",
-    "law": "조달사업에 관한 법률",
-    "article": "제24조"
-   },
-   {
-    "slug": "price-survey-and-cost-accounting",
     "node": "P08",
     "law": "국가를 당사자로 하는 계약에 관한 법률 시행규칙",
     "article": "제4조"
@@ -787,6 +785,12 @@
     "article": "제11조"
    },
    {
+    "slug": "restricted-competitive-bidding",
+    "node": "S02",
+    "law": "국가를 당사자로 하는 계약에 관한 법률 시행령",
+    "article": "제40조제1항"
+   },
+   {
     "slug": "sme-priority-purchase",
     "node": "P01",
     "law": "중소기업제품 구매촉진 및 판로지원에 관한 법률",
@@ -809,6 +813,42 @@
     "node": "P01",
     "law": "조달사업에 관한 법률 시행령",
     "article": "제3조"
+   },
+   {
+    "slug": "stockpile-goods",
+    "node": "P02",
+    "law": "조달사업에 관한 법률",
+    "article": "제29조제1항"
+   },
+   {
+    "slug": "stockpile-goods",
+    "node": "P04",
+    "law": "조달사업에 관한 법률",
+    "article": "제29조제2항"
+   },
+   {
+    "slug": "stockpile-goods",
+    "node": "S01",
+    "law": "조달사업에 관한 법률",
+    "article": "제29조제3항"
+   },
+   {
+    "slug": "stockpile-goods",
+    "node": "P07",
+    "law": "조달사업에 관한 법률",
+    "article": "제30조제1항"
+   },
+   {
+    "slug": "stockpile-goods",
+    "node": "P13",
+    "law": "조달사업에 관한 법률",
+    "article": "제29조제4항"
+   },
+   {
+    "slug": "stockpile-goods",
+    "node": "P13",
+    "law": "조달사업에 관한 법률",
+    "article": "제29조제5항"
    },
    {
     "slug": "tech-development-priority-purchase",

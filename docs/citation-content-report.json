@@ -1,18 +1,9 @@
 {
  "checkedAt": "2026-07-17",
  "method": "L1 exact(30자+) / L2 char-bigram containment≥0.5 — korean-law-mcp citation-content-matcher 이식(요지vs원문에 맞게 containment 보정)",
- "checked": 993,
- "mismatches": 8,
+ "checked": 986,
+ "mismatches": 7,
  "rows": [
-  {
-   "slug": "innovation-product-designation",
-   "node": "P02",
-   "law": "혁신제품 구매 운영 규정",
-   "article": "제11조제1항·제2항",
-   "score": 0,
-   "lcs": 2,
-   "claim": "혁신시제품 지정 신청을 하려는 자는 제9조에 따른 공고에서 정한 서식에 따라 작성한 제안서 및 관련서류를 조달청에 제출하여야 하며, 혁신시제품 지정 신청서류는 별표 2와 같다."
-  },
   {
    "slug": "multiple-award-schedule",
    "node": "P02",
