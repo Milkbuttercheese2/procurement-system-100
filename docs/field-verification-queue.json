@@ -1,13 +1,13 @@
 {
-  "sourceAsOfDate": "2026-07-12",
-  "total": 367,
-  "institutions": 65,
+  "sourceAsOfDate": "2026-07-17",
+  "total": 370,
+  "institutions": 66,
   "byDomain": {
     "기관·권한": 4,
     "문서·증빙": 31,
-    "실무 관행": 197,
-    "운영 사실": 12,
-    "재정·비용": 37,
+    "실무 관행": 198,
+    "운영 사실": 13,
+    "재정·비용": 38,
     "정보시스템": 21,
     "처리기간": 65
   },
@@ -4047,6 +4047,39 @@
       "item": "나라장터 변경계약 등록 화면 흐름과 계약 정보 공개 처리(운영 확인)",
       "domain": "실무 관행",
       "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "pre-fiscal-year-contract-FV01",
+      "priority": 66,
+      "slug": "pre-fiscal-year-contract",
+      "institutionName": "회계연도 개시 전 계약",
+      "category": "발주",
+      "item": "국회 예산 확정(연말)부터 회계연도 개시 전까지 실무상 공고·체결 일정 운용(현장 확인)",
+      "domain": "재정·비용",
+      "suggestedEvidence": "예산서·수수료 고시 또는 결산자료",
+      "status": "open"
+    },
+    {
+      "id": "pre-fiscal-year-contract-FV02",
+      "priority": 66,
+      "slug": "pre-fiscal-year-contract",
+      "institutionName": "회계연도 개시 전 계약",
+      "category": "발주",
+      "item": "회계연도 개시 전 계약의 지출원인행위 정리 시점과 회계 처리 실무(운영 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "pre-fiscal-year-contract-FV03",
+      "priority": 66,
+      "slug": "pre-fiscal-year-contract",
+      "institutionName": "회계연도 개시 전 계약",
+      "category": "발주",
+      "item": "지방자치단체 계약의 회계연도 개시 전 계약 기준(지방회계 법령)과의 차이(별도 확인)",
+      "domain": "운영 사실",
+      "suggestedEvidence": "소관기관 공식 문서 또는 담당자 확인",
       "status": "open"
     }
   ]

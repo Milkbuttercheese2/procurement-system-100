@@ -453,5 +453,12 @@
     "name": "기타 계약내용의 변경(과업·공기 조정)",
     "type": "이행·대금",
     "category": "이행·대금"
+  },
+  {
+    "priority": 66,
+    "slug": "pre-fiscal-year-contract",
+    "name": "회계연도 개시 전 계약",
+    "type": "발주",
+    "category": "발주"
   }
 ]
