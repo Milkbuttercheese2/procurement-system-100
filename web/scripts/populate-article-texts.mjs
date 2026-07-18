@@ -73,7 +73,12 @@ async function fetchAdminRuleFull(serial) {
     const r = await fetch(url);
     if (!r.ok) return "";
     const j = await r.json();
-    return JSON.stringify(j);
+    const text = JSON.stringify(j);
+    // admrul 전문 API는 호출 서버 IP가 계정에 등록돼 있지 않으면 조문 대신
+    // 오류 문구("사용자 정보 검증에 실패…")를 200으로 돌려준다. 조문 헤더가 없는
+    // 응답으로 CLI 본문(잘렸어도 조문 포함)을 덮어쓰면 전부 미수록이 되므로 버린다.
+    if (!/제\s*\d+\s*조/.test(text)) return "";
+    return text;
   } catch {
     return "";
   }
@@ -105,6 +110,18 @@ function parseArticleBodies(output) {
   while ((m = headerRe.exec(output)) !== null) {
     marks.push({ idx: m.index, key: `제${m[1]}조${m[2] ? `의${m[2]}` : ""}`, title: m[3], headEnd: headerRe.lastIndex });
   }
+  // 단항 조문은 원문 본문에 "제N조(제목)" 헤더가 반복되지 않아 CLI 출력이
+  // "제N조 제목" 제목 줄 + 본문 형태로만 나온다(예: 법 제20조, 영 제78조).
+  // 행 시작의 괄호 없는 제목 줄도 헤더로 인식한다. 본문 속 "제N항" 이어쓰기·
+  // 문장 줄과 혼동하지 않도록 제목은 60자 이하, '다.'로 끝나지 않고,
+  // '제N'으로 시작하지 않는 줄로 한정한다.
+  const bareHeaderRe = /^제(\d+)조(?:의(\d+))?[ \t]+(\S[^\n]*)$/gm;
+  while ((m = bareHeaderRe.exec(output)) !== null) {
+    const title = m[3].trim();
+    if (title.length > 60 || /다\.$/.test(title) || /^제\d+\s*(?:항|호|조)/.test(title)) continue;
+    marks.push({ idx: m.index, key: `제${m[1]}조${m[2] ? `의${m[2]}` : ""}`, title, headEnd: bareHeaderRe.lastIndex });
+  }
+  marks.sort((a, b) => a.idx - b.idx);
   for (let i = 0; i < marks.length; i += 1) {
     const start = marks[i].headEnd;
     const end = i + 1 < marks.length ? marks[i + 1].idx : output.length;
