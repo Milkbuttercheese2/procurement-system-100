@@ -73,7 +73,10 @@ async function fetchAdminRuleFull(serial) {
     const r = await fetch(url);
     if (!r.ok) return "";
     const j = await r.json();
-    const text = JSON.stringify(j);
+    // 응답 전체를 JSON.stringify 하면 조문 본문에 \" 같은 이스케이프 잔재가 남는다.
+    // 조문내용은 줄 단위 문자열 배열이므로 그대로 이어붙인다.
+    const articles = j?.AdmRulService?.["조문내용"];
+    const text = Array.isArray(articles) ? articles.join("\n") : JSON.stringify(j);
     // admrul 전문 API는 호출 서버 IP가 계정에 등록돼 있지 않으면 조문 대신
     // 오류 문구("사용자 정보 검증에 실패…")를 200으로 돌려준다. 조문 헤더가 없는
     // 응답으로 CLI 본문(잘렸어도 조문 포함)을 덮어쓰면 전부 미수록이 되므로 버린다.
@@ -175,18 +178,27 @@ async function processFile(file) {
   for (const [, group] of needed) {
     const src = group.source;
     let output = "";
+    let fallback = "";
     if (src.mst) {
       for (const b of chunk([...group.bases], 20)) {
         output += "\n" + runCli(["get_batch_articles", "--mst", src.mst, "--articles", JSON.stringify(b)]);
       }
     } else if (src.adminRuleSerial) {
       output = runCli(["get_admin_rule", "--id", src.adminRuleSerial]);
+      // CLI 출력은 항·호가 줄바꿈으로 구분된 정본이다. 다만 50,000자에서 잘리므로
+      // 뒤쪽 조문은 폴백에서만 얻을 수 있다. 폴백으로 '덮어쓰면' 앞쪽 조문의
+      // 줄바꿈까지 함께 잃으므로(팝업은 pre-wrap이라 문단 구분이 사라진다),
+      // 덮어쓰지 않고 CLI에 없는 조문만 보충한다.
       if (/응답이 너무 길어|too long/i.test(output)) {
-        const full = await fetchAdminRuleFull(src.adminRuleSerial);
-        if (full) output = full;
+        fallback = await fetchAdminRuleFull(src.adminRuleSerial);
       }
     }
     const bodies = parseArticleBodies(output);
+    if (fallback) {
+      for (const [key, body] of parseArticleBodies(fallback)) {
+        if (!bodies.has(key)) bodies.set(key, body);
+      }
+    }
     for (const key of group.keys) {
       const [, article] = key.split("::");
       const base = baseArticle(article);
@@ -198,7 +210,9 @@ async function processFile(file) {
         articleTexts[key] = {
           article: base,
           title: hit.title,
-          text: text.slice(0, 1400),
+          // 상한 1400자는 국가계약법 시행령 제26조처럼 긴 조문·항을 중간에서 끊어,
+          // 정작 인용 대상인 호가 원문에 누락되는 문제가 있었다(44건).
+          text: text.slice(0, 20000),
           effectiveOn: src.effectiveOn ?? src.promulgatedOn ?? null,
         };
       }

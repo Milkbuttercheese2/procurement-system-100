@@ -1,17 +1,7 @@
 {
- "checkedAt": "2026-07-18",
+ "checkedAt": "2026-07-19",
  "method": "L1 exact(30자+) / L2 char-bigram containment≥0.5 — korean-law-mcp citation-content-matcher 이식(요지vs원문에 맞게 containment 보정)",
  "checked": 1149,
- "mismatches": 1,
- "rows": [
-  {
-   "slug": "disabled-business-purchase",
-   "node": "P05",
-   "law": "국가를 당사자로 하는 계약에 관한 법률 시행령",
-   "article": "제26조제1항제5호",
-   "score": 0.459,
-   "lcs": 12,
-   "claim": "「여성기업지원에 관한 법률」에 따른 여성기업 또는 「장애인기업활동 촉진법」에 따른 장애인기업과 물품의 제조·구매·임차 또는 용역 계약을 체결하는 경우 등에는 수의계약에 의할 수 있다."
-  }
- ]
+ "mismatches": 0,
+ "rows": []
 }
