@@ -61,18 +61,60 @@ async function findLaw(name) {
   return null;
 }
 
-/** 별표 목록 조회. 번호로 찾아야 해서 전체를 받아 맞춘다. */
-async function listAnnexes(law) {
-  const url = `${BASE}/lawSearch.do?OC=${OC}&target=licbyl&type=JSON&display=100&search=2&query=${encodeURIComponent(law.name)}`;
-  const res = await fetch(url);
-  if (!res.ok) return [];
-  try {
-    const data = JSON.parse(await res.text());
-    const list = data?.LicBylSearch?.licbyl;
-    return Array.isArray(list) ? list : list ? [list] : [];
-  } catch {
-    return [];
+/**
+ * 별표 목록 조회.
+ *
+ * 함정 둘:
+ *  - 응답 루트가 `licBylSearch`다(대문자 B 아님). 법령·행정규칙 검색과 표기가 달라
+ *    LicBylSearch로 읽으면 조용히 0건이 된다.
+ *  - knd=1 을 줘야 별표만 온다. 없으면 서식(별지 서식)이 섞여 별표가 안 보인다.
+ */
+async function listAnnexes(lawName) {
+  // 법령 별표는 licbyl, 행정규칙(고시·훈령·예규) 별표는 admbyl 로 나뉜다.
+  // 우리 근거의 상당수가 계약예규·조달청 기준이라 admbyl 쪽이 오히려 많다.
+  const targets = [
+    { target: "licbyl", root: "licBylSearch", key: "licbyl" },
+    { target: "admbyl", root: "admRulBylSearch", key: "admbyl" },
+  ];
+  for (const t of targets) {
+    const url = `${BASE}/lawSearch.do?OC=${OC}&target=${t.target}&type=JSON&display=100&search=2&knd=1&query=${encodeURIComponent(lawName)}`;
+    const res = await fetch(url);
+    if (!res.ok) continue;
+    let rows = [];
+    try {
+      const data = JSON.parse(await res.text());
+      const list = data?.[t.root]?.[t.key] ?? Object.values(data?.[t.root] ?? {}).find(Array.isArray);
+      rows = Array.isArray(list) ? list : list ? [list] : [];
+    } catch {
+      continue;
+    }
+    // 검색어가 부분일치라 다른 법령이 섞여 온다. 이름이 정확히 같은 것만.
+    const mine = rows.filter((r) => {
+      const owner = String(r.관련법령명 ?? r.관련행정규칙명 ?? "").trim();
+      return owner === lawName || owner.replace(/\s/g, "") === lawName.replace(/\s/g, "");
+    });
+    if (mine.length > 0) return mine;
   }
+  return [];
+}
+
+/**
+ * 응답에 실려 오는 링크에는 OC(인증키)가 쿼리로 박혀 있다. 그대로 저장하면
+ * 키가 저장소에 커밋된다. 반드시 지우고 쓴다.
+ */
+function scrubKey(link) {
+  if (!link) return undefined;
+  const path = String(link).replace(/([?&])OC=[^&]*&?/g, "$1").replace(/[?&]$/, "");
+  return `https://www.law.go.kr${path}`;
+}
+
+/** "000200" → "별표2", "000302" → "별표3의2" */
+function decodeAnnexNo(raw) {
+  const n = String(raw ?? "").padStart(6, "0");
+  const main = parseInt(n.slice(0, 4), 10);
+  const sub = parseInt(n.slice(4), 10);
+  if (!main) return "";
+  return `별표${main}${sub ? `의${sub}` : ""}`;
 }
 
 // ── 필요한 별표 목록을 조문에서 뽑는다 ──────────────────────────────────────
@@ -101,35 +143,29 @@ let ok = 0;
 let miss = 0;
 
 for (const [lawName, wanted] of needed) {
-  const law = await findLaw(lawName);
-  if (!law) {
-    console.warn(`  ✗ 법령을 못 찾음: ${lawName}`);
+  const annexes = await listAnnexes(lawName);
+  if (annexes.length === 0) {
+    console.warn(`  ✗ 별표 목록이 비었음: ${lawName}`);
     miss += wanted.size;
     continue;
   }
-  const annexes = await listAnnexes(law);
   for (const want of wanted) {
-    const no = want.replace("별표", "");
-    const found = annexes.find(
-      (a) => String(a.별표번호 ?? "").replace(/^0+/, "") === no.replace("의", ""),
-    );
+    const found = annexes.find((a) => decodeAnnexNo(a.별표번호) === want);
     if (!found) {
-      console.warn(`  ✗ ${lawName} ${want} — 목록에서 못 찾음`);
+      // 조문이 가리키는 별표가 그 법령에 없는 경우가 실제로 있다(다른 법령의
+      // 별표를 인용하거나, 조문 표기가 옛 번호인 경우). 지어내지 말고 남긴다.
+      console.warn(`  ✗ ${lawName} ${want} — 그 법령에 없음`);
       miss += 1;
       continue;
     }
     out[`${lawName}::${want}`] = {
       law: lawName,
       annex: want,
-      title: found.별표명 ?? "",
+      title: String(found.별표명 ?? "").trim(),
       // 본문은 HWP/PDF 파일이라 링크로 넘긴다. 표 형식이라 텍스트로 옮기면
       // 행·열 관계가 깨져서, 어설픈 텍스트보다 원본 링크가 정확하다.
-      url: found.별표법령상세링크
-        ? `https://www.law.go.kr${found.별표법령상세링크}`
-        : undefined,
-      fileUrl: found.별표서식파일링크
-        ? `https://www.law.go.kr${found.별표서식파일링크}`
-        : undefined,
+      url: scrubKey(found.별표법령상세링크 ?? found.별표행정규칙상세링크),
+      fileUrl: scrubKey(found.별표서식파일링크),
     };
     ok += 1;
   }

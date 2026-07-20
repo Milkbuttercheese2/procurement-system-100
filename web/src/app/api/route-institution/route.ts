@@ -24,6 +24,9 @@ import { GoogleGenAI } from "@google/genai";
 // public/articles/<slug>.json 으로 두고 필요한 것만 런타임에 읽는다.
 import routingIndex from "../../../../data/routing-index.json";
 import buildStamp from "../../../../data/build-stamp.json";
+// 조문이 가리키는 별표의 제목과 원문 링크. 본문(HWP/PDF)은 담지 않는다 —
+// 표를 텍스트로 옮기면 행·열 관계가 깨져 오히려 틀린 근거가 된다.
+import annexes from "../../../../data/annexes.json";
 
 const MAX_QUERY_LENGTH = 500;
 const MAX_CANDIDATES = 3;
@@ -215,6 +218,8 @@ function historyBlock(history: Array<{ query: string; slugs: string[] }>) {
     "[이전 대화 — 이어지는 질문일 수 있으니 참고하십시오]",
     ...lines,
     '지시대명사나 생략된 주어("그럼", "그건", "얼마나")는 위 맥락으로 해석하십시오.',
+    "이어지는 질문이면 직전에 안내한 제도를 그대로 유지하십시오. 사용자가 화제를",
+    "분명히 바꾼 경우에만 다른 제도를 고르십시오.",
   ].join("\n");
 }
 
@@ -279,6 +284,43 @@ const STAGE2_RULES = `아래 조문 원문에 **실제로 적힌 내용만** 근
 // 별표에는 제재기간·적격심사 배점 같은 핵심 기준이 들어 있어, 그대로 두면 모델이
 // 조문은 정확히 인용하면서 별표 내용을 지어낼 여지가 있다. 인용구 대조로는
 // 못 막는 유형이라 따로 못을 박는다.
+const ANNEX_INDEX = annexes as Record<
+  string,
+  { law: string; annex: string; title: string; url?: string }
+>;
+
+/**
+ * 원문에 언급된 별표의 '제목'만 알려준다.
+ *
+ * 별표 본문은 HWP/PDF 표라 텍스트로 옮기면 행·열이 무너진다. 그래서 제목까지만
+ * 주고 내용은 링크로 넘긴다. 제목만 있어도 "그 별표가 무엇을 정한 것인지"는
+ * 정확히 말할 수 있고, 구체적 수치를 지어내는 것은 계속 막을 수 있다.
+ */
+function annexNote(corpus: string, articles: ArticleAsset[]) {
+  const laws = new Set(articles.map((a) => a.law.replace(/^\([^)]*\)\s*/, "")));
+  const found: string[] = [];
+  for (const hit of new Set(corpus.match(/별표\s*\d+(?:의\d+)?/g) ?? [])) {
+    const no = hit.replace(/\s+/g, "");
+    for (const law of laws) {
+      const entry = ANNEX_INDEX[`${law}::${no}`];
+      if (entry) {
+        found.push(`- ${law} ${no}: ${entry.title}`);
+        break;
+      }
+    }
+  }
+  if (found.length === 0) return "";
+  return [
+    "",
+    "",
+    "[원문이 가리키는 별표]",
+    ...found,
+    "별표의 제목까지만 제공됩니다. 그 안에 정해진 구체적 기준·금액·기간·배점은",
+    "주어지지 않았으니 쓰지 마십시오. 어떤 별표에 정해져 있는지만 안내하고,",
+    "구체적 내용은 조문 링크에서 확인하라고 하십시오.",
+  ].join("\n");
+}
+
 const ANNEX_WARNING = `
 주의: 아래 원문에 "별표 N"이 언급되더라도 그 별표의 내용은 제공되지 않았습니다.
 별표에 정해진 구체적 기준·금액·기간·배점을 쓰지 마십시오. "그 기준은 해당 별표에
@@ -626,7 +668,19 @@ export async function POST(request: Request) {
   // 차단된다. 모델에 넘기는 질문은 원문 그대로다 — 점수 계산에만 쓴다.
   const prefilterText = [...history.map((h) => h.query), trimmed].join(" ");
   const { top, score } = prefilter(prefilterText);
-  if (score < PREFILTER_FLOOR || top.length === 0) {
+
+  // 직전에 안내한 제도는 후보에 반드시 넣는다. 후속 질문은 어휘가 짧아
+  // 프리필터 점수가 낮게 나오는데, 후보에서 빠지면 모델이 고를 수조차 없다
+  // (실측: "그럼 그건 어디에 정해져 있나요"가 부정당업자 제재 → 입찰참가자격
+  //  등록으로 샜다). 앞에 두어 순서로도 힌트를 준다.
+  const carried = (history[history.length - 1]?.slugs ?? [])
+    .map((slug) => ENTRIES.find((e) => e.slug === slug))
+    .filter((e): e is RoutingEntry => Boolean(e));
+  const candidates = [
+    ...carried,
+    ...top.filter((e) => !carried.some((c) => c.slug === e.slug)),
+  ].slice(0, PREFILTER_KEEP);
+  if (score < PREFILTER_FLOOR && carried.length === 0) {
     return Response.json({
       outOfScope: true,
       claims: [],
@@ -667,11 +721,11 @@ export async function POST(request: Request) {
     try {
       // 1) 제도 선택
       const picked = await provider.json(
-        `공공조달 제도 목록에서 사용자 상황에 해당하는 제도를 최대 ${MAX_CANDIDATES}개, 관련성이 높은 순서로 고르십시오. 설명은 하지 마십시오.\n\n${top
-          .map(entryText)
-          .join("\n---\n")}`,
+        `공공조달 제도 목록에서 사용자 상황에 해당하는 제도를 최대 ${MAX_CANDIDATES}개, 관련성이 높은 순서로 고르십시오. 설명은 하지 마십시오.${historyBlock(
+          history,
+        )}\n\n${candidates.map(entryText).join("\n---\n")}`,
         trimmed,
-        stage1Schema(top.map((e) => e.slug)),
+        stage1Schema(candidates.map((e) => e.slug)),
         256,
       );
       const slugs = (
@@ -750,7 +804,7 @@ export async function POST(request: Request) {
           let dropped = 0;
           try {
             for await (const chunk of provider.stream(
-              `${STAGE2_RULES}${mentionsAnnex ? ANNEX_WARNING : ""}${historyBlock(history)}
+              `${STAGE2_RULES}${mentionsAnnex ? ANNEX_WARNING : ""}${historyBlock(history)}${annexNote(corpus, articles)}
 
 조문 원문:
 
