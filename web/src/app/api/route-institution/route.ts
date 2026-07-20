@@ -52,6 +52,10 @@ const MIN_QUOTE_LENGTH = 12;
 // 3건 중 1건으로 무너졌다 — 짧게 쓰라고 하면 모델이 원문을 그대로 옮기지 않고
 // 다듬는다. 속도를 위해 검증을 포기할 수는 없어서 조문 수만 줄인다.
 const MAX_ARTICLES = 15;
+// 이어서 보낼 이전 대화 수. 후속 질문("그럼 얼마나 되나요")이 앞 맥락을 잃지
+// 않게 하는 것이 목적이라 길게 둘 이유가 없다. 길수록 토큰만 늘고, 오래된
+// 화제가 남아 엉뚱한 제도로 끌고 가기도 한다.
+const MAX_HISTORY = 3;
 
 // 모델명은 요청 시점에 읽는다. Worker에서 환경값은 요청마다 넘어오는 env 객체에
 // 담기므로, 모듈 로드 시 process.env를 읽으면 기본값으로 굳어버린다(시크릿에서
@@ -170,6 +174,48 @@ async function loadArticles(
     /* 자산을 못 읽으면 근거 없이 답하지 않고 빈 목록을 돌려준다 */
   }
   return { articles: [] };
+}
+
+/**
+ * 클라이언트가 보낸 대화 이력을 검증한다.
+ *
+ * 이력은 전적으로 클라이언트가 만들어 보내는 값이라 그대로 믿지 않는다. 길이를
+ * 자르고, slug는 실재하는 것만 남긴다 — 지어낸 slug가 프롬프트에 들어가면 모델이
+ * 없는 제도를 있다고 여긴다.
+ */
+function readHistory(raw: unknown): Array<{ query: string; slugs: string[] }> {
+  if (!Array.isArray(raw)) return [];
+  return raw
+    .slice(-MAX_HISTORY)
+    .map((item) => {
+      const r = item as { query?: unknown; slugs?: unknown };
+      const q = typeof r.query === "string" ? r.query.trim().slice(0, 200) : "";
+      const slugs = Array.isArray(r.slugs)
+        ? r.slugs
+            .filter((s): s is string => typeof s === "string")
+            .filter((s) => NAME_BY_SLUG.has(s))
+            .slice(0, MAX_CANDIDATES)
+        : [];
+      return { query: q, slugs };
+    })
+    .filter((h) => h.query.length > 0);
+}
+
+/** 프롬프트에 붙일 이전 대화 요약. 답변 본문은 넣지 않는다 — 길기만 하고, 우리가
+ *  이미 검증해 화면에 띄운 것이라 모델이 다시 볼 필요가 없다. */
+function historyBlock(history: Array<{ query: string; slugs: string[] }>) {
+  if (history.length === 0) return "";
+  const lines = history.map((h, i) => {
+    const names = h.slugs.map((s) => NAME_BY_SLUG.get(s)).filter(Boolean);
+    return `${i + 1}. "${h.query}"${names.length ? ` → 안내한 제도: ${names.join(", ")}` : ""}`;
+  });
+  return [
+    "",
+    "",
+    "[이전 대화 — 이어지는 질문일 수 있으니 참고하십시오]",
+    ...lines,
+    '지시대명사나 생략된 주어("그럼", "그건", "얼마나")는 위 맥락으로 해석하십시오.',
+  ].join("\n");
 }
 
 // ── 스키마 ─────────────────────────────────────────────────────────────────
@@ -560,19 +606,26 @@ export async function POST(request: Request) {
     return Response.json({ error: "rate_limited" }, { status: 429 });
   }
 
-  let query: unknown;
+  let body: { query?: unknown; history?: unknown };
   try {
-    ({ query } = (await request.json()) as { query?: unknown });
+    body = (await request.json()) as { query?: unknown; history?: unknown };
   } catch {
     return Response.json({ error: "bad_request" }, { status: 400 });
   }
+  const query = body.query;
   if (typeof query !== "string" || !query.trim()) {
     return Response.json({ error: "bad_request" }, { status: 400 });
   }
   const trimmed = query.trim().slice(0, MAX_QUERY_LENGTH);
+  const history = readHistory(body.history);
 
   // 0) 프리필터 — 조달 질문이 아니면 모델을 부르지 않는다.
-  const { top, score } = prefilter(trimmed);
+  //
+  // 후속 질문은 그 자체로는 조달 어휘가 없다("그럼 얼마나 되나요" 같은 것).
+  // 이전 질문을 함께 넣어 점수를 매기지 않으면 정상적인 되묻기가 '범위 밖'으로
+  // 차단된다. 모델에 넘기는 질문은 원문 그대로다 — 점수 계산에만 쓴다.
+  const prefilterText = [...history.map((h) => h.query), trimmed].join(" ");
+  const { top, score } = prefilter(prefilterText);
   if (score < PREFILTER_FLOOR || top.length === 0) {
     return Response.json({
       outOfScope: true,
@@ -697,7 +750,7 @@ export async function POST(request: Request) {
           let dropped = 0;
           try {
             for await (const chunk of provider.stream(
-              `${STAGE2_RULES}${mentionsAnnex ? ANNEX_WARNING : ""}
+              `${STAGE2_RULES}${mentionsAnnex ? ANNEX_WARNING : ""}${historyBlock(history)}
 
 조문 원문:
 

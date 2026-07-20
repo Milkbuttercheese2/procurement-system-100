@@ -79,6 +79,9 @@ const OPEN_STORAGE_KEY = "chat-sidebar-open";
 // 형식으로 저장돼 있던 대화가 복원되면서 turn.answer가 undefined가 되어 답변이
 // 통째로 빈 칸으로 보였다. 옛 대화를 살리는 것보다 버리는 편이 낫다.
 const TURNS_STORAGE_KEY = "chat-sidebar-turns-v2";
+// 서버로 함께 보낼 이전 대화 수. 서버도 같은 값으로 자르지만, 필요 없는 것을
+// 네트워크에 실을 이유가 없다.
+const HISTORY_TURNS = 3;
 
 export default function ChatSidebar({ index }: { index: ChatIndexEntry[] }) {
   // 제도 카드를 누르면 페이지가 이동하면서 컴포넌트가 새로 마운트된다. 상태를
@@ -151,6 +154,24 @@ export default function ChatSidebar({ index }: { index: ChatIndexEntry[] }) {
   // Esc로 닫던 동작은 뺐다. 이 패널은 모달이 아니라 계속 켜두고 쓰는 도구여서,
   // 입력 중 Esc가 눌려 대화가 사라지는 편이 손해가 크다. 닫기는 × 버튼만.
 
+  /**
+   * 대화 이력을 {질문, 안내한 제도} 쌍으로 뽑는다. 질문 바로 뒤의 봇 응답을
+   * 짝지어야 하므로 순서대로 훑는다.
+   */
+  function historyFrom(list: Turn[]) {
+    const pairs: Array<{ query: string; slugs: string[] }> = [];
+    for (let i = 0; i < list.length; i += 1) {
+      const t = list[i];
+      if (t.role !== "user") continue;
+      const next = list[i + 1];
+      pairs.push({
+        query: t.text,
+        slugs: next && next.role === "bot" ? next.slugs : [],
+      });
+    }
+    return pairs.slice(-HISTORY_TURNS);
+  }
+
   function cancel() {
     abortRef.current?.abort();
     abortRef.current = null;
@@ -172,7 +193,13 @@ export default function ChatSidebar({ index }: { index: ChatIndexEntry[] }) {
       const response = await fetch("/api/route-institution/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: trimmed.slice(0, MAX_QUERY_LENGTH) }),
+        // 이전 질문과 그때 안내한 제도를 함께 보낸다. 이게 없으면 "그럼 얼마나
+        // 되나요" 같은 되묻기가 앞 맥락을 잃는다. 답변 본문은 보내지 않는다 —
+        // 길기만 하고 서버가 이미 검증해 내려준 것이라 다시 볼 이유가 없다.
+        body: JSON.stringify({
+          query: trimmed.slice(0, MAX_QUERY_LENGTH),
+          history: historyFrom(turns),
+        }),
         signal: controller.signal,
       });
       if (!response.ok) throw new Error(String(response.status));
