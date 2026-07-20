@@ -2,10 +2,10 @@
 
 // 제도 찾기 사이드바.
 //
-// 이 컴포넌트는 답을 쓰지 않는다. 사용자의 상황 설명을 받아 /api/route-institution 에
-// 넘기고, 돌아온 slug로 검증된 제도 카드를 렌더링할 뿐이다. 모델이 만든 문장이 답이
-// 되면 법령 해석을 하는 셈이 되므로(README의 면책 범위를 벗어난다), 화면에 보이는
-// 제도 정보는 전부 로컬 데이터에서 가져온다.
+// 상황 설명을 /api/route-institution 에 넘기고, 돌아온 설명(answer)과 제도 slug를
+// 보여준다. answer는 모델이 인덱스 메타데이터만 근거로 쓴 길잡이이고, 제도 카드에
+// 뜨는 이름·요약·검증 상태는 전부 로컬 검증 데이터에서 온다 — 조문 원문은 제도
+// 페이지에서 확인하는 구조를 유지한다.
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
@@ -21,13 +21,13 @@ export interface ChatIndexEntry {
 
 interface RouteResponse {
   candidates: string[];
-  reason: string;
+  answer: string;
   needsMoreInfo: boolean;
 }
 
 type Turn =
   | { role: "user"; text: string }
-  | { role: "bot"; reason: string; slugs: string[]; needsMoreInfo: boolean }
+  | { role: "bot"; answer: string; slugs: string[]; needsMoreInfo: boolean }
   | { role: "error"; text: string };
 
 const MAX_QUERY_LENGTH = 500;
@@ -147,7 +147,7 @@ export default function ChatSidebar({ index }: { index: ChatIndexEntry[] }) {
         ...prev,
         {
           role: "bot",
-          reason: data.reason ?? "",
+          answer: data.answer ?? "",
           slugs,
           needsMoreInfo: Boolean(data.needsMoreInfo),
         },
@@ -204,7 +204,7 @@ export default function ChatSidebar({ index }: { index: ChatIndexEntry[] }) {
         </header>
 
         <div className={styles.thread}>
-          {turns.length === 0 ? <EmptyState onPick={ask} /> : null}
+          {turns.length === 0 ? <EmptyState /> : null}
 
           {turns.map((turn, i) => (
             <TurnView key={i} turn={turn} bySlug={bySlug} />
@@ -245,36 +245,21 @@ export default function ChatSidebar({ index }: { index: ChatIndexEntry[] }) {
         </form>
 
         <p className={styles.disclaim}>
-          해당 제도 페이지로 연결할 뿐이며, 개별 사건에 대한 법률 자문이나 공식 해석을
-          대신하지 않습니다.
+          AI가 제도 요약을 근거로 정리한 안내입니다. 조문 원문은 제도 페이지에서 확인하세요
+          — 개별 사건에 대한 법률 자문이나 공식 해석을 대신하지 않습니다.
         </p>
       </div>
     </>
   );
 }
 
-const EXAMPLES = [
-  "사무실 의자 30개 사야 하는데요",
-  "업체가 못 하겠다고 합니다",
-  "납품기한을 넘겼는데 어떻게 되나요",
-];
-
-function EmptyState({ onPick }: { onPick: (q: string) => void }) {
+function EmptyState() {
   return (
     <div className={styles.empty}>
       <p>
         제도 이름을 모르셔도 됩니다. <b>상황을 그대로</b> 적으시면 해당하는 제도로
         안내합니다.
       </p>
-      <ul className={styles.examples}>
-        {EXAMPLES.map((example) => (
-          <li key={example}>
-            <button type="button" onClick={() => onPick(example)}>
-              {example}
-            </button>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }
@@ -296,7 +281,16 @@ function TurnView({
 
   return (
     <div className={styles.botMsg}>
-      {turn.reason ? <p className={styles.reason}>{turn.reason}</p> : null}
+      {turn.answer
+        ? turn.answer
+            .split(/\n+/)
+            .filter(Boolean)
+            .map((para, i) => (
+              <p key={i} className={styles.reason}>
+                {para}
+              </p>
+            ))
+        : null}
 
       {turn.needsMoreInfo ? (
         <p className={styles.notice}>

@@ -1,9 +1,13 @@
-// 상황 설명 → 제도 slug 라우팅.
+// 상황 설명 → 메타데이터 기반 설명 + 제도 slug 안내.
 //
-// 이 엔드포인트는 답을 생성하지 않는다. 모델은 66개 제도 중 어느 것으로 보낼지만
-// 고르고(구조화 출력 + enum으로 slug를 강제), 화면에 뜨는 제도 정보는 클라이언트가
-// 로컬 검증 데이터에서 렌더링한다. 모델이 쓴 문장이 답이 되면 법령 해석을 하는 셈이라
-// README의 면책 범위를 벗어난다.
+// 모델은 인덱스에 실린 메타데이터(요약·적용대상·분류·제도 간 연결)만을 근거로 상황을
+// 정리해 answer를 쓰고, 해당 제도 slug를 고른다. slug는 enum으로 강제되므로 없는
+// 제도를 지어낼 수 없고, 화면의 제도 카드는 여전히 로컬 검증 데이터로 렌더링한다.
+//
+// 경계: 조문 해석·요건 충족 여부·금액과 기한 기준은 모델이 판단하지 않는다(프롬프트에서
+// 금지). 그건 사용자가 제도 페이지의 조문 원문을 보고 판단할 몫이며, 이 사이트의 신뢰는
+// "검증된 조문만 보여준다"는 데서 나온다. answer는 검증된 조문의 대체물이 아니라
+// 그리로 가는 길잡이다 — 사이드바 하단 면책 문구도 같은 취지다.
 //
 // provider는 환경변수로 정해진다. ANTHROPIC_API_KEY가 있으면 Claude, 없고
 // GEMINI_API_KEY가 있으면 Gemini. 둘 다 없으면 503을 돌려주고 사이드바가 안내만 한다.
@@ -38,10 +42,12 @@ interface RoutingEntry {
   category: string;
   oneLiner: string;
   applicability: string;
+  related: string[];
 }
 
 const ENTRIES = routingIndex as RoutingEntry[];
 const SLUGS = ENTRIES.map((entry) => entry.slug);
+const NAME_BY_SLUG = new Map(ENTRIES.map((entry) => [entry.slug, entry.name]));
 
 const INDEX_TEXT = ENTRIES.map((entry) =>
   [
@@ -50,24 +56,43 @@ const INDEX_TEXT = ENTRIES.map((entry) =>
     `분류: ${entry.category}`,
     `요약: ${entry.oneLiner}`,
     entry.applicability ? `적용대상: ${entry.applicability}` : "",
+    // 제도 간 연결. 하나를 짚은 뒤 "그럼 그다음은?"을 이어가려면 이 관계가 필요하다.
+    entry.related.length > 0
+      ? `연결된 제도: ${entry.related
+          .map((slug) => `${NAME_BY_SLUG.get(slug)}(${slug})`)
+          .join(", ")}`
+      : "",
   ]
     .filter(Boolean)
     .join("\n"),
 ).join("\n\n---\n\n");
 
-const SYSTEM_PROMPT = `당신은 대한민국 공공조달 제도 안내 사이트의 라우터입니다.
+const SYSTEM_PROMPT = `당신은 대한민국 공공조달 제도 안내 사이트의 안내자입니다.
 
-사용자는 조달 업무를 맡게 된 공공기관 담당자이며, 대개 제도 이름을 모릅니다.
-상황 설명을 읽고 아래 제도 목록에서 해당할 수 있는 것을 최대 ${MAX_CANDIDATES}개 고르십시오.
+사용자는 조달 업무를 맡게 된 공공기관 담당자나 조달업체 담당자이며, 대개 제도 이름을
+모릅니다. 아래 제도 목록의 메타데이터(요약·적용대상·분류·제도 간 연결)만을 근거로
+상황을 해석하고, 어떻게 정리되는 사안인지 설명한 뒤 해당 제도로 안내하십시오.
 
-지켜야 할 것:
-- 법령을 해석하지 마십시오. "가능하다/불가능하다", "얼마까지 된다" 같은 판단을 하지 마십시오.
-  금액 기준·요건 충족 여부는 사용자가 제도 페이지의 조문 원문을 보고 판단합니다.
-- reason에는 어떤 상황으로 이해했고 왜 그 제도를 골랐는지만 2문장 이내로 적으십시오.
-- 목록에 없는 제도를 만들어내지 마십시오. slug는 반드시 아래 목록의 것만 씁니다.
-- 상황이 모호해 제도를 좁힐 수 없으면 needsMoreInfo를 true로 두고, 그래도 가능성 있는
-  후보는 함께 반환하십시오.
-- 조달과 무관한 질문이면 candidates를 비우고 needsMoreInfo를 false로 두십시오.
+answer 작성 방법 — 다음 순서로 생각해서 3~5문장으로 쓰십시오:
+1. 사용자의 상황이 조달 절차의 어느 단계인지 짚습니다(계약 전인지, 이행 중인지, 분쟁인지).
+2. 그 단계에서 어떤 제도가 왜 적용되는지, 목록의 요약·적용대상에 비추어 설명합니다.
+3. '연결된 제도'를 활용해 앞뒤로 뭐가 따라오는지 짚어줍니다
+   (예: 지체상금이 문제라면 그다음에 계약 해제·해지나 제재로 이어질 수 있음).
+4. 확정적으로 말할 수 없는 부분은 제도 페이지의 조문 원문에서 확인하라고 넘깁니다.
+
+절대 하지 말 것:
+- 법령 해석. "가능하다/불가능하다", "며칠 안에 해야 한다", "얼마까지 수의계약이 된다" 같은
+  단정을 하지 마십시오. 요건 충족 여부와 금액·기한 기준은 사용자가 조문 원문을 보고
+  판단합니다. 목록에 없는 수치나 기한을 기억에서 꺼내 쓰지 마십시오.
+- 목록에 없는 제도·법령·조문을 지어내는 것. slug는 반드시 목록의 것만 씁니다.
+- 목록의 메타데이터로 뒷받침되지 않는 주장. 근거가 없으면 "이 사이트의 자료만으로는
+  판단하기 어렵다"고 쓰십시오.
+
+그 밖에:
+- candidates에는 가장 관련 있는 제도를 최대 ${MAX_CANDIDATES}개, 관련성이 높은 순서로 넣습니다.
+- 상황이 모호해 좁힐 수 없으면 needsMoreInfo를 true로 두고, 무엇을 더 알려주면 좁혀지는지
+  answer 끝에 한 문장으로 물으십시오.
+- 조달과 무관한 질문이면 candidates를 비우고, 이 사이트가 다루는 범위가 아니라고 답하십시오.
 
 제도 목록:
 
@@ -85,10 +110,10 @@ const OUTPUT_SCHEMA = {
       type: "array",
       items: { type: "string", enum: SLUGS },
     },
-    reason: { type: "string" },
+    answer: { type: "string" },
     needsMoreInfo: { type: "boolean" },
   },
-  required: ["candidates", "reason", "needsMoreInfo"],
+  required: ["answer", "candidates", "needsMoreInfo"],
   additionalProperties: false,
 };
 
@@ -114,7 +139,7 @@ function rateLimited(ip: string): boolean {
 /** 모델이 돌려준 JSON 문자열 → 검증된 응답. 실패하면 null. */
 function normalize(raw: string | undefined) {
   if (!raw) return null;
-  let parsed: { candidates?: unknown; reason?: unknown; needsMoreInfo?: unknown };
+  let parsed: { candidates?: unknown; answer?: unknown; needsMoreInfo?: unknown };
   try {
     parsed = JSON.parse(raw);
   } catch {
@@ -129,7 +154,7 @@ function normalize(raw: string | undefined) {
     : [];
   return {
     candidates,
-    reason: typeof parsed.reason === "string" ? parsed.reason : "",
+    answer: typeof parsed.answer === "string" ? parsed.answer : "",
     needsMoreInfo: parsed.needsMoreInfo === true,
   };
 }
@@ -157,8 +182,8 @@ async function routeWithAnthropic(
   });
   const message = await client.messages.create({
     model: ANTHROPIC_MODEL,
-    // 응답은 slug 몇 개와 짧은 이유뿐이다. 넉넉히 잡을 이유가 없다.
-    max_tokens: 512,
+    // slug 몇 개 + 3~5문장 설명. 512로는 설명이 중간에 잘린다.
+    max_tokens: 1024,
     // Sonnet 5는 thinking을 생략하면 adaptive로 돈다. 이 작업은 인덱스를 보고
     // 66개 중 고르는 분류라 추론 단계가 필요 없고, 켜두면 토큰과 지연만 늘어난다.
     thinking: { type: "disabled" },
@@ -169,7 +194,7 @@ async function routeWithAnthropic(
     system: SYSTEM_PROMPT,
     messages: [{ role: "user", content: query }],
   });
-  if (message.stop_reason === "refusal") return { candidates: [], reason: "", needsMoreInfo: false };
+  if (message.stop_reason === "refusal") return { candidates: [], answer: "", needsMoreInfo: false };
   const block = message.content.find((b) => b.type === "text");
   return normalize(block?.type === "text" ? block.text : undefined);
 }
@@ -203,7 +228,7 @@ async function routeWithGemini(
       systemInstruction: SYSTEM_PROMPT,
       responseMimeType: "application/json",
       responseJsonSchema: OUTPUT_SCHEMA,
-      maxOutputTokens: 512,
+      maxOutputTokens: 1024,
     },
   });
   return normalize(response.text);
