@@ -314,3 +314,26 @@
   text-decoration: underline;
   cursor: pointer;
 }
+
+/* 문장 뒤에 붙는 근거 조문. 클릭하면 국가법령정보센터 원문으로 간다 —
+   모델을 믿으라고 하는 대신 확인 경로를 준다. */
+.cite {
+  display: inline;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-accent-dark);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--color-accent);
+  white-space: nowrap;
+}
+
+.cite:hover {
+  background: var(--color-accent-soft);
+}
+
+.dropped {
+  margin: 0;
+  font-size: 11px;
+  color: var(--color-faint);
+  font-style: italic;
+}

@@ -19,15 +19,34 @@ export interface ChatIndexEntry {
   verified: boolean;
 }
 
+export interface VerifiedClaim {
+  text: string;
+  article: string;
+  law: string;
+  title: string;
+  url?: string;
+}
+
 interface RouteResponse {
   candidates: string[];
-  answer: string;
+  claims: VerifiedClaim[];
   needsMoreInfo: boolean;
+  /** 근거 대조에 실패해 버려진 문장 수. 무엇이 빠졌는지는 내보내지 않는다. */
+  droppedCount?: number;
+  /** 조달 범위 밖 질문. 모델을 부르지 않고 돌려보낸 경우. */
+  outOfScope?: boolean;
 }
 
 type Turn =
   | { role: "user"; text: string }
-  | { role: "bot"; answer: string; slugs: string[]; needsMoreInfo: boolean }
+  | {
+      role: "bot";
+      claims: VerifiedClaim[];
+      slugs: string[];
+      needsMoreInfo: boolean;
+      droppedCount: number;
+      outOfScope: boolean;
+    }
   | { role: "error"; text: string };
 
 const MAX_QUERY_LENGTH = 500;
@@ -142,9 +161,11 @@ export default function ChatSidebar({ index }: { index: ChatIndexEntry[] }) {
         ...prev,
         {
           role: "bot",
-          answer: data.answer ?? "",
+          claims: Array.isArray(data.claims) ? data.claims : [],
           slugs,
           needsMoreInfo: Boolean(data.needsMoreInfo),
+          droppedCount: data.droppedCount ?? 0,
+          outOfScope: Boolean(data.outOfScope),
         },
       ]);
     } catch (error) {
@@ -294,21 +315,40 @@ function TurnView({
 
   return (
     <div className={styles.botMsg}>
-      {/* 설명이 비어 있는데 제도만 뜨면 "답이 안 나온다"로 보인다. 응답 형식이
-          어긋나도 최소한 무슨 상황인지는 알 수 있게 대체 문구를 둔다. */}
-      {!turn.answer && turn.slugs.length > 0 ? (
-        <p className={styles.reason}>관련될 수 있는 제도를 찾았습니다.</p>
+      {turn.outOfScope ? (
+        <p className={styles.reason}>
+          이 사이트가 다루는 공공조달·계약 제도의 범위 밖으로 보입니다. 조달 업무
+          상황으로 다시 적어주시면 해당 제도로 안내하겠습니다.
+        </p>
       ) : null}
-      {turn.answer
-        ? turn.answer
-            .split(/\n+/)
-            .filter(Boolean)
-            .map((para, i) => (
-              <p key={i} className={styles.reason}>
-                {para}
-              </p>
-            ))
-        : null}
+
+      {/* 문장마다 근거 조문을 붙인다. 각 문장은 인용구가 조문 원문에 실재하는지
+          서버에서 대조를 통과한 것만 내려온다. 링크로 원문까지 갈 수 있게 해
+          사용자가 직접 확인할 수 있도록 한다. */}
+      {turn.claims.map((claim, i) => (
+        <p key={i} className={styles.reason}>
+          {claim.text}{" "}
+          {claim.url ? (
+            <a
+              className={styles.cite}
+              href={claim.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              title={`${claim.article}${claim.title ? ` (${claim.title})` : ""}`}
+            >
+              {claim.article}
+            </a>
+          ) : (
+            <span className={styles.cite}>{claim.article}</span>
+          )}
+        </p>
+      ))}
+
+      {turn.droppedCount > 0 ? (
+        <p className={styles.dropped}>
+          근거 조문과 대조되지 않은 문장 {turn.droppedCount}건은 표시하지 않았습니다.
+        </p>
+      ) : null}
 
       {turn.needsMoreInfo ? (
         <p className={styles.notice}>

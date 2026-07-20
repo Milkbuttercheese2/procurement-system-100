@@ -1,39 +1,47 @@
-// 상황 설명 → 메타데이터 기반 설명 + 제도 slug 안내.
+// 상황 설명 → 검증된 조문에 근거한 안내.
 //
-// 모델은 인덱스에 실린 메타데이터(요약·적용대상·분류·제도 간 연결)만을 근거로 상황을
-// 정리해 answer를 쓰고, 해당 제도 slug를 고른다. slug는 enum으로 강제되므로 없는
-// 제도를 지어낼 수 없고, 화면의 제도 카드는 여전히 로컬 검증 데이터로 렌더링한다.
+// 파이프라인:
+//   0) 프리필터   66개를 글자 2-gram 겹침으로 15개로 좁힌다(LLM 호출 0회, 토큰 0).
+//                 점수가 하한에 못 미치면 조달 질문이 아니라고 보고 여기서 끝낸다.
+//   1) 제도 선택   좁혀진 목록에서 최대 3개를 고른다(slug는 enum으로 강제).
+//   2) 근거 답변   고른 제도의 '검증된 조문 원문'만 주고, 문장마다 원문에서 그대로
+//                 뜯어온 인용구를 함께 내게 한다.
+//   3) 대조        인용구가 원문에 문자열로 실재하는지 확인한다. 실패한 문장은
+//                 버린다(로그만 남기지 않는다 — 근거 없는 문장이 화면에 뜨는 것이
+//                 이 사이트에서 가장 나쁜 실패다).
 //
-// 경계: 조문 해석·요건 충족 여부·금액과 기한 기준은 모델이 판단하지 않는다(프롬프트에서
-// 금지). 그건 사용자가 제도 페이지의 조문 원문을 보고 판단할 몫이며, 이 사이트의 신뢰는
-// "검증된 조문만 보여준다"는 데서 나온다. answer는 검증된 조문의 대체물이 아니라
-// 그리로 가는 길잡이다 — 사이드바 하단 면책 문구도 같은 취지다.
+// 환각 방지의 핵심은 3)이다. "조문을 봤다"가 아니라 "이 문장이 이 원문의 이 구절에서
+// 나왔다"를 기계적으로 확인한다. 모델이 실재하는 조문번호를 달고 엉뚱한 말을 하는
+// 경우까지 잡으려면 조문 존재 확인만으로는 부족하다.
 //
-// provider는 환경변수로 정해진다. ANTHROPIC_API_KEY가 있으면 Claude, 없고
-// GEMINI_API_KEY가 있으면 Gemini. 둘 다 없으면 503을 돌려주고 사이드바가 안내만 한다.
-// 결제 문제로 Gemini 무료 티어를 먼저 쓰다가, 나중에 Anthropic 키만 넣으면 전환된다.
-//
-// 주의: Gemini 무료 티어는 약관상 입력·출력이 모델 개선에 쓰일 수 있다. 민감한 조달
-// 건 정보를 넣는 운영 환경에서는 유료 티어나 Claude로 올려야 한다.
+// 그래도 완전하지는 않다. 인용구가 진짜여도 그 구절이 그 문장을 뒷받침하는지까지는
+// 기계가 판단하지 못한다. 그래서 인용마다 국가법령정보센터 링크를 붙여 사용자가
+// 직접 대조할 수 있게 한다.
 
 import Anthropic from "@anthropic-ai/sdk";
 import { GoogleGenAI } from "@google/genai";
-// lib/data를 쓰면 제도 JSON 전체(4.4MB, 조문 원문 884건 포함)가 서버 번들에 들어가
-// Cloudflare Worker 상한(무료 3 MiB)을 넘는다. 라우팅에 필요한 필드만 담은 슬림
-// 인덱스(45KB)를 prebuild 단계에서 만들어 쓴다. → scripts/generate-routing-index.mjs
+// 조문 원문(2.9MB)은 번들에 넣지 않는다. Worker 상한(무료 3 MiB)을 넘는다.
+// public/articles/<slug>.json 으로 두고 필요한 것만 런타임에 읽는다.
 import routingIndex from "../../../../data/routing-index.json";
-// 배포된 워커가 어느 커밋인지 응답으로 확인하기 위한 스탬프.
 import buildStamp from "../../../../data/build-stamp.json";
 
 const MAX_QUERY_LENGTH = 500;
 const MAX_CANDIDATES = 3;
+const PREFILTER_KEEP = 15;
+// 프리필터 점수 하한. 이보다 낮으면 조달 질문으로 보지 않고 모델을 부르지 않는다.
+//
+// scripts/calibrate-prefilter.mjs 실측(조달 10건 / 무관 8건):
+//   조달 질문 최저 0.154, 무관 질문 최고 0.250("이혼 소송 절차" — 법률 어휘가 겹친다)
+//   0.12 → 조달 10/10 통과, 무관 5/8 차단
+//   0.15 → 조달 10/10 통과, 무관 7/8 차단  (다만 최저 조달 질문과 0.004 차이)
+//
+// 0.15가 더 많이 거르지만 여유가 없다. 진짜 조달 질문을 되돌려보내는 쪽이 헛호출
+// 한 번보다 나쁘므로 0.12로 둔다. 남는 것은 1단계에서 후보 0개로 걸러진다.
+const PREFILTER_FLOOR = 0.12;
+// 너무 짧은 인용구는 아무 데나 걸린다("계약", "제1항"). 대조의 의미가 생기는 하한.
+const MIN_QUOTE_LENGTH = 12;
 
-// 라우팅 품질을 우선해 Sonnet 5를 쓴다. Haiku보다 단가가 약 3배이므로
-// 월 지출 한도(Console에서 설정)를 반드시 함께 걸어둘 것.
-// 비용을 낮추려면 CHAT_MODEL 환경변수로 claude-haiku-4-5 로 내릴 수 있다.
 const ANTHROPIC_MODEL = process.env.CHAT_MODEL ?? "claude-sonnet-5";
-// gemini-3-flash 는 존재하지 않는 ID였다(404 NOT_FOUND). 현재 GA는 3.5/3.1 계열이며
-// 2.0 계열은 2026-06-01 종료됐다. 더 싸게 가려면 gemini-3.1-flash-lite.
 const GEMINI_MODEL = process.env.GEMINI_MODEL ?? "gemini-3.5-flash";
 // output_config.effort 를 받는 모델. Haiku 계열은 지원하지 않는다(400).
 const SUPPORTS_EFFORT = /^claude-(opus|sonnet|fable|mythos)/;
@@ -47,134 +55,220 @@ interface RoutingEntry {
   related: string[];
 }
 
-const ENTRIES = routingIndex as RoutingEntry[];
-const SLUGS = ENTRIES.map((entry) => entry.slug);
-const NAME_BY_SLUG = new Map(ENTRIES.map((entry) => [entry.slug, entry.name]));
-
-const INDEX_TEXT = ENTRIES.map((entry) =>
-  [
-    `slug: ${entry.slug}`,
-    `이름: ${entry.name}`,
-    `분류: ${entry.category}`,
-    `요약: ${entry.oneLiner}`,
-    entry.applicability ? `적용대상: ${entry.applicability}` : "",
-    // 제도 간 연결. 하나를 짚은 뒤 "그럼 그다음은?"을 이어가려면 이 관계가 필요하다.
-    entry.related.length > 0
-      ? `연결된 제도: ${entry.related
-          .map((slug) => `${NAME_BY_SLUG.get(slug)}(${slug})`)
-          .join(", ")}`
-      : "",
-  ]
-    .filter(Boolean)
-    .join("\n"),
-).join("\n\n---\n\n");
-
-const SYSTEM_PROMPT = `당신은 대한민국 공공조달 제도 안내 사이트의 안내자입니다.
-
-사용자는 조달 업무를 맡게 된 공공기관 담당자나 조달업체 담당자이며, 대개 제도 이름을
-모릅니다. 아래 제도 목록의 메타데이터(요약·적용대상·분류·제도 간 연결)만을 근거로
-상황을 해석하고, 어떻게 정리되는 사안인지 설명한 뒤 해당 제도로 안내하십시오.
-
-answer 작성 방법 — 다음 순서로 생각해서 3~5문장으로 쓰십시오:
-1. 사용자의 상황이 조달 절차의 어느 단계인지 짚습니다(계약 전인지, 이행 중인지, 분쟁인지).
-2. 그 단계에서 어떤 제도가 왜 적용되는지, 목록의 요약·적용대상에 비추어 설명합니다.
-3. '연결된 제도'를 활용해 앞뒤로 뭐가 따라오는지 짚어줍니다
-   (예: 지체상금이 문제라면 그다음에 계약 해제·해지나 제재로 이어질 수 있음).
-4. 확정적으로 말할 수 없는 부분은 제도 페이지의 조문 원문에서 확인하라고 넘깁니다.
-
-절대 하지 말 것:
-- 법령 해석. "가능하다/불가능하다", "며칠 안에 해야 한다", "얼마까지 수의계약이 된다" 같은
-  단정을 하지 마십시오. 요건 충족 여부와 금액·기한 기준은 사용자가 조문 원문을 보고
-  판단합니다. 목록에 없는 수치나 기한을 기억에서 꺼내 쓰지 마십시오.
-- 목록에 없는 제도·법령·조문을 지어내는 것. slug는 반드시 목록의 것만 씁니다.
-- 목록의 메타데이터로 뒷받침되지 않는 주장. 근거가 없으면 "이 사이트의 자료만으로는
-  판단하기 어렵다"고 쓰십시오.
-
-그 밖에:
-- candidates에는 가장 관련 있는 제도를 최대 ${MAX_CANDIDATES}개, 관련성이 높은 순서로 넣습니다.
-- 상황이 모호해 좁힐 수 없으면 needsMoreInfo를 true로 두고, 무엇을 더 알려주면 좁혀지는지
-  answer 끝에 한 문장으로 물으십시오.
-- 조달과 무관한 질문이면 candidates를 비우고, 이 사이트가 다루는 범위가 아니라고 답하십시오.
-
-제도 목록:
-
-${INDEX_TEXT}`;
-
-// enum으로 막아두면 모델이 없는 제도를 지어낼 수 없다.
-//
-// maxItems는 넣지 않는다. Anthropic 구조화 출력이 배열에 대해 이 제약을 지원하지
-// 않아 400을 돌려준다("For 'array' type, property 'maxItems' is not supported").
-// 개수 제한은 프롬프트로 지시하고 normalize()에서 slice로 강제한다.
-const OUTPUT_SCHEMA = {
-  type: "object",
-  properties: {
-    candidates: {
-      type: "array",
-      items: { type: "string", enum: SLUGS },
-    },
-    answer: { type: "string" },
-    needsMoreInfo: { type: "boolean" },
-  },
-  required: ["answer", "candidates", "needsMoreInfo"],
-  additionalProperties: false,
-};
-
-// IP당 간이 제한. 서버리스에서는 인스턴스마다 초기화되므로 완전한 방어가 아니다.
-// 실질적인 상한은 각 제공자 콘솔의 지출/할당량 한도이며, 이건 그 앞단의 완충일 뿐이다.
-const WINDOW_MS = 60_000;
-const MAX_PER_WINDOW = 6;
-const hits = new Map<string, number[]>();
-
-function rateLimited(ip: string): boolean {
-  const now = Date.now();
-  const recent = (hits.get(ip) ?? []).filter((at) => now - at < WINDOW_MS);
-  if (recent.length >= MAX_PER_WINDOW) {
-    hits.set(ip, recent);
-    return true;
-  }
-  recent.push(now);
-  hits.set(ip, recent);
-  if (hits.size > 5_000) hits.clear(); // 메모리 무한 증가 방지
-  return false;
+interface ArticleAsset {
+  key: string;
+  law: string;
+  article: string;
+  title: string;
+  text: string;
+  url?: string;
 }
 
-/** 모델이 돌려준 JSON 문자열 → 검증된 응답. 실패하면 null. */
-function normalize(raw: string | undefined) {
-  if (!raw) return null;
-  let parsed: { candidates?: unknown; answer?: unknown; needsMoreInfo?: unknown };
-  try {
-    parsed = JSON.parse(raw);
-  } catch {
-    return null;
-  }
-  // 스키마가 강제하지만 한 번 더 거른다 — 화면에 없는 제도가 뜨는 것보다 낫다.
-  const candidates = Array.isArray(parsed.candidates)
-    ? parsed.candidates
-        .filter((slug): slug is string => typeof slug === "string")
-        .filter((slug) => SLUGS.includes(slug))
-        .slice(0, MAX_CANDIDATES)
-    : [];
+const ENTRIES = routingIndex as RoutingEntry[];
+const NAME_BY_SLUG = new Map(ENTRIES.map((e) => [e.slug, e.name]));
+
+// ── 0) 프리필터 ─────────────────────────────────────────────────────────────
+// 글자 2-gram 겹침. 형태소 분석기 없이도 한국어에서 꽤 잘 듣고, 무엇보다 로컬이라
+// 토큰을 쓰지 않는다. 인덱스 전체를 매번 모델에 넣던 것을 4분의 1로 줄인다.
+
+function bigrams(s: string): Set<string> {
+  const out = new Set<string>();
+  const t = s.replace(/\s/g, "");
+  for (let i = 0; i < t.length - 1; i += 1) out.add(t.slice(i, i + 2));
+  return out;
+}
+
+const BLOB = new Map(
+  ENTRIES.map((e) => [
+    e.slug,
+    bigrams(`${e.name}${e.oneLiner}${e.applicability}${e.category}`),
+  ]),
+);
+
+function prefilter(query: string) {
+  const q = bigrams(query);
+  if (q.size === 0) return { top: [] as RoutingEntry[], score: 0 };
+  const scored = ENTRIES.map((e) => {
+    const b = BLOB.get(e.slug)!;
+    let shared = 0;
+    for (const g of q) if (b.has(g)) shared += 1;
+    return { e, score: shared / q.size };
+  }).sort((a, b) => b.score - a.score);
   return {
-    candidates,
-    answer: typeof parsed.answer === "string" ? parsed.answer : "",
-    needsMoreInfo: parsed.needsMoreInfo === true,
+    top: scored.slice(0, PREFILTER_KEEP).map((x) => x.e),
+    score: scored[0]?.score ?? 0,
   };
 }
 
-async function routeWithAnthropic(
+const entryText = (e: RoutingEntry) =>
+  [
+    `slug: ${e.slug}`,
+    `이름: ${e.name}`,
+    `분류: ${e.category}`,
+    `요약: ${e.oneLiner}`,
+    e.applicability ? `적용대상: ${e.applicability}` : "",
+    e.related.length > 0
+      ? `연결된 제도: ${e.related.map((s) => NAME_BY_SLUG.get(s)).join(", ")}`
+      : "",
+  ]
+    .filter(Boolean)
+    .join("\n");
+
+// ── 조문 자산 읽기 ──────────────────────────────────────────────────────────
+
+async function loadArticles(
+  slug: string,
+  request: Request,
+): Promise<ArticleAsset[]> {
+  // Worker에서는 ASSETS 바인딩이 가장 직접적인 경로다.
+  try {
+    const { getCloudflareContext } = await import("@opennextjs/cloudflare");
+    const ctx = await getCloudflareContext({ async: true });
+    const assets = (ctx.env as Record<string, unknown>).ASSETS as
+      | { fetch: (req: Request | URL) => Promise<Response> }
+      | undefined;
+    if (assets) {
+      const res = await assets.fetch(
+        new URL(`/articles/${slug}.json`, "https://assets.local"),
+      );
+      if (res.ok) return (await res.json()) as ArticleAsset[];
+    }
+  } catch {
+    // 로컬 next dev 등 Cloudflare 컨텍스트가 없는 환경 → 아래로 폴백.
+  }
+  try {
+    const res = await fetch(new URL(`/articles/${slug}.json`, request.url));
+    if (res.ok) return (await res.json()) as ArticleAsset[];
+  } catch {
+    /* 자산을 못 읽으면 근거 없이 답하지 않고 빈 배열을 돌려준다 */
+  }
+  return [];
+}
+
+// ── 스키마 ─────────────────────────────────────────────────────────────────
+
+const stage1Schema = (slugs: string[]) => ({
+  type: "object",
+  properties: {
+    candidates: { type: "array", items: { type: "string", enum: slugs } },
+  },
+  required: ["candidates"],
+  additionalProperties: false,
+});
+
+// 문장 단위로 근거를 묶는다. 통째로 긴 답을 받으면 어느 부분이 어느 조문에서
+// 나왔는지 알 수 없어 대조가 불가능하다.
+const stage2Schema = (keys: string[]) => ({
+  type: "object",
+  properties: {
+    claims: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          text: { type: "string" },
+          quote: { type: "string" },
+          article: { type: "string", enum: keys },
+        },
+        required: ["text", "quote", "article"],
+        additionalProperties: false,
+      },
+    },
+    needsMoreInfo: { type: "boolean" },
+  },
+  required: ["claims", "needsMoreInfo"],
+  additionalProperties: false,
+});
+
+const STAGE2_RULES = `아래 조문 원문에 **실제로 적힌 내용만** 근거로 답하십시오.
+
+각 문장(claim)은 셋을 함께 냅니다:
+- text: 사용자에게 보일 한 문장. 담당자가 읽고 이해할 수 있는 말로 씁니다.
+- quote: 그 문장의 근거가 되는 구절을 **조문 원문에서 글자 그대로** 복사합니다.
+  요약하거나 다듬지 마십시오. 원문과 한 글자라도 다르면 그 문장은 버려집니다.
+- article: 그 구절이 있는 조문 키. 목록에 있는 것만 씁니다.
+
+반드시 지킬 것:
+- 원문에 없는 수치·기한·요건·절차를 쓰지 마십시오. 기억에 있는 조문을 끌어오지 마십시오.
+- 원문으로 뒷받침되지 않는 말은 아예 하지 마십시오(claim에서 빼십시오).
+- 4~6개 claim으로, 사용자의 상황에 답하는 순서로 배열하십시오.
+- 상황이 모호해 좁힐 수 없으면 needsMoreInfo를 true로 두십시오.`;
+
+// ── 대조 ───────────────────────────────────────────────────────────────────
+
+const flatten = (s: string) => s.replace(/\s+/g, "");
+
+interface VerifiedClaim {
+  text: string;
+  article: string;
+  law: string;
+  title: string;
+  url?: string;
+}
+
+/**
+ * 인용구가 조문 원문에 실재하는지 확인하고, 통과한 문장만 남긴다.
+ * 공백만 무시하고 글자는 그대로 대조한다 — 느슨하게 하면 대조의 의미가 없다.
+ */
+function verifyClaims(
+  claims: Array<{ text?: unknown; quote?: unknown; article?: unknown }>,
+  articles: ArticleAsset[],
+) {
+  const byKey = new Map(articles.map((a) => [a.key, a]));
+  const kept: VerifiedClaim[] = [];
+  const dropped: string[] = [];
+
+  for (const c of claims) {
+    const text = typeof c.text === "string" ? c.text.trim() : "";
+    const quote = typeof c.quote === "string" ? c.quote.trim() : "";
+    const key = typeof c.article === "string" ? c.article : "";
+    const article = byKey.get(key);
+
+    if (!text || !article) {
+      dropped.push(text || "(빈 문장)");
+      continue;
+    }
+    if (flatten(quote).length < MIN_QUOTE_LENGTH) {
+      dropped.push(text);
+      continue;
+    }
+    if (!flatten(article.text).includes(flatten(quote))) {
+      dropped.push(text);
+      continue;
+    }
+    kept.push({
+      text,
+      article: key,
+      law: article.law,
+      title: article.title,
+      url: article.url,
+    });
+  }
+  return { kept, dropped };
+}
+
+// ── 제공자 ─────────────────────────────────────────────────────────────────
+
+// SDK가 인덱스 시그니처를 요구한다.
+type JsonSchema = Record<string, unknown>;
+
+interface Provider {
+  name: string;
+  json: (
+    system: string,
+    user: string,
+    schema: JsonSchema,
+    maxTokens: number,
+  ) => Promise<unknown>;
+}
+
+function anthropicProvider(
   apiKey: string,
-  query: string,
   baseURL?: string,
   gatewayToken?: string,
-) {
-  // baseURL이 있으면 Cloudflare AI Gateway를 경유한다.
-  //
-  // 워커에서 api.anthropic.com 을 직접 부르면 403 "Request not allowed" 가 난다.
-  // 같은 키·같은 코드가 로컬(한국)에서는 정상 동작하므로 키 문제가 아니라 워커가
-  // 실행되는 위치/IP를 Anthropic이 거부하는 것이다. 게이트웨이를 거치면 출발지가
-  // Cloudflare 게이트웨이 인프라가 되어 우회될 수 있다.
-  // 게이트웨이가 Authenticated 모드면 자체 토큰을 cf-aig-authorization 헤더로
-  // 요구한다(없으면 401 Unauthorized). Anthropic 키와는 별개의 값이다.
+): Provider {
+  // 워커에서 api.anthropic.com 을 직접 부르면 403 "Request not allowed" 가 난다
+  // (같은 키가 로컬에서는 동작 → 키가 아니라 실행 위치 문제). AI Gateway를 거친다.
   const client = new Anthropic({
     apiKey,
     ...(baseURL ? { baseURL } : {}),
@@ -182,37 +276,37 @@ async function routeWithAnthropic(
       ? { defaultHeaders: { "cf-aig-authorization": `Bearer ${gatewayToken}` } }
       : {}),
   });
-  const message = await client.messages.create({
-    model: ANTHROPIC_MODEL,
-    // slug 몇 개 + 3~5문장 설명. 512로는 설명이 중간에 잘린다.
-    max_tokens: 1024,
-    // Sonnet 5는 thinking을 생략하면 adaptive로 돈다. 이 작업은 인덱스를 보고
-    // 66개 중 고르는 분류라 추론 단계가 필요 없고, 켜두면 토큰과 지연만 늘어난다.
-    thinking: { type: "disabled" },
-    output_config: {
-      // effort는 모델마다 지원 여부가 다르다. Haiku 4.5에 넣으면 400이 난다
-      // ("This model does not support the effort parameter"). CHAT_MODEL을
-      // haiku로 내리는 순간 전부 실패하므로 지원하는 모델에만 붙인다.
-      ...(SUPPORTS_EFFORT.test(ANTHROPIC_MODEL) ? { effort: "low" as const } : {}),
-      format: { type: "json_schema", schema: OUTPUT_SCHEMA },
+  return {
+    name: "anthropic",
+    async json(system, user, schema, maxTokens) {
+      const message = await client.messages.create({
+        model: ANTHROPIC_MODEL,
+        max_tokens: maxTokens,
+        thinking: { type: "disabled" },
+        output_config: {
+          // effort는 모델마다 지원 여부가 다르다. Haiku에 넣으면 400.
+          ...(SUPPORTS_EFFORT.test(ANTHROPIC_MODEL)
+            ? { effort: "low" as const }
+            : {}),
+          format: { type: "json_schema", schema },
+        },
+        system,
+        messages: [{ role: "user", content: user }],
+      });
+      if (message.stop_reason === "refusal") return null;
+      const block = message.content.find((b) => b.type === "text");
+      return block?.type === "text" ? JSON.parse(block.text) : null;
     },
-    system: SYSTEM_PROMPT,
-    messages: [{ role: "user", content: query }],
-  });
-  if (message.stop_reason === "refusal") return { candidates: [], answer: "", needsMoreInfo: false };
-  const block = message.content.find((b) => b.type === "text");
-  return normalize(block?.type === "text" ? block.text : undefined);
+  };
 }
 
-async function routeWithGemini(
+function geminiProvider(
   apiKey: string,
-  query: string,
   baseURL?: string,
   gatewayToken?: string,
-) {
-  // Anthropic과 마찬가지로 워커에서 직접 부르면 지역 차단에 막힌다
-  // ("User location is not supported"). AI Gateway를 거치면 우회된다.
-  // GEMINI_BASE_URL 예: https://gateway.ai.cloudflare.com/v1/<acct>/<gw>/google-ai-studio
+): Provider {
+  // Gemini도 워커에서 직접 부르면 지역 차단에 막힌다
+  // ("User location is not supported"). 같은 게이트웨이를 경유한다.
   const client = new GoogleGenAI({
     apiKey,
     ...(baseURL || gatewayToken
@@ -226,47 +320,48 @@ async function routeWithGemini(
         }
       : {}),
   });
-  const response = await client.models.generateContent({
-    model: GEMINI_MODEL,
-    contents: query,
-    config: {
-      systemInstruction: SYSTEM_PROMPT,
-      responseMimeType: "application/json",
-      responseJsonSchema: OUTPUT_SCHEMA,
-      maxOutputTokens: 1024,
+  return {
+    name: "gemini",
+    async json(system, user, schema, maxTokens) {
+      const res = await client.models.generateContent({
+        model: GEMINI_MODEL,
+        contents: user,
+        config: {
+          systemInstruction: system,
+          responseMimeType: "application/json",
+          responseJsonSchema: schema,
+          maxOutputTokens: maxTokens,
+        },
+      });
+      return res.text ? JSON.parse(res.text) : null;
     },
-  });
-  return normalize(response.text);
+  };
 }
 
-/**
- * 모델명이 틀렸을 때 실제로 쓸 수 있는 모델 이름을 돌려준다.
- * 모델 ID는 계정·시점에 따라 달라서 추측하면 계속 헛돈다. 키는 서버에만 있으므로
- * 조회도 서버에서 한다(이름만 반환, 값·키는 노출 없음).
- */
-async function listGeminiModels(apiKey: string): Promise<string[]> {
-  try {
-    const client = new GoogleGenAI({ apiKey });
-    const pager = await client.models.list();
-    const names: string[] = [];
-    for await (const model of pager) {
-      const name = (model as { name?: string }).name;
-      if (name) names.push(name);
-      if (names.length >= 40) break;
-    }
-    return names;
-  } catch (error) {
-    return [`(목록 조회 실패: ${error instanceof Error ? error.message : String(error)})`.slice(0, 200)];
+// ── 간이 레이트 리밋 ────────────────────────────────────────────────────────
+// 서버리스라 인스턴스마다 초기화된다. 실질적 상한은 각 콘솔의 지출/할당량이며
+// 이건 그 앞단의 완충일 뿐이다.
+
+const WINDOW_MS = 60_000;
+const MAX_PER_WINDOW = 6;
+const hits = new Map<string, number[]>();
+
+function rateLimited(ip: string): boolean {
+  const now = Date.now();
+  const recent = (hits.get(ip) ?? []).filter((at) => now - at < WINDOW_MS);
+  if (recent.length >= MAX_PER_WINDOW) {
+    hits.set(ip, recent);
+    return true;
   }
+  recent.push(now);
+  hits.set(ip, recent);
+  if (hits.size > 5_000) hits.clear();
+  return false;
 }
 
 /**
- * 키를 읽는다.
- *
- * Cloudflare Worker에서 시크릿은 process.env가 아니라 요청마다 넘어오는 env 객체에
- * 담긴다. @opennextjs/cloudflare가 process.env로 옮겨주긴 하지만 항상 보장되지는
- * 않아, 실제 배포에서 둘 다 비어 보이는 일이 있었다(503 not_configured).
- * 그래서 process.env → getCloudflareContext().env 순으로 확인한다.
+ * 키를 읽는다. Worker에서 시크릿은 요청마다 넘어오는 env 객체에 담기며
+ * process.env로 옮겨지는 것이 항상 보장되지는 않는다(실제로 둘 다 빈 배포가 있었다).
  */
 async function readKey(name: string): Promise<string | undefined> {
   const fromProcess = process.env[name];
@@ -277,46 +372,16 @@ async function readKey(name: string): Promise<string | undefined> {
     const value = (ctx.env as Record<string, unknown>)[name];
     return typeof value === "string" && value ? value : undefined;
   } catch {
-    // 로컬 next dev 등 Cloudflare 컨텍스트가 없는 환경.
     return undefined;
   }
-}
-
-/**
- * 진단용. 어떤 변수 '이름'이 워커에 보이는지만 돌려준다. 값은 절대 내보내지 않는다.
- * 키를 넣었는데 503이 날 때, 이름 오타인지 다른 worker에 넣은 것인지 구분하려는 것.
- */
-async function listEnvKeys(): Promise<Record<string, unknown>> {
-  const out: Record<string, unknown> = {};
-
-  const procKeys = Object.keys(process.env ?? {});
-  out.processEnvCount = procKeys.length;
-  // 값은 절대 담지 않는다. 이름만, 그것도 우리가 찾는 것 위주로.
-  out.processEnvMatches = procKeys.filter((k) => /API|KEY|GEMINI|ANTHROPIC/i.test(k));
-
-  try {
-    const { getCloudflareContext } = await import("@opennextjs/cloudflare");
-    const ctx = await getCloudflareContext({ async: true });
-    // 바인딩 '이름'은 비밀이 아니다(ASSETS, IMAGES 등 구조적인 것들).
-    // 여기에 ASSETS 같은 게 보이는데 GEMINI_API_KEY만 없다면 → 시크릿 미등록.
-    // 아무것도 안 보이면 → env 객체 자체가 안 넘어오는 것(어댑터/런타임 문제).
-    out.cfBindings = Object.keys(ctx.env ?? {});
-  } catch (error) {
-    out.cfContextError = error instanceof Error ? error.message : String(error);
-  }
-
-  return out;
 }
 
 export async function POST(request: Request) {
   const anthropicKey = await readKey("ANTHROPIC_API_KEY");
   const geminiKey = await readKey("GEMINI_API_KEY");
   if (!anthropicKey && !geminiKey) {
-    // 키가 없는 배포에서도 화면이 깨지지 않도록 조용히 503.
-    // 어느 쪽도 못 읽었는지 구분할 수 있게 진단 정보를 함께 준다(값은 노출 안 함).
-    const seen = await listEnvKeys();
     return Response.json(
-      { error: "not_configured", build: buildStamp, seen },
+      { error: "not_configured", build: buildStamp },
       { status: 503 },
     );
   }
@@ -338,72 +403,113 @@ export async function POST(request: Request) {
   if (typeof query !== "string" || !query.trim()) {
     return Response.json({ error: "bad_request" }, { status: 400 });
   }
-  // 긴 입력으로 토큰을 태우는 걸 막는다.
   const trimmed = query.trim().slice(0, MAX_QUERY_LENGTH);
 
-  try {
-    // 둘 다 있으면 Anthropic을 쓴다(최종 목표 provider).
-    const baseURL = await readKey("ANTHROPIC_BASE_URL");
-    const geminiBaseURL = await readKey("GEMINI_BASE_URL");
-    const gatewayToken = await readKey("CF_AI_GATEWAY_TOKEN");
-
-    // Gemini 무료 티어를 먼저 쓰고, 할당량 소진·오류 시 Claude로 넘어간다.
-    // Gemini만 있으면 Gemini만, Claude만 있으면 Claude만 쓴다.
-    let result = null;
-    let usedProvider: string | undefined;
-    let geminiError: string | undefined;
-
-    if (geminiKey) {
-      try {
-        result = await routeWithGemini(geminiKey, trimmed, geminiBaseURL, gatewayToken);
-        usedProvider = "gemini";
-      } catch (error) {
-        // 429(할당량)든 다른 오류든 폴백한다. 사용자 입장에서는 답이 나오는 게 중요하다.
-        geminiError = error instanceof Error ? error.message : String(error);
-        result = null;
-      }
-    }
-
-    if (!result && anthropicKey) {
-      result = await routeWithAnthropic(anthropicKey, trimmed, baseURL, gatewayToken);
-      usedProvider = "anthropic";
-    }
-
-    if (!result) {
-      return Response.json(
-        { error: "empty_response", geminiError: geminiError?.slice(0, 200) },
-        { status: 502 },
-      );
-    }
-    // 어느 provider가 응답했는지 알 수 있게 싣는다. 폴백이 언제 도는지 파악용.
-    return Response.json({ ...result, provider: usedProvider });
-  } catch (error) {
-    // 어느 provider가 왜 실패했는지 응답으로 알 수 있게 한다. 모델명 오류·권한·
-    // 스키마 거부 등을 구분하려면 메시지가 필요하다. 키는 메시지에 실리지 않는다.
-    const detail = error instanceof Error ? error.message : String(error);
-    // 모델을 못 찾은 경우에는 쓸 수 있는 모델 목록을 함께 돌려준다.
-    const modelMissing = /not found|NOT_FOUND|404/i.test(detail);
-    const availableModels =
-      modelMissing && !anthropicKey && geminiKey
-        ? await listGeminiModels(geminiKey)
-        : undefined;
-    return Response.json(
-      {
-        error: "upstream_failed",
-        provider: anthropicKey ? "anthropic" : "gemini",
-        model: anthropicKey ? ANTHROPIC_MODEL : GEMINI_MODEL,
-        detail: detail.slice(0, 400),
-        // 게이트웨이 설정이 워커에 실제로 도달했는지. 값은 노출하지 않고
-        // 존재 여부와 형태만 싣는다.
-        viaGateway: Boolean(await readKey("ANTHROPIC_BASE_URL")),
-        gatewayUrlShape: (await readKey("ANTHROPIC_BASE_URL"))
-          ?.replace(/\/v1\/[^/]+\//, "/v1/<account>/")
-          ?.slice(0, 120),
-        hasGatewayToken: Boolean(await readKey("CF_AI_GATEWAY_TOKEN")),
-        availableModels,
-        build: buildStamp,
-      },
-      { status: 502 },
-    );
+  // 0) 프리필터 — 조달 질문이 아니면 모델을 부르지 않는다.
+  const { top, score } = prefilter(trimmed);
+  if (score < PREFILTER_FLOOR || top.length === 0) {
+    return Response.json({
+      outOfScope: true,
+      claims: [],
+      candidates: [],
+      needsMoreInfo: false,
+    });
   }
+
+  const baseURL = await readKey("ANTHROPIC_BASE_URL");
+  const geminiBaseURL = await readKey("GEMINI_BASE_URL");
+  const gatewayToken = await readKey("CF_AI_GATEWAY_TOKEN");
+
+  // Gemini 무료 티어를 먼저 쓰고, 할당량 소진·오류 시 Claude로 넘어간다.
+  const chain: Provider[] = [];
+  if (geminiKey) chain.push(geminiProvider(geminiKey, geminiBaseURL, gatewayToken));
+  if (anthropicKey)
+    chain.push(anthropicProvider(anthropicKey, baseURL, gatewayToken));
+
+  let lastError: string | undefined;
+
+  for (const provider of chain) {
+    try {
+      // 1) 제도 선택
+      const picked = await provider.json(
+        `공공조달 제도 목록에서 사용자 상황에 해당하는 제도를 최대 ${MAX_CANDIDATES}개, 관련성이 높은 순서로 고르십시오. 설명은 하지 마십시오.\n\n${top
+          .map(entryText)
+          .join("\n---\n")}`,
+        trimmed,
+        stage1Schema(top.map((e) => e.slug)),
+        256,
+      );
+      const slugs = (
+        Array.isArray((picked as { candidates?: unknown })?.candidates)
+          ? (picked as { candidates: unknown[] }).candidates
+          : []
+      )
+        .filter((s): s is string => typeof s === "string")
+        .filter((s) => NAME_BY_SLUG.has(s))
+        .slice(0, MAX_CANDIDATES);
+
+      if (slugs.length === 0) {
+        return Response.json({
+          outOfScope: true,
+          claims: [],
+          candidates: [],
+          needsMoreInfo: false,
+          provider: provider.name,
+        });
+      }
+
+      // 2) 근거 답변 — 고른 제도의 검증 조문만 준다.
+      const articles = (
+        await Promise.all(slugs.map((s) => loadArticles(s, request)))
+      ).flat();
+      if (articles.length === 0) {
+        // 조문을 못 읽었으면 근거 없이 답하지 않는다.
+        return Response.json(
+          { error: "articles_unavailable", build: buildStamp },
+          { status: 503 },
+        );
+      }
+
+      const corpus = articles
+        .map((a) => `[${a.key}] ${a.title}\n${a.text}`)
+        .join("\n\n");
+      const answered = await provider.json(
+        `${STAGE2_RULES}\n\n조문 원문:\n\n${corpus}`,
+        trimmed,
+        stage2Schema(articles.map((a) => a.key)),
+        2048,
+      );
+
+      const rawClaims = Array.isArray(
+        (answered as { claims?: unknown })?.claims,
+      )
+        ? ((answered as { claims: Array<Record<string, unknown>> }).claims)
+        : [];
+
+      // 3) 대조 — 인용구가 원문에 없는 문장은 버린다.
+      const { kept, dropped } = verifyClaims(rawClaims, articles);
+
+      return Response.json({
+        claims: kept,
+        candidates: slugs,
+        needsMoreInfo: (answered as { needsMoreInfo?: unknown })?.needsMoreInfo === true,
+        // 몇 개를 걸렀는지 알려준다. 화면에는 "일부 문장은 근거 대조에 실패해
+        // 제외했다"고만 표시하고, 버려진 문장 자체는 내보내지 않는다.
+        droppedCount: dropped.length,
+        provider: provider.name,
+      });
+    } catch (error) {
+      lastError = error instanceof Error ? error.message : String(error);
+      // 다음 제공자로 넘어간다.
+    }
+  }
+
+  return Response.json(
+    {
+      error: "upstream_failed",
+      detail: lastError?.slice(0, 300),
+      build: buildStamp,
+    },
+    { status: 502 },
+  );
 }
