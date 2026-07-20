@@ -32,7 +32,10 @@ type Turn =
 
 const MAX_QUERY_LENGTH = 500;
 const OPEN_STORAGE_KEY = "chat-sidebar-open";
-const TURNS_STORAGE_KEY = "chat-sidebar-turns";
+// 저장 형식이 바뀌면 키를 올린다. reason → answer로 필드명을 바꿨을 때, 예전
+// 형식으로 저장돼 있던 대화가 복원되면서 turn.answer가 undefined가 되어 답변이
+// 통째로 빈 칸으로 보였다. 옛 대화를 살리는 것보다 버리는 편이 낫다.
+const TURNS_STORAGE_KEY = "chat-sidebar-turns-v2";
 
 export default function ChatSidebar({ index }: { index: ChatIndexEntry[] }) {
   // 제도 카드를 누르면 페이지가 이동하면서 컴포넌트가 새로 마운트된다. 상태를
@@ -262,6 +265,11 @@ function TurnView({
 
   return (
     <div className={styles.botMsg}>
+      {/* 설명이 비어 있는데 제도만 뜨면 "답이 안 나온다"로 보인다. 응답 형식이
+          어긋나도 최소한 무슨 상황인지는 알 수 있게 대체 문구를 둔다. */}
+      {!turn.answer && turn.slugs.length > 0 ? (
+        <p className={styles.reason}>관련될 수 있는 제도를 찾았습니다.</p>
+      ) : null}
       {turn.answer
         ? turn.answer
             .split(/\n+/)
