@@ -8,7 +8,7 @@ import {
 import InstitutionDetailView from "@/components/InstitutionDetailView";
 
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://milkbuttercheese2.github.io/procurement-system-100";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://accidental-procurement.pages.dev";
 
 export async function generateStaticParams() {
   return getAllSlugs().map((slug) => ({ slug }));
@@ -29,7 +29,7 @@ export async function generateMetadata({
     description: institution.oneLiner,
     alternates: { canonical: `${SITE_URL}/model/${institution.slug}/` },
     openGraph: {
-      title: `${institution.name} — 조달제도 100`,
+      title: `${institution.name} — 어쩌다 조달`,
       description: institution.oneLiner,
       type: "article",
       url: `${SITE_URL}/model/${institution.slug}/`,
@@ -38,13 +38,13 @@ export async function generateMetadata({
           url: `${SITE_URL}/og-default.png`,
           width: 1200,
           height: 630,
-          alt: "한 장으로 끝내는 조달제도 100",
+          alt: "어쩌다 조달",
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${institution.name} — 조달제도 100`,
+      title: `${institution.name} — 어쩌다 조달`,
       description: institution.oneLiner,
       images: [`${SITE_URL}/og-default.png`],
     },
@@ -73,7 +73,7 @@ export default async function ModelPage({
     inLanguage: "ko-KR",
     isPartOf: {
       "@type": "CollectionPage",
-      name: "한 장으로 끝내는 조달제도 100",
+      name: "어쩌다 조달",
       url: `${SITE_URL}/`,
     },
     about: institution.canvas.legalBasis.map((basis) => basis.law),

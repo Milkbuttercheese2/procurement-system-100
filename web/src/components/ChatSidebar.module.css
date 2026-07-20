@@ -1,0 +1,331 @@
+/* 제도 찾기 사이드바. 색은 globals.css의 --color-* 토큰만 사용한다. */
+
+.launcher {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 60;
+  padding: 11px 18px;
+  border: 1px solid var(--color-accent-dark);
+  border-radius: 999px;
+  background: var(--color-accent);
+  color: #fff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(17, 23, 20, 0.12), 0 10px 26px rgba(17, 23, 20, 0.14);
+}
+
+.launcher:hover {
+  background: var(--color-accent-dark);
+}
+
+.launcher:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+}
+
+.panel {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 59;
+  width: 400px;
+  max-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface);
+  border-left: 1px solid var(--color-border);
+  box-shadow: -8px 0 28px rgba(17, 23, 20, 0.08);
+}
+
+.panelOpen {
+  display: flex;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 720;
+  color: var(--color-ink);
+}
+
+.tag {
+  margin-left: auto;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--color-accent-soft);
+  color: var(--color-accent-dark);
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.close {
+  border: 0;
+  background: transparent;
+  color: var(--color-faint);
+  font-size: 20px;
+  line-height: 1;
+  padding: 2px 4px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.close:hover {
+  color: var(--color-ink);
+}
+
+.thread {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* 빈 상태 */
+.empty {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.empty p {
+  margin: 0;
+  font-size: 13.5px;
+  color: var(--color-muted);
+  line-height: 1.65;
+}
+
+.empty b {
+  color: var(--color-ink);
+  font-weight: 700;
+}
+
+.examples {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.examples button {
+  width: 100%;
+  text-align: left;
+  border: 1px solid var(--color-border);
+  border-radius: 9px;
+  background: var(--color-surface-muted);
+  color: var(--color-muted);
+  padding: 9px 12px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.examples button:hover {
+  border-color: var(--color-accent);
+  color: var(--color-ink);
+}
+
+/* 대화 */
+.userMsg {
+  align-self: flex-end;
+  max-width: 88%;
+  margin: 0;
+  padding: 10px 13px;
+  border: 1px solid var(--color-accent-soft);
+  border-radius: 12px 12px 4px 12px;
+  background: var(--color-surface-tint);
+  font-size: 13.5px;
+  color: var(--color-ink);
+}
+
+.botMsg {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.reason {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--color-ink);
+}
+
+.recLabel {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--color-faint);
+  font-weight: 700;
+}
+
+.notice {
+  margin: 0;
+  padding: 11px 12px;
+  border: 1px solid var(--color-warning);
+  border-radius: 9px;
+  background: #fdf3e2;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--color-ink);
+}
+
+.errorMsg {
+  margin: 0;
+  padding: 11px 12px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 9px;
+  background: var(--color-surface-muted);
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+.pending {
+  margin: 0;
+  font-size: 13px;
+  color: var(--color-faint);
+}
+
+/* 제도 카드 */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 13px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-surface);
+  text-decoration: none;
+  color: inherit;
+}
+
+.card:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 2px 10px rgba(15, 159, 114, 0.1);
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.cardName {
+  font-size: 13.5px;
+  font-weight: 720;
+  color: var(--color-ink);
+}
+
+.badge {
+  padding: 2px 7px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.badgeOk {
+  background: var(--color-accent-soft);
+  color: var(--color-accent-dark);
+}
+
+.badgeReview {
+  background: #fdf3e2;
+  color: var(--color-warning);
+}
+
+.badgeCat {
+  background: var(--color-surface-muted);
+  color: var(--color-faint);
+}
+
+.cardDesc {
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--color-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cardCta {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--color-accent-dark);
+}
+
+/* 입력 */
+.composer {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  padding: 12px 14px;
+  border-top: 1px solid var(--color-border);
+}
+
+.composer textarea {
+  flex: 1;
+  resize: none;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-ink);
+  background: var(--color-surface);
+}
+
+.composer textarea:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -1px;
+}
+
+.composer button {
+  border: 0;
+  border-radius: 8px;
+  background: var(--color-accent);
+  color: #fff;
+  padding: 10px 15px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.composer button:disabled {
+  background: var(--color-border-strong);
+  cursor: not-allowed;
+}
+
+.disclaim {
+  margin: 0;
+  padding: 0 14px 12px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--color-faint);
+}
+
+@media (max-width: 520px) {
+  .panel {
+    width: 100vw;
+  }
+}

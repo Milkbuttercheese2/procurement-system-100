@@ -248,6 +248,14 @@ button:not(:disabled):active {
   line-height: 1.5;
 }
 
+.site-hero-meta {
+  margin: 14px 0 0;
+  color: var(--color-faint);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
 .law-process-scene {
   position: relative;
   height: 405px;

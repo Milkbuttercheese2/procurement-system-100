@@ -1,4 +1,4 @@
-# 조달제도 100 사용설명서
+# 어쩌다 조달 사용설명서
 
 > 복잡한 공공조달·계약 제도를 제도마다 "한 장"으로 정리한 사이트입니다.
 > 조달업체, 수요기관, 계약담당공무원 누구든 자기 일에 필요한 제도를 5분 안에 파악하는 것이 목표입니다.
@@ -7,9 +7,9 @@
 
 휴대폰 카메라로 QR을 비추거나 주소로 접속하세요.
 
-![조달제도 100 접속 QR](assets/site-qr.png)
+![어쩌다 조달 접속 QR](assets/site-qr.png)
 
-**https://milkbuttercheese2.github.io/procurement-system-100/**
+**https://accidental-procurement.pages.dev/**
 
 ---
 

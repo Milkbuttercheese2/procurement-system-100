@@ -1,5 +1,5 @@
 {
- "note": "조달제도 100 제작에 쓰는 원문 캐시 대상 목록. law-verify.yml의 fetch_cache가 이 목록을 읽어 국가법령정보센터 Open API로 전문을 받아온다.",
+ "note": "어쩌다 조달 제작에 쓰는 원문 캐시 대상 목록. law-verify.yml의 fetch_cache가 이 목록을 읽어 국가법령정보센터 Open API로 전문을 받아온다.",
  "statutes": [
   "국가를 당사자로 하는 계약에 관한 법률",
   "국가를 당사자로 하는 계약에 관한 법률 시행령",
