@@ -45,6 +45,13 @@ const PREFILTER_KEEP = 15;
 const PREFILTER_FLOOR = 0.05;
 // 너무 짧은 인용구는 아무 데나 걸린다("계약", "제1항"). 대조의 의미가 생기는 하한.
 const MIN_QUOTE_LENGTH = 12;
+// 2단계에 싣는 조문 수. 제도 3개면 조문이 27~46건까지 나오는데 대부분 질의와
+// 무관하고, 그게 그대로 지연이 된다. 실측(같은 질의):
+//   전체 27건 → 17.5초 / 상위 15건 → 11.5초 (근거 통과는 둘 다 100%)
+// 인용구를 15~40자로 줄이는 방법도 재봤으나 5.5초까지 빨라지는 대신 근거 통과가
+// 3건 중 1건으로 무너졌다 — 짧게 쓰라고 하면 모델이 원문을 그대로 옮기지 않고
+// 다듬는다. 속도를 위해 검증을 포기할 수는 없어서 조문 수만 줄인다.
+const MAX_ARTICLES = 15;
 
 // 모델명은 요청 시점에 읽는다. Worker에서 환경값은 요청마다 넘어오는 env 객체에
 // 담기므로, 모듈 로드 시 process.env를 읽으면 기본값으로 굳어버린다(시크릿에서
@@ -607,7 +614,19 @@ export async function POST(request: Request) {
 
       // 2) 근거 답변 — 고른 제도의 검증 조문만 준다.
       const files = await Promise.all(slugs.map((s) => loadArticles(s, request)));
-      const articles = files.flatMap((f) => f.articles ?? []);
+      const allArticles = files.flatMap((f) => f.articles ?? []);
+      // 질의와 겹치는 조문부터 싣는다. 프리필터와 같은 2-gram이라 추가 비용이 없다.
+      const queryGrams = bigrams(trimmed);
+      const articles = allArticles
+        .map((a) => {
+          const g = bigrams(`${a.title}${a.text}`);
+          let shared = 0;
+          for (const x of queryGrams) if (g.has(x)) shared += 1;
+          return { a, shared };
+        })
+        .sort((x, y) => y.shared - x.shared)
+        .slice(0, MAX_ARTICLES)
+        .map((x) => x.a);
       // 여러 제도를 묶으면 기준일이 다를 수 있다. 가장 오래된 것을 밝힌다 —
       // "언제까지 확인된 조문인가"는 가장 보수적인 값이어야 한다.
       const asOfDate = files
