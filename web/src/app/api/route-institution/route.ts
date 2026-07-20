@@ -61,8 +61,6 @@ const DEFAULT_ANTHROPIC_MODEL = "claude-haiku-4-5";
 // 429(RESOURCE_EXHAUSTED)가 났고, 같은 키로 flash-lite 는 200이 떨어졌다.
 // 게이트웨이·키 문제가 아니라 모델 선택 문제였다.
 const DEFAULT_GEMINI_MODEL = "gemini-3.1-flash-lite";
-const DEFAULT_NVIDIA_MODEL = "nvidia/nemotron-3-ultra-550b-a55b";
-const NVIDIA_BASE_URL = "https://integrate.api.nvidia.com/v1";
 // output_config.effort 를 받는 모델. Haiku 계열은 지원하지 않는다(400).
 const SUPPORTS_EFFORT = /^claude-(opus|sonnet|fable|mythos)/;
 
@@ -349,97 +347,6 @@ function anthropicProvider(
   };
 }
 
-/**
- * 프로즈에 섞여 온 JSON을 건져낸다.
- *
- * NVIDIA는 response_format json_schema 를 문서상 보장하지 않고, 실제로 추론
- * 텍스트("The user is asking…")를 그대로 뱉는 경우가 있었다. 코드펜스와 앞뒤
- * 설명을 걷어내고 첫 JSON 객체를 꺼낸다. 그래도 enum 보장이 없으므로 최종
- * 안전장치는 slug 필터와 verifyClaims 쪽이다.
- */
-function extractJson(raw: string): unknown {
-  const fenced = raw.match(/```(?:json)?\s*([\s\S]*?)```/);
-  const body = fenced ? fenced[1] : raw;
-  try {
-    return JSON.parse(body.trim());
-  } catch {
-    /* 아래에서 중괄호 범위를 직접 찾는다 */
-  }
-  const start = body.indexOf("{");
-  const end = body.lastIndexOf("}");
-  if (start >= 0 && end > start) {
-    return JSON.parse(body.slice(start, end + 1));
-  }
-  throw new Error(`JSON을 찾지 못함: ${raw.slice(0, 120)}`);
-}
-
-/**
- * NVIDIA NIM (build.nvidia.com). OpenAI 호환이라 SDK 없이 fetch로 붙인다 —
- * 워커 번들이 이미 3 MiB 상한에 가까워 의존성을 늘리지 않는 편이 안전하다.
- *
- * 실측에서 세 가지가 걸렸고 각각 대응한다:
- *  - 추론 텍스트를 그대로 뱉음 → chat_template_kwargs.enable_thinking=false
- *  - 응답이 중간에 끊김("Unterminated string") → 추론을 끈 뒤 max_tokens 여유
- *  - 503 ResourceExhausted (32/32) → 무료 공용 용량 포화. 우리가 할 수 있는 건
- *    폴백뿐이라 체인 다음 제공자로 넘어간다.
- *
- * strict: true 는 넣되 믿지 않는다. 문서에 보장이 없고 지켜지지 않는 것을 봤다.
- * enum이 새더라도 slug 필터와 verifyClaims에서 걸러진다.
- */
-function nvidiaProvider(apiKey: string, model: string): Provider {
-  return {
-    name: "nvidia",
-    async json(system, user, schema, maxTokens) {
-      const body = JSON.stringify({
-          model,
-          // 추론을 껐어도 서식 여유는 준다. 끊긴 JSON은 통째로 버려지므로
-          // 토큰을 아끼려다 응답 전체를 잃는 편이 손해가 크다.
-          max_tokens: maxTokens * 2,
-          temperature: 0,
-          // 추론 모델이라 기본값이면 사고 과정을 본문에 그대로 쓴다.
-          chat_template_kwargs: {
-            enable_thinking: false,
-            force_nonempty_content: true,
-          },
-          messages: [
-            { role: "system", content: system },
-            { role: "user", content: user },
-          ],
-          response_format: {
-            type: "json_schema",
-            json_schema: { name: "result", schema, strict: true },
-          },
-      });
-
-      // 503 ResourceExhausted(32/32)는 공용 용량이 순간적으로 찬 것이고 금방
-      // 풀린다 — 실측에서 연속 5회 모두 1~9초에 성공했다. 한 번 막혔다고 유료
-      // 제공자로 넘기면 공짜로 될 일에 돈을 낸다. 짧게 두 번 더 시도한다.
-      let res: Response | undefined;
-      for (let attempt = 0; attempt < 3; attempt += 1) {
-        res = await fetch(`${NVIDIA_BASE_URL}/chat/completions`, {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${apiKey}`,
-            "Content-Type": "application/json",
-          },
-          body,
-        });
-        if (res.status !== 503) break;
-        await new Promise((r) => setTimeout(r, 400 * (attempt + 1)));
-      }
-      if (!res || !res.ok) {
-        const detail = res ? await res.text() : "no response";
-        throw new Error(`nvidia ${res?.status} ${detail.slice(0, 600)}`);
-      }
-      const data = (await res.json()) as {
-        choices?: Array<{ message?: { content?: string } }>;
-      };
-      const content = data.choices?.[0]?.message?.content;
-      return content ? extractJson(content) : null;
-    },
-  };
-}
-
 function geminiProvider(
   apiKey: string,
   model: string,
@@ -520,8 +427,7 @@ async function readKey(name: string): Promise<string | undefined> {
 export async function POST(request: Request) {
   const anthropicKey = await readKey("ANTHROPIC_API_KEY");
   const geminiKey = await readKey("GEMINI_API_KEY");
-  const nvidiaKey = await readKey("NVIDIA_API_KEY");
-  if (!anthropicKey && !geminiKey && !nvidiaKey) {
+  if (!anthropicKey && !geminiKey) {
     return Response.json(
       { error: "not_configured", build: buildStamp },
       { status: 503 },
@@ -565,14 +471,14 @@ export async function POST(request: Request) {
   // Gemini 무료 티어를 먼저 쓰고, 할당량 소진·오류 시 Claude로 넘어간다.
   const anthropicModel = (await readKey("CHAT_MODEL")) ?? DEFAULT_ANTHROPIC_MODEL;
   const geminiModel = (await readKey("GEMINI_MODEL")) ?? DEFAULT_GEMINI_MODEL;
-  const nvidiaModel = (await readKey("NVIDIA_MODEL")) ?? DEFAULT_NVIDIA_MODEL;
 
-  // 무료이면서 빠른 것부터. 실측 2단계 지연:
-  //   gemini-3.1-flash-lite  2.1초 (무료)
-  //   claude-haiku-4-5      11.5초 (~35원)
-  //   nemotron-3-ultra      27.5초 (무료)
-  // NVIDIA는 정확도(1순위 13/15)는 준수하나 27.5초라 사용자가 못 기다린다.
-  // 맨 앞에 두면 27초를 버린 뒤에야 다음으로 넘어가므로 맨 뒤로 내린다.
+  // 무료이면서 빠른 Gemini를 먼저 쓰고, 막히면 Haiku로 넘어간다. 실측:
+  //   gemini-3.1-flash-lite  3.1초  1순위 89%  근거 97.1%  무료
+  //   claude-haiku-4-5      12.5초  1순위 93%  근거 80.2%  51.4원
+  //
+  // NVIDIA(Nemotron 3 Ultra)는 뺐다. 정확도는 준수했으나(1순위 87%) 27.5초로
+  // 사용자가 기다릴 수 있는 수준이 아니었고, 무료라는 이점은 Gemini가 더 빠르게
+  // 제공한다. 되살리려면 커밋 08fdedc 참조.
   const chain: Provider[] = [];
   if (geminiKey)
     chain.push(geminiProvider(geminiKey, geminiModel, geminiBaseURL, gatewayToken));
@@ -580,7 +486,6 @@ export async function POST(request: Request) {
     chain.push(
       anthropicProvider(anthropicKey, anthropicModel, baseURL, gatewayToken),
     );
-  if (nvidiaKey) chain.push(nvidiaProvider(nvidiaKey, nvidiaModel));
 
   let lastError: string | undefined;
   // 어느 제공자가 왜 밀렸는지 남긴다. 폴백이 조용히 돌면 무료 티어가 안 쓰이는
@@ -677,12 +582,7 @@ export async function POST(request: Request) {
         // 밝히지 않으면 개정된 뒤에도 현행처럼 읽힌다.
         asOfDate,
         provider: provider.name,
-        model:
-          provider.name === "nvidia"
-            ? nvidiaModel
-            : provider.name === "gemini"
-              ? geminiModel
-              : anthropicModel,
+        model: provider.name === "gemini" ? geminiModel : anthropicModel,
         ...(Object.keys(providerErrors).length
           ? { fellBackFrom: providerErrors }
           : {}),

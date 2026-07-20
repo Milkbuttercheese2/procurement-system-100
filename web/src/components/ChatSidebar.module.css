@@ -31,6 +31,9 @@
   right: 0;
   top: 0;
   bottom: 0;
+  /* 모바일 브라우저는 주소창이 접히면서 100vh가 실제 보이는 높이보다 커진다.
+     그대로 두면 입력창이 화면 밖으로 밀려 안 보인다. dvh는 그 변화를 따라간다. */
+  height: 100dvh;
   z-index: 59;
   width: 400px;
   max-width: 100vw;
@@ -298,9 +301,72 @@
   color: var(--color-faint);
 }
 
-@media (max-width: 520px) {
+/* ── 모바일 ────────────────────────────────────────────────────────────────
+   좁은 화면에서는 패널이 화면을 덮는다. 옆에 본문이 보일 자리가 없으므로
+   전체 폭을 쓰고, 대신 닫기를 크게 만들어 빠져나가기 쉽게 한다. */
+@media (max-width: 640px) {
   .panel {
     width: 100vw;
+    border-left: 0;
+    box-shadow: none;
+  }
+
+  /* 홈 인디케이터·노치에 가리지 않도록 */
+  .composer {
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  }
+
+  .head {
+    padding: 12px 14px;
+    /* 스크롤해도 닫기 버튼이 늘 보이게 */
+    position: sticky;
+    top: 0;
+    background: var(--color-surface);
+    z-index: 1;
+  }
+
+  /* 손가락으로 누를 수 있는 크기(44px)로 키운다. */
+  .close {
+    font-size: 26px;
+    padding: 4px 10px;
+    margin: -4px -6px -4px 0;
+  }
+
+  /* 헤더가 좁아 배지가 줄바꿈되면 제목과 닫기가 어긋난다. */
+  .tag {
+    display: none;
+  }
+
+  .thread {
+    padding: 14px;
+    gap: 12px;
+  }
+
+  /* iOS는 16px 미만 입력창에 포커스하면 화면을 확대한다. */
+  .composer textarea {
+    font-size: 16px;
+  }
+
+  .composer button {
+    padding: 12px 16px;
+  }
+
+  /* 아래쪽 고지가 세 개나 쌓이면 대화 볼 자리가 없어진다. */
+  .privacy,
+  .disclaim {
+    font-size: 10.5px;
+    line-height: 1.45;
+  }
+
+  .disclaim {
+    padding-bottom: calc(10px + env(safe-area-inset-bottom));
+  }
+
+  /* 실행 버튼이 화면 폭을 덜 잡아먹도록 */
+  .launcher {
+    right: 14px;
+    bottom: 14px;
+    padding: 12px 18px;
   }
 }
 
