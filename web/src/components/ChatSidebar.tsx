@@ -31,10 +31,48 @@ type Turn =
   | { role: "error"; text: string };
 
 const MAX_QUERY_LENGTH = 500;
+const OPEN_STORAGE_KEY = "chat-sidebar-open";
+const TURNS_STORAGE_KEY = "chat-sidebar-turns";
+const PANEL_WIDTH = 400;
 
 export default function ChatSidebar({ index }: { index: ChatIndexEntry[] }) {
+  // 제도 카드를 누르면 페이지가 이동하면서 컴포넌트가 새로 마운트된다. 상태를
+  // 메모리에만 두면 그때마다 패널이 닫혀버리므로, 사용자가 직접 닫기 전까지는
+  // 열린 상태가 유지되도록 저장한다.
   const [open, setOpen] = useState(false);
+  useEffect(() => {
+    try {
+      if (window.localStorage.getItem(OPEN_STORAGE_KEY) === "1") setOpen(true);
+    } catch {
+      // 프라이빗 모드 등 localStorage를 못 쓰는 환경.
+    }
+  }, []);
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(OPEN_STORAGE_KEY, open ? "1" : "0");
+    } catch {
+      /* 저장 실패는 무시한다 */
+    }
+  }, [open]);
+  // 패널이 열린 채로 제도 카드를 누르면 페이지가 이동한다. 대화까지 날아가면
+  // 열린 상태를 유지한 보람이 없으므로 같이 복원한다. 탭을 닫으면 사라지도록
+  // sessionStorage를 쓴다.
   const [turns, setTurns] = useState<Turn[]>([]);
+  useEffect(() => {
+    try {
+      const saved = window.sessionStorage.getItem(TURNS_STORAGE_KEY);
+      if (saved) setTurns(JSON.parse(saved) as Turn[]);
+    } catch {
+      // 손상된 값이면 빈 대화로 시작한다.
+    }
+  }, []);
+  useEffect(() => {
+    try {
+      window.sessionStorage.setItem(TURNS_STORAGE_KEY, JSON.stringify(turns));
+    } catch {
+      /* 저장 실패는 무시한다 */
+    }
+  }, [turns]);
   const [draft, setDraft] = useState("");
   const [pending, setPending] = useState(false);
 
@@ -51,25 +89,37 @@ export default function ChatSidebar({ index }: { index: ChatIndexEntry[] }) {
     if (open) inputRef.current?.focus();
   }, [open]);
 
-  // 패널이 열리면 본문을 왼쪽으로 밀어낸다(덮지 않는다). 실제 밀어내기는
-  // globals.css의 body.chat-open 규칙이 담당한다.
+  // 패널이 열리면 본문을 왼쪽으로 밀어낸다(덮지 않는다). 폭을 깎는 대신 남는
+  // 폭에 맞춰 같은 비율로 축소해서 가로 비율을 유지한다 — 실제 축소는
+  // globals.css의 .site-shell 규칙이, 배율 계산은 여기가 맡는다.
   useEffect(() => {
     document.body.classList.toggle("chat-open", open);
-    return () => document.body.classList.remove("chat-open");
+    if (!open) return;
+
+    const applyScale = () => {
+      const vw = window.innerWidth;
+      const scale = vw > 900 ? Math.max((vw - PANEL_WIDTH) / vw, 0.5) : 1;
+      document.body.style.setProperty("--chat-scale", String(scale));
+    };
+    applyScale();
+    window.addEventListener("resize", applyScale);
+    return () => window.removeEventListener("resize", applyScale);
   }, [open]);
+
+  useEffect(
+    () => () => {
+      document.body.classList.remove("chat-open");
+      document.body.style.removeProperty("--chat-scale");
+    },
+    [],
+  );
 
   useEffect(() => {
     threadEndRef.current?.scrollIntoView({ block: "end" });
   }, [turns, pending]);
 
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [open]);
+  // Esc로 닫던 동작은 뺐다. 이 패널은 모달이 아니라 계속 켜두고 쓰는 도구여서,
+  // 입력 중 Esc가 눌려 대화가 사라지는 편이 손해가 크다. 닫기는 × 버튼만.
 
   async function ask(question: string) {
     const trimmed = question.trim();
@@ -80,7 +130,9 @@ export default function ChatSidebar({ index }: { index: ChatIndexEntry[] }) {
     setPending(true);
 
     try {
-      const response = await fetch("/api/route-institution", {
+      // 끝의 슬래시는 필수다. next.config의 trailingSlash 때문에 슬래시가 없으면
+      // 308로 되돌아오고, POST 본문이 한 번 더 실려 가는 낭비가 생긴다.
+      const response = await fetch("/api/route-institution/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query: trimmed.slice(0, MAX_QUERY_LENGTH) }),

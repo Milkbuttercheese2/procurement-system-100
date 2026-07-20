@@ -87,11 +87,17 @@ export default function RootLayout({
             }).replace(/</g, "\\u003c"),
           }}
         />
-        <Header />
-        <main className="flex-1">{children}</main>
+        {/* 패널이 열릴 때 본문을 통째로 축소·이동시키기 위한 껍데기. 폭을 줄이면
+            그리드가 다시 흐르면서 화면 비율이 바뀌므로, 레이아웃은 그대로 두고
+            transform으로만 줄인다(globals.css의 .site-shell). 사이드바는 이
+            껍데기 밖에 있어야 같이 축소되지 않는다. */}
+        <div className="site-shell min-h-full flex flex-col">
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Telemetry />
+          <Footer />
+        </div>
         <ChatSidebar index={CHAT_INDEX} />
-        <Telemetry />
-        <Footer />
       </body>
     </html>
   );

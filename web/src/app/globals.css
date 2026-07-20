@@ -250,22 +250,39 @@ button:not(:disabled):active {
 
 /* 제도 찾기 패널이 열리면 본문을 덮지 않고 옆으로 밀어낸다.
    패널 폭(400px)만큼 오른쪽 여백을 주고, 좁은 화면에서는 전체를 덮는다. */
-body.chat-open {
-  padding-right: 400px;
+/* 패널이 열려도 본문의 가로 비율은 그대로 둔다.
+   padding-right로 폭을 깎으면 카드 그리드 열 수가 줄고 표가 다시 흐르면서
+   "같은 화면이 밀린" 게 아니라 "다른 화면"이 된다. 대신 껍데기를 남는 폭만큼
+   넓게 잡아두고 같은 비율로 축소해서, 레이아웃은 손대지 않고 시각적으로만
+   줄어들게 한다. --chat-scale은 ChatSidebar가 뷰포트 폭에 맞춰 넣는다. */
+.site-shell {
+  transform-origin: top left;
+  transition:
+    transform 180ms ease,
+    width 180ms ease;
 }
 
+body.chat-open {
+  overflow-x: hidden;
+}
+
+body.chat-open .site-shell {
+  width: calc(100% / var(--chat-scale, 1));
+  min-height: calc(100vh / var(--chat-scale, 1));
+  transform: scale(var(--chat-scale, 1));
+}
+
+/* 좁은 화면에서는 패널이 본문을 덮으므로 축소하지 않는다. */
 @media (max-width: 900px) {
-  body.chat-open {
-    padding-right: 0;
+  body.chat-open .site-shell {
+    width: 100%;
+    min-height: 100vh;
+    transform: none;
   }
 }
 
-body {
-  transition: padding-right 180ms ease;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  body {
+  .site-shell {
     transition: none;
   }
 }
