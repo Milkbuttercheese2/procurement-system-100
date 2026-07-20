@@ -50,7 +50,10 @@ const MIN_QUOTE_LENGTH = 12;
 // 담기므로, 모듈 로드 시 process.env를 읽으면 기본값으로 굳어버린다(시크릿에서
 // 같은 문제를 이미 겪었다).
 const DEFAULT_ANTHROPIC_MODEL = "claude-haiku-4-5";
-const DEFAULT_GEMINI_MODEL = "gemini-3.5-flash";
+// gemini-3.5-flash 는 무료 티어 할당량이 사실상 없다 — 맨몸 호출에서도 항상
+// 429(RESOURCE_EXHAUSTED)가 났고, 같은 키로 flash-lite 는 200이 떨어졌다.
+// 게이트웨이·키 문제가 아니라 모델 선택 문제였다.
+const DEFAULT_GEMINI_MODEL = "gemini-3.1-flash-lite";
 const DEFAULT_NVIDIA_MODEL = "nvidia/nemotron-3-ultra-550b-a55b";
 const NVIDIA_BASE_URL = "https://integrate.api.nvidia.com/v1";
 // output_config.effort 를 받는 모델. Haiku 계열은 지원하지 않는다(400).
@@ -380,13 +383,7 @@ function nvidiaProvider(apiKey: string, model: string): Provider {
   return {
     name: "nvidia",
     async json(system, user, schema, maxTokens) {
-      const res = await fetch(`${NVIDIA_BASE_URL}/chat/completions`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+      const body = JSON.stringify({
           model,
           // 추론을 껐어도 서식 여유는 준다. 끊긴 JSON은 통째로 버려지므로
           // 토큰을 아끼려다 응답 전체를 잃는 편이 손해가 크다.
@@ -405,10 +402,27 @@ function nvidiaProvider(apiKey: string, model: string): Provider {
             type: "json_schema",
             json_schema: { name: "result", schema, strict: true },
           },
-        }),
       });
-      if (!res.ok) {
-        throw new Error(`nvidia ${res.status} ${(await res.text()).slice(0, 600)}`);
+
+      // 503 ResourceExhausted(32/32)는 공용 용량이 순간적으로 찬 것이고 금방
+      // 풀린다 — 실측에서 연속 5회 모두 1~9초에 성공했다. 한 번 막혔다고 유료
+      // 제공자로 넘기면 공짜로 될 일에 돈을 낸다. 짧게 두 번 더 시도한다.
+      let res: Response | undefined;
+      for (let attempt = 0; attempt < 3; attempt += 1) {
+        res = await fetch(`${NVIDIA_BASE_URL}/chat/completions`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+            "Content-Type": "application/json",
+          },
+          body,
+        });
+        if (res.status !== 503) break;
+        await new Promise((r) => setTimeout(r, 400 * (attempt + 1)));
+      }
+      if (!res || !res.ok) {
+        const detail = res ? await res.text() : "no response";
+        throw new Error(`nvidia ${res?.status} ${detail.slice(0, 600)}`);
       }
       const data = (await res.json()) as {
         choices?: Array<{ message?: { content?: string } }>;
