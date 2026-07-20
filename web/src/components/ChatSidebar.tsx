@@ -51,6 +51,13 @@ export default function ChatSidebar({ index }: { index: ChatIndexEntry[] }) {
     if (open) inputRef.current?.focus();
   }, [open]);
 
+  // 패널이 열리면 본문을 왼쪽으로 밀어낸다(덮지 않는다). 실제 밀어내기는
+  // globals.css의 body.chat-open 규칙이 담당한다.
+  useEffect(() => {
+    document.body.classList.toggle("chat-open", open);
+    return () => document.body.classList.remove("chat-open");
+  }, [open]);
+
   useEffect(() => {
     threadEndRef.current?.scrollIntoView({ block: "end" });
   }, [turns, pending]);
@@ -108,15 +115,19 @@ export default function ChatSidebar({ index }: { index: ChatIndexEntry[] }) {
 
   return (
     <>
-      <button
-        type="button"
-        className={styles.launcher}
-        aria-expanded={open}
-        aria-controls="chat-sidebar-panel"
-        onClick={() => setOpen((value) => !value)}
-      >
-        {open ? "닫기" : "제도 찾기"}
-      </button>
+      {/* 열려 있을 때는 감춘다. 패널 우상단 ×가 닫기를 맡고, 그대로 두면
+          입력창의 '보내기' 버튼과 영역이 겹친다. */}
+      {open ? null : (
+        <button
+          type="button"
+          className={styles.launcher}
+          aria-expanded={false}
+          aria-controls="chat-sidebar-panel"
+          onClick={() => setOpen(true)}
+        >
+          제도 찾기
+        </button>
+      )}
 
       <div
         id="chat-sidebar-panel"

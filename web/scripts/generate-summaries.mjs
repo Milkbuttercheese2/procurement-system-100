@@ -70,3 +70,29 @@ fs.writeFileSync(OUT_FILE, JSON.stringify(summaries) + "\n");
 console.log(
   `제도 요약본 생성: ${summaries.length}개, ${(fs.statSync(OUT_FILE).size / 1024).toFixed(1)}KB → data/summaries.json`,
 );
+
+// 카테고리 표시 순서. getCategoryOrder()도 매니페스트를 런타임에 읽어서 Worker에서
+// 빈 배열이 되고, 그러면 목록이 분류 없이 한 덩어리로 렌더링된다(실제로 그랬다).
+const categoryOrder = [];
+const seen = new Set();
+if (fs.existsSync(MANIFEST_PATH)) {
+  for (const entry of JSON.parse(fs.readFileSync(MANIFEST_PATH, "utf8"))) {
+    if (entry.category && !seen.has(entry.category)) {
+      seen.add(entry.category);
+      categoryOrder.push(entry.category);
+    }
+  }
+}
+const ORDER_FILE = path.join(WEB_DIR, "data", "category-order.json");
+fs.writeFileSync(ORDER_FILE, JSON.stringify(categoryOrder) + "\n");
+console.log(`카테고리 순서 생성: ${categoryOrder.length}개 → data/category-order.json`);
+
+// 현장 검증 대장(/verification 페이지). 같은 이유로 디스크 대신 번들에 심는다.
+const QUEUE_SRC = path.join(WEB_DIR, "..", "docs", "field-verification-queue.json");
+const QUEUE_OUT = path.join(WEB_DIR, "data", "field-verification-queue.json");
+if (fs.existsSync(QUEUE_SRC)) {
+  fs.copyFileSync(QUEUE_SRC, QUEUE_OUT);
+  console.log(
+    `현장 검증 대장 복사: ${(fs.statSync(QUEUE_OUT).size / 1024).toFixed(1)}KB → data/field-verification-queue.json`,
+  );
+}

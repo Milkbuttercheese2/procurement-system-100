@@ -248,6 +248,28 @@ button:not(:disabled):active {
   line-height: 1.5;
 }
 
+/* 제도 찾기 패널이 열리면 본문을 덮지 않고 옆으로 밀어낸다.
+   패널 폭(400px)만큼 오른쪽 여백을 주고, 좁은 화면에서는 전체를 덮는다. */
+body.chat-open {
+  padding-right: 400px;
+}
+
+@media (max-width: 900px) {
+  body.chat-open {
+    padding-right: 0;
+  }
+}
+
+body {
+  transition: padding-right 180ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    transition: none;
+  }
+}
+
 .site-hero-meta {
   margin: 14px 0 0;
   color: var(--color-faint);

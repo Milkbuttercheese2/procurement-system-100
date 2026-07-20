@@ -1,6 +1,10 @@
 import fs from "fs";
 import path from "path";
+// Worker에는 파일시스템이 없다. 런타임에 필요한 것은 전부 빌드 산출물로 심는다.
+// → scripts/generate-summaries.mjs
 import summaries from "../../data/summaries.json";
+import categoryOrder from "../../data/category-order.json";
+import fieldVerificationQueue from "../../data/field-verification-queue.json";
 import type {
   FieldVerificationQueue,
   Institution,
@@ -45,16 +49,9 @@ function buildCategoryMap(): Map<string, string> {
 }
 
 export function getCategoryOrder(): string[] {
-  const manifest = loadManifest();
-  const seen = new Set<string>();
-  const order: string[] = [];
-  for (const entry of manifest) {
-    if (entry.category && !seen.has(entry.category)) {
-      seen.add(entry.category);
-      order.push(entry.category);
-    }
-  }
-  return order;
+  // 매니페스트를 런타임에 읽으면 Worker에서 빈 배열이 되고, 목록이 분류 없이
+  // 한 덩어리로 렌더링된다. 빌드 타임 산출물을 쓴다.
+  return categoryOrder as string[];
 }
 
 export function getAllInstitutions(): Institution[] {
@@ -138,5 +135,7 @@ export function getAllSlugs(): string[] {
 }
 
 export function getFieldVerificationQueue(): FieldVerificationQueue {
-  return JSON.parse(fs.readFileSync(FIELD_QUEUE_PATH, "utf8")) as FieldVerificationQueue;
+  // 같은 이유(Worker 파일시스템 없음)로 빌드 산출물을 쓴다. 원본은 docs/ 에 있고
+  // generate-summaries.mjs 가 data/ 로 복사한다.
+  return fieldVerificationQueue as unknown as FieldVerificationQueue;
 }
