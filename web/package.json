@@ -9,9 +9,9 @@
     "generate:process-images": "node scripts/generate-process-article-image.mjs",
     "generate:verification-queue": "node scripts/generate-field-verification-queue.mjs",
     "check:freshness": "node scripts/sync-verification.mjs --check",
-    "predev": "npm run generate:catalog && npm run generate:verification-queue && npm run generate:process-images && npm run generate:routing-index && npm run generate:summaries",
+    "predev": "npm run generate:catalog && npm run generate:verification-queue && npm run generate:process-images && npm run generate:routing-index && npm run generate:summaries && npm run generate:build-stamp",
     "dev": "next dev",
-    "prebuild": "npm run generate:catalog && npm run generate:verification-queue && npm run generate:process-images && npm run generate:routing-index && npm run generate:summaries",
+    "prebuild": "npm run generate:catalog && npm run generate:verification-queue && npm run generate:process-images && npm run generate:routing-index && npm run generate:summaries && npm run generate:build-stamp",
     "start": "next start",
     "lint": "eslint",
     "validate:data": "node scripts/validate-data.mjs",
@@ -26,7 +26,8 @@
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
-    "generate:summaries": "node scripts/generate-summaries.mjs"
+    "generate:summaries": "node scripts/generate-summaries.mjs",
+    "generate:build-stamp": "node scripts/generate-build-stamp.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.112.3",

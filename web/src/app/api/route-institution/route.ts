@@ -18,6 +18,8 @@ import { GoogleGenAI } from "@google/genai";
 // Cloudflare Worker 상한(무료 3 MiB)을 넘는다. 라우팅에 필요한 필드만 담은 슬림
 // 인덱스(45KB)를 prebuild 단계에서 만들어 쓴다. → scripts/generate-routing-index.mjs
 import routingIndex from "../../../../data/routing-index.json";
+// 배포된 워커가 어느 커밋인지 응답으로 확인하기 위한 스탬프.
+import buildStamp from "../../../../data/build-stamp.json";
 
 const MAX_QUERY_LENGTH = 500;
 const MAX_CANDIDATES = 3;
@@ -210,7 +212,10 @@ export async function POST(request: Request) {
     // 키가 없는 배포에서도 화면이 깨지지 않도록 조용히 503.
     // 어느 쪽도 못 읽었는지 구분할 수 있게 진단 정보를 함께 준다(값은 노출 안 함).
     const seen = await listEnvKeys();
-    return Response.json({ error: "not_configured", seen }, { status: 503 });
+    return Response.json(
+      { error: "not_configured", build: buildStamp, seen },
+      { status: 503 },
+    );
   }
 
   const ip =
