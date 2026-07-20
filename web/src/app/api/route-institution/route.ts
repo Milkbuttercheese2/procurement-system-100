@@ -174,8 +174,28 @@ async function routeWithAnthropic(
   return normalize(block?.type === "text" ? block.text : undefined);
 }
 
-async function routeWithGemini(apiKey: string, query: string) {
-  const client = new GoogleGenAI({ apiKey });
+async function routeWithGemini(
+  apiKey: string,
+  query: string,
+  baseURL?: string,
+  gatewayToken?: string,
+) {
+  // Anthropic과 마찬가지로 워커에서 직접 부르면 지역 차단에 막힌다
+  // ("User location is not supported"). AI Gateway를 거치면 우회된다.
+  // GEMINI_BASE_URL 예: https://gateway.ai.cloudflare.com/v1/<acct>/<gw>/google-ai-studio
+  const client = new GoogleGenAI({
+    apiKey,
+    ...(baseURL || gatewayToken
+      ? {
+          httpOptions: {
+            ...(baseURL ? { baseUrl: baseURL } : {}),
+            ...(gatewayToken
+              ? { headers: { "cf-aig-authorization": `Bearer ${gatewayToken}` } }
+              : {}),
+          },
+        }
+      : {}),
+  });
   const response = await client.models.generateContent({
     model: GEMINI_MODEL,
     contents: query,
@@ -294,13 +314,39 @@ export async function POST(request: Request) {
   try {
     // 둘 다 있으면 Anthropic을 쓴다(최종 목표 provider).
     const baseURL = await readKey("ANTHROPIC_BASE_URL");
+    const geminiBaseURL = await readKey("GEMINI_BASE_URL");
     const gatewayToken = await readKey("CF_AI_GATEWAY_TOKEN");
-    const result = anthropicKey
-      ? await routeWithAnthropic(anthropicKey as string, trimmed, baseURL, gatewayToken)
-      : await routeWithGemini(geminiKey as string, trimmed);
 
-    if (!result) return Response.json({ error: "empty_response" }, { status: 502 });
-    return Response.json(result);
+    // Gemini 무료 티어를 먼저 쓰고, 할당량 소진·오류 시 Claude로 넘어간다.
+    // Gemini만 있으면 Gemini만, Claude만 있으면 Claude만 쓴다.
+    let result = null;
+    let usedProvider: string | undefined;
+    let geminiError: string | undefined;
+
+    if (geminiKey) {
+      try {
+        result = await routeWithGemini(geminiKey, trimmed, geminiBaseURL, gatewayToken);
+        usedProvider = "gemini";
+      } catch (error) {
+        // 429(할당량)든 다른 오류든 폴백한다. 사용자 입장에서는 답이 나오는 게 중요하다.
+        geminiError = error instanceof Error ? error.message : String(error);
+        result = null;
+      }
+    }
+
+    if (!result && anthropicKey) {
+      result = await routeWithAnthropic(anthropicKey, trimmed, baseURL, gatewayToken);
+      usedProvider = "anthropic";
+    }
+
+    if (!result) {
+      return Response.json(
+        { error: "empty_response", geminiError: geminiError?.slice(0, 200) },
+        { status: 502 },
+      );
+    }
+    // 어느 provider가 응답했는지 알 수 있게 싣는다. 폴백이 언제 도는지 파악용.
+    return Response.json({ ...result, provider: usedProvider });
   } catch (error) {
     // 어느 provider가 왜 실패했는지 응답으로 알 수 있게 한다. 모델명 오류·권한·
     // 스키마 거부 등을 구분하려면 메시지가 필요하다. 키는 메시지에 실리지 않는다.
