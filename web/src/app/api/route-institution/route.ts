@@ -158,6 +158,27 @@ async function routeWithGemini(apiKey: string, query: string) {
 }
 
 /**
+ * 모델명이 틀렸을 때 실제로 쓸 수 있는 모델 이름을 돌려준다.
+ * 모델 ID는 계정·시점에 따라 달라서 추측하면 계속 헛돈다. 키는 서버에만 있으므로
+ * 조회도 서버에서 한다(이름만 반환, 값·키는 노출 없음).
+ */
+async function listGeminiModels(apiKey: string): Promise<string[]> {
+  try {
+    const client = new GoogleGenAI({ apiKey });
+    const pager = await client.models.list();
+    const names: string[] = [];
+    for await (const model of pager) {
+      const name = (model as { name?: string }).name;
+      if (name) names.push(name);
+      if (names.length >= 40) break;
+    }
+    return names;
+  } catch (error) {
+    return [`(목록 조회 실패: ${error instanceof Error ? error.message : String(error)})`.slice(0, 200)];
+  }
+}
+
+/**
  * 키를 읽는다.
  *
  * Cloudflare Worker에서 시크릿은 process.env가 아니라 요청마다 넘어오는 env 객체에
@@ -250,12 +271,19 @@ export async function POST(request: Request) {
     // 어느 provider가 왜 실패했는지 응답으로 알 수 있게 한다. 모델명 오류·권한·
     // 스키마 거부 등을 구분하려면 메시지가 필요하다. 키는 메시지에 실리지 않는다.
     const detail = error instanceof Error ? error.message : String(error);
+    // 모델을 못 찾은 경우에는 쓸 수 있는 모델 목록을 함께 돌려준다.
+    const modelMissing = /not found|NOT_FOUND|404/i.test(detail);
+    const availableModels =
+      modelMissing && !anthropicKey && geminiKey
+        ? await listGeminiModels(geminiKey)
+        : undefined;
     return Response.json(
       {
         error: "upstream_failed",
         provider: anthropicKey ? "anthropic" : "gemini",
         model: anthropicKey ? ANTHROPIC_MODEL : GEMINI_MODEL,
         detail: detail.slice(0, 400),
+        availableModels,
         build: buildStamp,
       },
       { status: 502 },
