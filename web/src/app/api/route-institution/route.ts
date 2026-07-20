@@ -427,6 +427,9 @@ export async function POST(request: Request) {
     chain.push(anthropicProvider(anthropicKey, baseURL, gatewayToken));
 
   let lastError: string | undefined;
+  // 어느 제공자가 왜 밀렸는지 남긴다. 폴백이 조용히 돌면 무료 티어가 안 쓰이는
+  // 것을 눈치채지 못한 채 유료 호출만 나간다(실제로 그런 상태가 있었다).
+  const providerErrors: Record<string, string> = {};
 
   for (const provider of chain) {
     try {
@@ -497,9 +500,13 @@ export async function POST(request: Request) {
         // 제외했다"고만 표시하고, 버려진 문장 자체는 내보내지 않는다.
         droppedCount: dropped.length,
         provider: provider.name,
+        ...(Object.keys(providerErrors).length
+          ? { fellBackFrom: providerErrors }
+          : {}),
       });
     } catch (error) {
       lastError = error instanceof Error ? error.message : String(error);
+      providerErrors[provider.name] = lastError.slice(0, 300);
       // 다음 제공자로 넘어간다.
     }
   }
