@@ -45,7 +45,7 @@ jobs:
           cache-dependency-path: web/package-lock.json
       - run: npm ci
       - name: Install korean-law CLI
-        run: npm install -g korean-law-mcp
+        run: npm install -g korean-law-mcp@4.7.5
       - name: Smoke-test Open API credential
         run: |
           { korean-law search_law --query "국가를 당사자로 하는 계약에 관한 법률" --display 3 2>&1 || true; } | head -40

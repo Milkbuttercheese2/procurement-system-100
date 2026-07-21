@@ -1,0 +1,42 @@
+
+■ nvidia-ultra
+  1순위 적중   13/15  (87%)   실패 0건
+  근거 통과율  66/81  (81.5%)
+  평균 지연    27.5초
+  질의당 비용  무료
+  [gemini-lite] 실패: 우리 제품을 혁신제품으로 지정받고 — gemini 429 {
+  "error": {
+    "code": 429,
+    "message": "You exceeded your cur
+  [gemini-lite] 실패: 선금을 주고 싶은데 절차가 어떻게 — gemini 429 {
+  "error": {
+    "code": 429,
+    "message": "You exceeded your cur
+  [gemini-lite] 실패: 하자가 발견됐는데 업체가 안 고쳐 — gemini 429 {
+  "error": {
+    "code": 429,
+    "message": "You exceeded your cur
+  [gemini-lite] 실패: 입찰이 두 번이나 유찰됐습니다 — gemini 429 {
+  "error": {
+    "code": 429,
+    "message": "You exceeded your cur
+  [gemini-lite] 실패: 업체를 부정당업자로 제재하려면 어 — gemini 429 {
+  "error": {
+    "code": 429,
+    "message": "You exceeded your cur
+  [gemini-lite] 실패: 긴급한 재난 상황인데 입찰할 시간 — gemini 429 {
+  "error": {
+    "code": 429,
+    "message": "You exceeded your cur
+
+■ gemini-lite
+  1순위 적중   8/9  (89%)   실패 6건
+  근거 통과율  34/35  (97.1%)
+  평균 지연    3.1초
+  질의당 비용  무료
+
+■ haiku
+  1순위 적중   14/15  (93%)   실패 0건
+  근거 통과율  65/81  (80.2%)
+  평균 지연    12.5초
+  질의당 비용  51.4원

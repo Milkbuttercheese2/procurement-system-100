@@ -65,7 +65,7 @@ export default function LawToProcessHero({
             <span aria-hidden="true" />
             법령에서 업무로
           </p>
-          <h1>조달제도 100</h1>
+          <h1>그 많던 조달은 어떻게 했을까</h1>
           <p className="law-process-lead">
             법령을 읽고 담당자, 절차, 유의사항으로 재구성합니다.
           </p>

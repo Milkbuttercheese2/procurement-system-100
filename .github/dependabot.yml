@@ -1,0 +1,28 @@
+# 법령 도구가 낡으면 현행화가 조용히 멈춘다.
+#
+# 실제로 겪은 일: law-freshness가 korean-law-mcp@4.7.1 에 고정돼 있었는데
+# search_law가 실패하기 시작했고(현재 4.7.5), 그동안 법령 개정 감시가 죽어 있었다.
+# 고정은 재현성을 위해 유지하되, 갱신을 사람이 기억하는 대신 자동으로 올린다.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /web
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    groups:
+      # 법령 수집·파싱 도구는 묶어서 본다. 이것들이 낡으면 데이터가 낡는다.
+      legal-tooling:
+        patterns:
+          - korean-law-mcp
+          - kordoc
+    commit-message:
+      prefix: "chore(deps)"
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: "chore(ci)"

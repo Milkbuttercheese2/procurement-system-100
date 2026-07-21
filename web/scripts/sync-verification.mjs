@@ -17,7 +17,24 @@ const WRITE = process.argv.includes("--write");
 const CHECK = process.argv.includes("--check");
 const CONCURRENCY = Number(process.env.SOURCE_SYNC_CONCURRENCY ?? 6);
 const VERIFIED_AT = process.env.SOURCE_SYNC_DATE ?? localDate("Asia/Seoul");
-const CLI = process.env.KOREAN_LAW_CLI ?? "korean-law";
+// CLI를 어디서 찾을지.
+//
+// 전역 설치("korean-law")에만 의존하면 PATH에 없을 때 ENOENT로 죽는데, 그 오류가
+// stdout·stderr를 비운 채 나와서 원인을 알 수 없었다. 실제로 이것 때문에 현행화
+// 감시가 멈춰 있었고, 로그만 봐서는 타임아웃인지 인증 문제인지 구분이 안 됐다.
+// node_modules에 있으면 그걸 쓴다 — devDependencies로 선언해 뒀으므로 npm ci 만
+// 하면 로컬·CI 모두에서 동작하고, 버전도 lock에 박혀 재현된다.
+const LOCAL_CLI = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "..",
+  "node_modules",
+  "korean-law-mcp",
+  "build",
+  "cli.js",
+);
+const CLI =
+  process.env.KOREAN_LAW_CLI ??
+  (fs.existsSync(LOCAL_CLI) ? LOCAL_CLI : "korean-law");
 // Windows에서는 npm 전역 CLI가 .cmd 셔틀이라 execFile로 직접 실행할 수 없다.
 // KOREAN_LAW_CLI에 JS 진입점 경로를 주면 node로 실행한다.
 const CLI_IS_SCRIPT = /\.(?:mjs|cjs|js)$/i.test(CLI);
@@ -139,30 +156,52 @@ function unresolvedRecord(basis, fallbackReason) {
 
 class CliExecutionError extends Error {}
 
+// 실패해도 stdout·stderr가 비어 원인을 알 수 없는 메시지만 남았다
+// ("Korean Law CLI 실행 실패: search_admin_rule"). 이 때문에 현행화 감시가
+// 멈춘 것을 오래 못 알아챘고, 나조차 타임아웃으로 오판했다. 실제 원인은
+// ENOENT(실행 파일 없음)였고, code·signal을 메시지에 넣자마자 드러났다.
+// 원인 없는 오류 메시지를 남기지 않는다.
+//
+// 타임아웃은 30초였는데 러너가 미국이라 law.go.kr 왕복이 로컬보다 느리다.
+// 간헐적 지연으로 죽지 않도록 늘리고 재시도를 붙였다.
+const CLI_TIMEOUT_MS = Number(process.env.LAW_CLI_TIMEOUT_MS ?? 90_000);
+const CLI_RETRIES = 2;
+
 async function runCli(args) {
-  try {
-    const { stdout } = await execFileAsync(
-      CLI_IS_SCRIPT ? process.execPath : CLI,
-      CLI_IS_SCRIPT ? [CLI, ...args] : args,
-      {
-        env: process.env,
-        maxBuffer: 4 * 1024 * 1024,
-        timeout: 30_000,
-      },
-    );
-    return stdout;
-  } catch (error) {
-    const detail = [error.stdout, error.stderr]
-      .filter((value) => typeof value === "string" && value.trim())
-      .join("\n")
-      .trim();
-    if (/\[NOT_FOUND\]|검색 결과가 없습니다|실제 데이터를 찾지 못했습니다/.test(detail)) {
-      return detail;
+  let lastError;
+  for (let attempt = 1; attempt <= CLI_RETRIES; attempt += 1) {
+    try {
+      const { stdout } = await execFileAsync(
+        CLI_IS_SCRIPT ? process.execPath : CLI,
+        CLI_IS_SCRIPT ? [CLI, ...args] : args,
+        {
+          env: process.env,
+          maxBuffer: 4 * 1024 * 1024,
+          timeout: CLI_TIMEOUT_MS,
+        },
+      );
+      return stdout;
+    } catch (error) {
+      const detail = [error.stdout, error.stderr]
+        .filter((value) => typeof value === "string" && value.trim())
+        .join("\n")
+        .trim();
+      // 결과가 없는 것은 오류가 아니다 — 호출부가 판단한다.
+      if (/\[NOT_FOUND\]|검색 결과가 없습니다|실제 데이터를 찾지 못했습니다/.test(detail)) {
+        return detail;
+      }
+      // 타임아웃·네트워크 오류는 한 번 더 시도한다. 법령 API가 간헐적으로 느리다.
+      const transient = error.killed || error.signal === "SIGTERM" || !detail;
+      lastError = new CliExecutionError(
+        detail ||
+          // 원인 없는 메시지를 남기지 않는다. 다음 사람이 로그만 보고 알 수 있어야 한다.
+          `Korean Law CLI 실행 실패: ${args[0]} (code=${error.code ?? "?"}, signal=${error.signal ?? "-"}, killed=${Boolean(error.killed)}, timeout=${CLI_TIMEOUT_MS}ms, attempt=${attempt}/${CLI_RETRIES})`,
+      );
+      if (!transient || attempt === CLI_RETRIES) throw lastError;
+      await new Promise((r) => setTimeout(r, 2000 * attempt));
     }
-    throw new CliExecutionError(
-      detail || `Korean Law CLI 실행 실패: ${args[0]}`,
-    );
   }
+  throw lastError;
 }
 
 function parseStatutes(output) {

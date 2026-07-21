@@ -1,5 +1,10 @@
 import fs from "fs";
 import path from "path";
+// Worker에는 파일시스템이 없다. 런타임에 필요한 것은 전부 빌드 산출물로 심는다.
+// → scripts/generate-summaries.mjs
+import summaries from "../../data/summaries.json";
+import categoryOrder from "../../data/category-order.json";
+import fieldVerificationQueue from "../../data/field-verification-queue.json";
 import type {
   FieldVerificationQueue,
   Institution,
@@ -44,16 +49,9 @@ function buildCategoryMap(): Map<string, string> {
 }
 
 export function getCategoryOrder(): string[] {
-  const manifest = loadManifest();
-  const seen = new Set<string>();
-  const order: string[] = [];
-  for (const entry of manifest) {
-    if (entry.category && !seen.has(entry.category)) {
-      seen.add(entry.category);
-      order.push(entry.category);
-    }
-  }
-  return order;
+  // 매니페스트를 런타임에 읽으면 Worker에서 빈 배열이 되고, 목록이 분류 없이
+  // 한 덩어리로 렌더링된다. 빌드 타임 산출물을 쓴다.
+  return categoryOrder as string[];
 }
 
 export function getAllInstitutions(): Institution[] {
@@ -107,7 +105,13 @@ export function toInstitutionSummary(
 }
 
 export function getInstitutionSummaries(): InstitutionSummary[] {
-  return getAllInstitutions().map(toInstitutionSummary);
+  // 디스크를 읽지 않고 빌드 타임 산출물을 쓴다. Cloudflare Worker에는 파일시스템이
+  // 없어 getAllInstitutions()가 빈 배열을 돌려주고, 그러면 제도 목록이 통째로 비어
+  // 보인다(실제로 배포 후 그렇게 됐다).
+  //
+  // 요약본은 scripts/generate-summaries.mjs 가 prebuild 단계에서 만든다.
+  // 그 스크립트의 필드 계산은 아래 toInstitutionSummary()와 같아야 한다.
+  return summaries as InstitutionSummary[];
 }
 
 export function getInstitution(slug: string): Institution | null {
@@ -131,5 +135,7 @@ export function getAllSlugs(): string[] {
 }
 
 export function getFieldVerificationQueue(): FieldVerificationQueue {
-  return JSON.parse(fs.readFileSync(FIELD_QUEUE_PATH, "utf8")) as FieldVerificationQueue;
+  // 같은 이유(Worker 파일시스템 없음)로 빌드 산출물을 쓴다. 원본은 docs/ 에 있고
+  // generate-summaries.mjs 가 data/ 로 복사한다.
+  return fieldVerificationQueue as unknown as FieldVerificationQueue;
 }

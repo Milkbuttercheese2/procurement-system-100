@@ -30,7 +30,7 @@ export default function OgCardPage() {
         <span aria-hidden="true" />
         법령 기준 업무 흐름도
       </div>
-      <h1>조달제도 100</h1>
+      <h1>그 많던 조달은 어떻게 했을까</h1>
       <p>법령부터 실제 업무 흐름까지, 한 장으로 읽는 공공조달 카탈로그</p>
 
       <section className="og-card-metrics">
@@ -64,7 +64,7 @@ export default function OgCardPage() {
         <div><span>05</span><strong>유의사항</strong></div>
       </section>
 
-      <footer>milkbuttercheese2.github.io/procurement-system-100</footer>
+      <footer>how-did-they-do-all-that-procurement.dali-n-narumi.workers.dev</footer>
     </main>
   );
 }
