@@ -8,7 +8,7 @@ import {
 import InstitutionDetailView from "@/components/InstitutionDetailView";
 
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://milkbuttercheese2.github.io/procurement-system-100";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://how-did-they-do-all-that-procurement.dali-n-narumi.workers.dev";
 
 export async function generateStaticParams() {
   return getAllSlugs().map((slug) => ({ slug }));

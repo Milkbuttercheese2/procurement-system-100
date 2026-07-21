@@ -9,10 +9,10 @@ import "./globals.css";
 
 const SITE_VERSION = pkg.version;
 const CHANGELOG_URL =
-  "https://github.com/Milkbuttercheese2/procurement-system-100/blob/main/CHANGELOG.md";
+  "https://github.com/Milkbuttercheese2/how-did-they-do-all-that-procurement/blob/main/CHANGELOG.md";
 
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://milkbuttercheese2.github.io/procurement-system-100";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://how-did-they-do-all-that-procurement.dali-n-narumi.workers.dev";
 const INSTITUTIONS = getInstitutionSummaries();
 const MODEL_COUNT = INSTITUTIONS.length;
 // 사이드바가 카드를 렌더링할 때 쓰는 최소 인덱스. 클라이언트로 넘어가므로

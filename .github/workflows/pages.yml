@@ -24,8 +24,10 @@ jobs:
       # 정적 내보내기 모드. Cloudflare 빌드에는 이 변수를 주지 않으므로 서버 모드로
       # 빌드되어 /api/route-institution 이 동작한다. 두 배포가 동시에 살아 있다.
       STATIC_EXPORT: "1"
-      NEXT_PUBLIC_BASE_PATH: /procurement-system-100
-      NEXT_PUBLIC_SITE_URL: https://milkbuttercheese2.github.io/procurement-system-100
+      NEXT_PUBLIC_BASE_PATH: /how-did-they-do-all-that-procurement
+      # 정규 주소는 Cloudflare다. Pages는 AI 기능이 없는 정적 사본이므로,
+      # canonical·OG·sitemap이 Pages를 가리키면 검색엔진이 사본을 본체로 삼는다.
+      NEXT_PUBLIC_SITE_URL: https://how-did-they-do-all-that-procurement.dali-n-narumi.workers.dev
       NEXT_PUBLIC_ANALYTICS_ENDPOINT: ${{ vars.ANALYTICS_ENDPOINT }}
     steps:
       - uses: actions/checkout@v4

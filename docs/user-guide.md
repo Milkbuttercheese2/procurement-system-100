@@ -9,7 +9,7 @@
 
 ![그 많던 조달은 어떻게 했을까 접속 QR](assets/site-qr.png)
 
-**https://milkbuttercheese2.github.io/procurement-system-100/**
+**https://how-did-they-do-all-that-procurement.dali-n-narumi.workers.dev/**
 
 ---
 
