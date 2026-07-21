@@ -3,6 +3,7 @@ import Link from "next/link";
 import Telemetry from "@/components/Telemetry";
 import ChatSidebar, { type ChatIndexEntry } from "@/components/ChatSidebar";
 import { getInstitutionSummaries } from "@/lib/data";
+import { CHAT_ENABLED } from "@/lib/features";
 import pkg from "../../package.json";
 import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
 import "./globals.css";
@@ -89,7 +90,7 @@ export default function RootLayout({
         />
         <Header />
         <main className="flex-1">{children}</main>
-        <ChatSidebar index={CHAT_INDEX} />
+        {CHAT_ENABLED ? <ChatSidebar index={CHAT_INDEX} /> : null}
         <Telemetry />
         <Footer />
       </body>

@@ -24,6 +24,7 @@ import { GoogleGenAI } from "@google/genai";
 // public/articles/<slug>.json 으로 두고 필요한 것만 런타임에 읽는다.
 import routingIndex from "../../../../data/routing-index.json";
 import buildStamp from "../../../../data/build-stamp.json";
+import { CHAT_ENABLED } from "@/lib/features";
 // 조문이 가리키는 별표의 제목과 원문 링크. 본문(HWP/PDF)은 담지 않는다 —
 // 표를 텍스트로 옮기면 행·열 관계가 깨져 오히려 틀린 근거가 된다.
 import annexes from "../../../../data/annexes.json";
@@ -730,6 +731,12 @@ async function readKey(name: string): Promise<string | undefined> {
 }
 
 export async function POST(request: Request) {
+  // 기능이 꺼져 있으면 존재하지 않는 것처럼 군다. 503으로 "있지만 안 된다"고
+  // 알리면 주소가 노출되고, 켜지길 기다리는 호출이 붙는다.
+  if (!CHAT_ENABLED) {
+    return new Response("Not Found", { status: 404 });
+  }
+
   const anthropicKey = await readKey("ANTHROPIC_API_KEY");
   const geminiKey = await readKey("GEMINI_API_KEY");
   if (!anthropicKey && !geminiKey) {
