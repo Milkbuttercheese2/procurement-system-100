@@ -1,6 +1,6 @@
 {
- "checkedAt": "2026-07-20",
- "citations": 1149,
+ "checkedAt": "2026-07-24",
+ "citations": 1192,
  "summary": {
   "deletedArticle": 0,
   "contentMismatch": 0,
@@ -8,7 +8,7 @@
   "descriptiveCitation": 0,
   "legalBasisOrder": 0,
   "emptyBasis": 13,
-  "articleReuse": 95
+  "articleReuse": 97
  },
  "findings": {
   "deletedArticle": [],
@@ -933,6 +933,25 @@
      "P03",
      "P05",
      "P06"
+    ]
+   },
+   {
+    "slug": "reinspection-request",
+    "article": "(계약예규) 물품구매(제조)계약일반조건::제19조",
+    "nodes": [
+     "P01",
+     "P02",
+     "P05",
+     "P07"
+    ]
+   },
+   {
+    "slug": "reinspection-request",
+    "article": "(계약예규) 공사계약일반조건::제27조",
+    "nodes": [
+     "P01",
+     "P02",
+     "P05"
     ]
    },
    {

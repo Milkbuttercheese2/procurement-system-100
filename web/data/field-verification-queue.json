@@ -1,13 +1,13 @@
 {
   "sourceAsOfDate": "2026-07-24",
-  "total": 378,
-  "institutions": 68,
+  "total": 383,
+  "institutions": 69,
   "byDomain": {
     "기관·권한": 4,
     "문서·증빙": 31,
-    "실무 관행": 201,
-    "운영 사실": 15,
-    "재정·비용": 40,
+    "실무 관행": 202,
+    "운영 사실": 18,
+    "재정·비용": 41,
     "정보시스템": 21,
     "처리기간": 66
   },
@@ -4166,6 +4166,61 @@
       "institutionName": "조달수수료",
       "category": "사후관리·제재",
       "item": "법률·시행령·시행규칙 조문 번호의 자동 대조는 다음 검증 세션에서 확정 예정(원문 재확인)",
+      "domain": "운영 사실",
+      "suggestedEvidence": "소관기관 공식 문서 또는 담당자 확인",
+      "status": "open"
+    },
+    {
+      "id": "software-procurement-FV01",
+      "priority": 69,
+      "slug": "software-procurement",
+      "institutionName": "소프트웨어사업 조달 특례",
+      "category": "발주",
+      "item": "대기업 참여제한 사업금액 기준과 예외 고시(과학기술정보통신부 고시)의 현행 금액·대상(원문 확인)",
+      "domain": "재정·비용",
+      "suggestedEvidence": "예산서·수수료 고시 또는 결산자료",
+      "status": "open"
+    },
+    {
+      "id": "software-procurement-FV02",
+      "priority": 69,
+      "slug": "software-procurement",
+      "institutionName": "소프트웨어사업 조달 특례",
+      "category": "발주",
+      "item": "대통령령으로 정하는 대기업·중소 소프트웨어사업자의 범위와 협상에 의한 계약 방식의 시행령 세부(원문 확인)",
+      "domain": "운영 사실",
+      "suggestedEvidence": "소관기관 공식 문서 또는 담당자 확인",
+      "status": "open"
+    },
+    {
+      "id": "software-procurement-FV03",
+      "priority": 69,
+      "slug": "software-procurement",
+      "institutionName": "소프트웨어사업 조달 특례",
+      "category": "발주",
+      "item": "과업심의위원회 구성·운영과 과업내용 확정·변경 절차의 시행령 세부(원문 확인)",
+      "domain": "실무 관행",
+      "suggestedEvidence": "복수 실무자 인터뷰와 공개 업무편람",
+      "status": "open"
+    },
+    {
+      "id": "software-procurement-FV04",
+      "priority": 69,
+      "slug": "software-procurement",
+      "institutionName": "소프트웨어사업 조달 특례",
+      "category": "발주",
+      "item": "소프트웨어사업 산출물의 지식재산권 귀속 기준(용역계약 조건·개별 고시 소관, 별도 확인)",
+      "domain": "운영 사실",
+      "suggestedEvidence": "소관기관 공식 문서 또는 담당자 확인",
+      "status": "open"
+    },
+    {
+      "id": "software-procurement-FV05",
+      "priority": 69,
+      "slug": "software-procurement",
+      "institutionName": "소프트웨어사업 조달 특례",
+      "category": "발주",
+      "item": "법률 조문 번호의 자동 대조는 다음 검증 세션에서 확정 예정(원문 재확인)",
       "domain": "운영 사실",
       "suggestedEvidence": "소관기관 공식 문서 또는 담당자 확인",
       "status": "open"

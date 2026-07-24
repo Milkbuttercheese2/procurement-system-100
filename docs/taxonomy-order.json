@@ -88,6 +88,10 @@
   "category": "발주"
  },
  {
+  "slug": "software-procurement",
+  "category": "발주"
+ },
+ {
   "slug": "bid-announcement",
   "category": "공고"
  },

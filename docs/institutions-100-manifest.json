@@ -474,5 +474,12 @@
     "name": "조달수수료",
     "type": "사후관리·제재",
     "category": "사후관리·제재"
+  },
+  {
+    "priority": 69,
+    "slug": "software-procurement",
+    "name": "소프트웨어사업 조달 특례",
+    "type": "발주",
+    "category": "발주"
   }
 ]
