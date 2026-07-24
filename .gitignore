@@ -10,3 +10,6 @@ out/
 .omc/
 web/data/institutions/.omc/
 web/data/_pending/
+
+# 에이전트 세션 작업장 (커밋 금지)
+.claude/
